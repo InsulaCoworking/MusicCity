@@ -25,7 +25,7 @@ SECRET_KEY = 'zbkckcq9&-n%clm(g45*2nyetxndk7tlysc1&a&b1onf#jwz*r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '10.0.0.52', 'ec2-52-211-39-126.eu-west-1.compute.amazonaws.com', 'alcalasuena.es', 'www.alcalasuena.es']
+ALLOWED_HOSTS = ['localhost', '10.0.0.52']
 
 
 # Application definition
@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'alcalasuena.urls'
+ROOT_URLCONF = 'musiccity.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'alcalasuena.wsgi.application'
+WSGI_APPLICATION = 'musiccity.wsgi.application'
 
 
 # Database
@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'alcalasuena.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'alcalasuena',
+        'NAME': 'musiccity',
         'USER': 'insuler',
         'PASSWORD': 'insula',
         'HOST': '127.0.0.1',
