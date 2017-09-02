@@ -15,6 +15,7 @@ class RandomFileName(object):
         extension = os.path.splitext(filename)[1]
         return self.path % (uuid.uuid4(), extension)
 
+
 LATENIGHT_HOURS = datetime.time(5, 0, 0)
 def order_latenight(event_a, event_b):
     if event_a.time == event_b.time:
