@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.contrib.auth.models import User
 from django.db import models
 
 from bands.helpers import RandomFileName
@@ -23,6 +24,8 @@ class Band(models.Model):
     twitter_link = models.CharField(null=True, blank=True, verbose_name='Perfil de Twitter', max_length=250)
     bandcamp_link = models.CharField(null=True, blank=True, verbose_name='Página de BandCamp', max_length=250)
     presskit_link = models.CharField(null=True, blank=True, verbose_name='Presskit', max_length=250)
+
+    owner = models.ForeignKey(User, null=True, verbose_name="Responsable")
 
     class Meta:
         verbose_name = 'Banda'
