@@ -53,7 +53,7 @@ class VenueResource(ModelResource):
             return []
 
 class EventResource(ModelResource):
-    band = IntegerField(attribute="band__pk")
+    bands = fields.ManyToManyField('api.resources.BandResource', 'bands', full=False)
 
     class Meta:
         queryset = Event.objects.all()
@@ -61,6 +61,19 @@ class EventResource(ModelResource):
         list_allowed_methods = ['get']
         resource_name = 'events'
         collection_name = 'events'
+
+    def dehydrate(self, bundle):
+        print bundle.data
+        cleaned_bands = []
+        for band in bundle.data['bands']:
+            try:
+                # hopefully /api/v1/<resource_name>/<pk>/
+                cleaned_bands.append(int(band.split('/')[-2]))
+            except:
+                pass
+        bundle.data['bands'] = cleaned_bands
+
+        return bundle
 
 class SettingsResource(ModelResource):
     class Meta:
