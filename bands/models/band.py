@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
 from django.db import models
+from imagekit.models import ProcessedImageField
+from pilkit.processors import ResizeToFit
 
 from bands.helpers import RandomFileName
 from bands.models import Tag
@@ -12,8 +14,11 @@ class Band(models.Model):
     name = models.CharField(null=False, verbose_name='Nombre', max_length=240)
     tag = models.ForeignKey(Tag, related_name="band_tag")
     genre = models.CharField(null=True, blank=True, verbose_name='etiqueta', max_length=240)
-    profile_image = models.ImageField(null=True, blank=True, upload_to=RandomFileName('band/'), verbose_name='Imagen principal')
-    band_image = models.ImageField(null=True, blank=True, upload_to=RandomFileName('band/'), verbose_name='Imagen de cabecera')
+    profile_image = ProcessedImageField(null=True, blank=True, upload_to=RandomFileName('band/'),
+                                 processors=[ResizeToFit(512, 512, upscale=False)], format='JPEG', verbose_name='Imagen principal')
+    band_image = ProcessedImageField(null=True, blank=True, upload_to=RandomFileName('band/'),
+                                        processors=[ResizeToFit(1200, 600, upscale=False)], format='JPEG',
+                                        verbose_name='Imagen de cabecera')
     city = models.CharField(null=True, blank=True, verbose_name='Ciudad', max_length=140)
     num_members = models.IntegerField(null=True, blank=True, default=1)
     description = models.TextField(null=True, blank=True, verbose_name='Descripción')

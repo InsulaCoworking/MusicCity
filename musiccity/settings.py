@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['localhost', '10.0.0.52']
 INSTALLED_APPS = [
     'bands.apps.BandsConfig',
     'tastypie',
+    'imagekit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
