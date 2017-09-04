@@ -17,15 +17,17 @@ class Band(models.Model):
     city = models.CharField(null=True, blank=True, verbose_name='Ciudad', max_length=140)
     num_members = models.IntegerField(null=True, blank=True, default=1)
     description = models.TextField(null=True, blank=True, verbose_name='Descripción')
-    embed_code = models.TextField(null=True, blank=True)
+    embed_code = models.TextField(null=True, blank=True, verbose_name='Códido embed para escucha (Bandcamp, Soundcloud, Spotify...')
+    embed_media = models.TextField(null=True, blank=True, verbose_name='Códido embed de vídeo (Youtube, Vimeo...')
 
     facebook_link = models.CharField(null=True, blank=True, verbose_name='Página de Facebook', max_length=250)
     youtube_link = models.CharField(null=True, blank=True, verbose_name='Canal de Youtube', max_length=250)
     twitter_link = models.CharField(null=True, blank=True, verbose_name='Perfil de Twitter', max_length=250)
     bandcamp_link = models.CharField(null=True, blank=True, verbose_name='Página de BandCamp', max_length=250)
+    webpage_link = models.CharField(null=True, blank=True, verbose_name='Página web', max_length=250)
     presskit_link = models.CharField(null=True, blank=True, verbose_name='Presskit', max_length=250)
 
-    owner = models.ForeignKey(User, null=True, verbose_name="Responsable")
+    owner = models.ForeignKey(User, null=True, blank=True, verbose_name="Responsable")
 
     class Meta:
         verbose_name = 'Banda'
