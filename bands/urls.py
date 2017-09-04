@@ -16,8 +16,8 @@ urlpatterns = [
     url(r'^band/edit/(?P<token>\w+)$', views.edit_band, name='edit_band'),
 
 
-    url(r'^billing/$', views.billing_form, name='billing'),
-    url(r'^billing/list/$', views.billing_list, name='billing'),
-    url(r'^billing/download/$', views.download_csv, name='download_csv'),
+    # url(r'^billing/$', views.billing_form, name='billing'),
+    # url(r'^billing/list/$', views.billing_list, name='billing'),
+    # url(r'^billing/download/$', views.download_csv, name='download_csv'),
     url(r'^login/$', auth_views.login, name='login'),
 ]
