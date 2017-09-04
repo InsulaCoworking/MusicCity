@@ -39,14 +39,14 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 Creamos nuestro virtualenv
 ```
-mkvirtualenv alcalasuena
-workon alcalasuena
+mkvirtualenv musiccity
+workon musiccity
 ```
 
 Clonamos el repositorio
 ```
-git clone https://github.com/InsulaCoworking/AlcalaSuena.git
-cd AlcalaSuena
+git clone https://github.com/InsulaCoworking/MusicCity.git
+cd MusicCity
 ```
 
 Instalamos las dependencias del proyecto:
@@ -63,7 +63,7 @@ sudo systemctl mysql start
 
 Entramos en la consola de mySQL (`mysqladmin -u root -p`):
 ```
-create database alcalasuena;
+create database musiccity;
 grant all privileges on alcalasuena.* to 'insuler'@'localhost' identified by "insula";
 ```
 
@@ -83,11 +83,11 @@ Dentro de este fichero, tenemos que añadir las reglas para configurar nuestra a
 ```
 		Alias /static/ /home/username/static/
         Alias /media/ /home/username/media/
-        WSGIScriptAlias / /home/username/AlcalaSuena/alcalasuena/wsgi.py
-        WSGIDaemonProcess alcalasuena python-home=/home/username/.virtualenvs/alcalasuena python-path=/home/username/AlcalaSuena
-        WSGIProcessGroup alcalasuena
+        WSGIScriptAlias / /home/username/MusicCity/musiccity/wsgi.py
+        WSGIDaemonProcess musiccity python-home=/home/username/.virtualenvs/musiccity python-path=/home/username/MusicCity
+        WSGIProcessGroup musiccity
 
-        <Directory /home/username/AlcalaSuena/alcalasuena>
+        <Directory /home/username/MusicCity/musiccity>
          <Files wsgi.py>
             Require all granted
          </Files>
