@@ -21,15 +21,6 @@ header h1 {
     padding-bottom: 60px;
 }
 
-section.banda_negra {
-    background-color: #000;
-    padding: 20px;
-}
-
-.banda_negra h2 {
-    color: #fff;
-}
-
 .btn-descripcion {
     margin-top: 20px;
     font-size: 18px;
@@ -167,17 +158,13 @@ h3.eventsday{
     opacity:0.7;
 }
 body{
-    background-color: #dadada;
-    background-image: url('../img/main_bg.png');
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-size:cover;
-    background-attachment: fixed;
+    background-color: #eef0ef;
 }
 
 .header-bar{
-    background-color: #c00812;
+    background-color: #1f282d;
     color: #f1f1f1;
+    position: relative;
     padding: 25px 0;
     font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif; text-transform:uppercase;
     margin-bottom:3em;
@@ -356,7 +343,7 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
     font-size:30px;
     color:#fff;
     display:inline-block;
-    background-color:  #c00812;
+    background-color:  #1f282d;
     margin-left:1rem;
 }
 .social-links.inline{
@@ -506,3 +493,20 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
 }
 .double-sep{ margin-top: 40px !important;}
 .no-margin{ margin: 0; }
+
+.profile-circle{
+    width: 160px;
+    height: 160px;
+    position: absolute;
+    overflow: hidden;
+    text-align:center;
+    border-radius: 50%;
+    margin-top:-80px;
+
+}
+.profile-circle img {
+    display: inline;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
+}

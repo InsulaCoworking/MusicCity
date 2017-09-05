@@ -39,4 +39,4 @@ class Event(models.Model):
         if self.title:
             return self.title
         else:
-            return self.band.name + ' - ' + str(self.day)
+            return ' + '.join(band.name for band in self.bands.all())
