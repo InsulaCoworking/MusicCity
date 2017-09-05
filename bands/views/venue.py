@@ -2,8 +2,6 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, get_object_or_404
-
-from bands import helpers
 from bands.models import Venue, Event
 
 
@@ -12,6 +10,18 @@ def venues_list(request):
     venues = Venue.objects.all()
     return render(request, 'venue/list.html', {'venues': venues})
 
+def venue_detail(request, pk):
+
+    venue = get_object_or_404(Venue, pk=pk)
+    events = Event.objects.filter(venue=venue)
+
+
+    return render(request, 'venue/detail.html', {
+        'venue': venue,
+        'events': events,
+    })
+
+'''
 def venue_detail(request, pk):
 
     venue = get_object_or_404(Venue, pk=pk)
@@ -38,3 +48,4 @@ def venue_detail(request, pk):
         'venue': venue,
         'events': eventsbyday,
     })
+'''

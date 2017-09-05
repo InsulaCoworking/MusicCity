@@ -1,6 +1,27 @@
+{% load chunks %}
 
 {% if list_type == "carousel" %}
-    carousel!
+
+        <div id="myCarousel" class="carousel slide">
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                {% for slide in events|chunks:3 %}
+                <div class="item active">
+                    <div class="row">
+                        {% for event in slide %}
+                        <div class="col-sm-4"><a href="#x">
+                            {% include 'event/_resume_card.html' with event=event display=display %}
+                        </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+                <!--/item-->
+            </div>
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+        </div>
 {% else %}
 
 <div class="events-list">
