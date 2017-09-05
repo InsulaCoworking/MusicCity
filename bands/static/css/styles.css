@@ -59,9 +59,14 @@ a.rrss {
     color:#fff;
     text-shadow: 0 0 3px #111;
     font-size:0.9rem;
+    min-height:250px;
     margin-bottom:0;
     padding-top:100px;
     padding-bottom:60px;
+    background: -moz-linear-gradient(top, rgba(31,40,45,0) 0%, rgba(31,40,45,1) 99%, rgba(31,40,45,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(31,40,45,0) 0%,rgba(31,40,45,1) 99%,rgba(31,40,45,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(31,40,45,0) 0%,rgba(31,40,45,1) 99%,rgba(31,40,45,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001f282d', endColorstr='#1f282d',GradientType=0 );
 }
 .jumbo-header.jumbo-band{
     background-image: url('../img/band-header.jpg');
@@ -170,7 +175,11 @@ body{
     margin-bottom:3em;
 }
 .header-bar h2{ font-weight: 700; font-size:38px;}
-
+.header-bar p, .header-bar h3, .header-bar h4{ margin:0;}
+.header-bar.secondary{
+    padding:15px;
+    margin-bottom:0;
+}
 footer{
     margin-top:3em;
     padding: 3em 0;
@@ -320,6 +329,12 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
     height: 70px;
     width:70px;
  }
+  .header-band{ padding-top:0; }
+ .header-band .container{
+    padding-left: 170px;
+    position:relative;
+ }
+.header-band h1{ margin-top: 0; }
 .header-band .day{ font-size:3rem; display:block;}
 .header-band .hour{ display:block;
     margin:auto;
@@ -329,7 +344,26 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
     color:#111;
     font-family: 'Raleway', sans-serif;
     font-weight:bold;
-    }
+ }
+ .profile-circle{
+    width: 140px;
+    height: 140px;
+    position: absolute;
+    left:10px;
+    overflow: hidden;
+    text-align:center;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    margin-top:-90px;
+
+}
+.profile-circle img {
+    display: inline;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
+}
+
 
 .social-links{
     margin: 2em 0;
@@ -494,19 +528,53 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
 .double-sep{ margin-top: 40px !important;}
 .no-margin{ margin: 0; }
 
-.profile-circle{
-    width: 160px;
-    height: 160px;
-    position: absolute;
-    overflow: hidden;
-    text-align:center;
-    border-radius: 50%;
-    margin-top:-80px;
-
+.events-list a.event{
+    display:block;
+    text-decoration:none;
+    color:inherit;
+    clear:both;
+    padding-bottom: 1em;
+    position: relative;
+    padding-left:80px;
+    min-height:100px;
+    padding-top:1em;
+    transition:400ms all;
+    border-top: 1px solid #999;
 }
-.profile-circle img {
-    display: inline;
-    margin: 0 auto;
-    height: 100%;
-    width: auto;
+.events-list a.event:first-child{
+    border-top:none;
+}
+.events-list a.event:hover{
+    background-color:#c00812;
+    color:#fff;
+}
+.events-list .event .date{
+    width:60px;
+    background-color:#fff;
+    position: absolute;
+    left:10px;
+}
+.events-list .event .date .month{
+    display:block;
+    width:100%;
+    text-align:center;
+    text-transform: uppercase;
+    background-color: #5e686d;
+    color:#fff;
+    padding: 3px;
+}
+.events-list .event .date .day{
+    color:#333;
+    text-align:center;
+    display:block;
+    font-size:25px;
+    line-height:35px;
+    height:45px;
+}
+.events-list .event .description{
+}
+
+.event .description h3{
+    font-size: 19px;
+    margin: 0;
 }

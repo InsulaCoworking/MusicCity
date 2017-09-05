@@ -31,7 +31,7 @@
     </div>
 </div>
 
-<div class="header-bar text-center header-band">
+<div class="header-bar header-band">
     <div class="container">
         <div class="profile-circle">{%if band.profile_image %} <img src="{{band.profile_image.url}}" class="band-profile-image">{% endif %}</div>
         <h1>{{band.name}}</h1>
@@ -58,21 +58,16 @@
                 {%if band.presskit_link %} <a href="{{band.presskit_link}}" target="_blank" class="card"><i class="fa fa-newspaper-o" aria-hidden="true"></i></a> {% endif %}
             </div>
         </div>
-        <div class="col-md-5">{% if band.embed_code %} <div class="embed">{{band.embed_code|safe}} </div>{% endif %}</div>
+        <div class="col-md-5">
+            {% if band.embed_code %} <div class="embed">{{band.embed_code|safe}} </div>{% endif %}
+            {% if events %}
+                <div class="secondary header-bar"> <h4>Próximos conciertos</h4> </div>
+                {% include 'event/_event_list.html' with events=events list_type='list' display='venue' %}
+            {% endif %}
+
+        </div>
 
     </div>
 
-    {% for event in events %}
-        <div class="row">
-            <div class="col-sm-6"><span class="hour">{{event.time}}</span><span class="day">{{ event.day|date:"l, d F" }}</span></div>
-                <div class="col-sm-6"><div class="band-venue" >
-                    <img class="venue-image venue-icon" {% if event.venue.image %} style="background-image:url('{{event.venue.image.url}}')" {% endif %}>
-                    <p>
-                    {{event.venue.name}}<br>
-                        <a class="btn btn-primary btn-lg" href="{% url 'venue_detail' pk=event.venue.pk %}" role="button">Ver detalles del escenario</a>
-                    </p>
-                </div></div>
-        </div>
-    {% endfor %}
 </div>
 {% endblock %}

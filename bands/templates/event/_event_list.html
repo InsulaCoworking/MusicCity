@@ -1,0 +1,31 @@
+
+{% if list_type == "carousel" %}
+    carousel!
+{% else %}
+
+<div class="events-list">
+{% for event in events %}
+    <a class="event" href="#">
+        <div class="date">
+            <span class="month">{{ event.day|date:"M" }}</span>
+            <span class="day">{{ event.day|date:"j" }}</span>
+        </div>
+        <div class="description">
+            <h3>
+            {% if event.title %}
+                {{ event.title }}
+            {% else %}
+                {{event}}
+            {% endif %}
+                </h3>
+            {{event.venue}}<br>
+            {{event.time}}
+        </div>
+
+    </a>
+
+
+{% endfor %}
+</div>
+{% endif %}
+
