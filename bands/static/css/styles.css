@@ -9,11 +9,11 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-    background-color:#40474a;
+    background-color:#eef0ef;
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #c00812;
+  background-color: #1f282d;
 }
 
 header h1 {
@@ -255,18 +255,28 @@ a.venue-card:hover{
     color:#777;
     font-weight:bold;
 }
-.fab{
-    position: absolute;
-    right: 20px;
-    margin-top: -50px;
+.fab, .fab:focus{
+    display:inline-block;
     height: 70px;
     width: 70px;
     line-height:70px;
+    transition:0.3s;
     background-color:#c00812;
     cursor:pointer;
-    font-size:30px;
+    font-size:25px;
+    margin-left:10px;
     border-radius:50%;
     color:#fff;
+    text-align:center;
+    -webkit-tap-highlight-color: transparent;
+    vertical-align: middle;
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px, rgba(0, 0, 0, 0.2) 0px 3px 1px -2px;
+}
+.fab:hover, .fab:active{
+    box-shadow: rgba(0, 0, 0, 0.14) 0px 6px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px, rgba(0, 0, 0, 0.2) 0px 3px 1px -2px;
+    color:#fff;
+    background-color:#d52210;
 }
 a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
 
@@ -329,12 +339,12 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
     height: 70px;
     width:70px;
  }
-  .header-band{ padding-top:0; }
- .header-band .container{
+ .header-bar{ padding-top:0; }
+ .header-bar .container{
     padding-left: 170px;
     position:relative;
  }
-.header-band h1{ margin-top: 0; }
+.header-bar h1{ margin-top: 0; }
 .header-band .day{ font-size:3rem; display:block;}
 .header-band .hour{ display:block;
     margin:auto;
@@ -344,6 +354,12 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
     color:#111;
     font-family: 'Raleway', sans-serif;
     font-weight:bold;
+ }
+ .header-bar .menu{
+    text-align:right;
+    position:absolute;
+    right:40px;
+
  }
  .profile-circle{
     width: 140px;
@@ -385,22 +401,47 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
     margin-top:-45px;
     margin-bottom:10px;
 }
+.event-resume .desc-title, .event-resume .desc-venue{ padding: 0 10px; }
 .event-resume .desc-title{
     font-size:1.15em;
     margin: 0.4em auto;
     font-weight:bold;
-    padding: 0 10px;
+
 }
 .event-resume .desc-date{
     font-family: 'Oswald';
     font-size:1.5em;
     margin-bottom:0.8em;
-    color:#c00812;
+    color:#347289;
+}
+.events-carousel{
+    padding:20px 80px;
 }
 
-.events-carousel{
-    padding:0 80px;
+@media (max-width: 768px){
+
+    .events-carousel{
+        padding:20px 50px;
+    }
+
+    .event-resume{
+        position:relative;
+        text-align:left;
+    }
+    .event-resume .header{ height:110px; }
+    .event-resume .desc-title, .event-resume .desc-venue{ margin-left: 110px; }
+    .event-resume .profile-circle{
+        position:absolute;
+        left:20px;
+    }
 }
+.event-resume .date-calendar{
+    position:absolute;
+    right:20px;
+    top:20px;
+}
+
+
 .events-carousel .carousel-control.left, .events-carousel .carousel-control.right{
     background:none;
     color:#111;
@@ -605,22 +646,22 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
     background-color:#c00812;
     color:#fff;
 }
-.events-list .event .date{
+
+.date-calendar{
     width:60px;
     background-color:#fff;
-    position: absolute;
-    left:10px;
+    box-shadow: rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
 }
-.events-list .event .date .month{
+.date-calendar .month{
     display:block;
     width:100%;
     text-align:center;
     text-transform: uppercase;
-    background-color: #5e686d;
+    background-color: #347289;
     color:#fff;
     padding: 3px;
 }
-.events-list .event .date .day{
+.date-calendar .day{
     color:#333;
     text-align:center;
     display:block;
@@ -628,10 +669,52 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
     line-height:35px;
     height:45px;
 }
+.events-list .event .date-calendar{
+    position: absolute;
+    left:10px;
+}
+
 .events-list .event .description{
 }
 
 .event .description h3{
     font-size: 19px;
     margin: 0;
+}
+
+.panel{
+    margin-top:2em;
+    border-radius:3px;
+    box-shadow: rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px, rgba(0, 0, 0, 0.2) 0px 3px 1px -2px;
+    border:0;
+}
+.panel .description{
+    padding: 20px;
+}
+.panel .panel-icon{
+    display:block;
+    position:absolute;
+    margin:auto;
+    width:60px;
+    height:60px;
+    line-height:60px;
+    margin-left:-30px;
+    margin-top:-30px;
+    background-color:#347289;
+    border-radius:50%;
+    left:50%;
+
+    text-align:center;
+
+    font-size:30px;
+    color:#fff;
+}
+.panel .map{
+    width:100%;
+    background:#ddd;
+    min-height:280px;
+}
+
+.right-margin{
+    margin-right:10px;
 }

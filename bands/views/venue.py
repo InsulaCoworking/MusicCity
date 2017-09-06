@@ -15,10 +15,18 @@ def venue_detail(request, pk):
     venue = get_object_or_404(Venue, pk=pk)
     events = Event.objects.filter(venue=venue)
 
+    can_edit = False
+    if request.user.is_authenticated():
+        print request.user
+        print venue.owner
+        if request.user == venue.owner:
+            print "Ohhhhh"
+            can_edit = True
 
     return render(request, 'venue/detail.html', {
         'venue': venue,
         'events': events,
+        'can_edit': can_edit
     })
 
 '''

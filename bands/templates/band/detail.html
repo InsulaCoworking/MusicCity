@@ -21,14 +21,7 @@
 
 {% block content %}
 <div class="jumbo-header jumbo-band" {% if band.band_image %} style="background-image:url('{{band.band_image.url}}')" {% endif %}>
-    <div class="jumbotron">
-      <div class="container text-center">
-
-      </div>
-
-
-
-    </div>
+    <div class="jumbotron"></div>
 </div>
 
 <div class="header-bar header-band">
@@ -36,13 +29,11 @@
         <div class="profile-circle">{%if band.profile_image %} <img src="{{band.profile_image.url}}">{% endif %}</div>
         <h1>{{band.name}}</h1>
         <p class="description">{{band.tag.name}}</p>
-
-
     </div>
 </div>
 
 <div class="container">
-    
+
     <div class="row">
         <div class="col-md-7">
             {% if band.embed_code %} <div class="embed">{{band.embed_media|safe}} </div> {% endif %}
@@ -60,7 +51,7 @@
         <div class="col-md-5">
             {% if band.embed_code %} <div class="embed">{{band.embed_code|safe}} </div>{% endif %}
             {% if events %}
-                <div class="secondary header-bar"> <h4>Próximos conciertos</h4> </div>
+                <div class="secondary header-bar"> <h4><i class="fa fa-music right-margin" aria-hidden="true"></i> Próximos conciertos</h4> </div>
                 {% include 'event/_event_list.html' with events=events list_type='list' display='venue' %}
             {% endif %}
 

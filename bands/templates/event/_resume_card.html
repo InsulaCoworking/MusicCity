@@ -13,15 +13,25 @@
     >
 
     </div>
+
+    <div class="date-calendar visible-sm-block visible-xs-block">
+        <span class="month">{{ event.day|date:"M" }}</span>
+        <span class="day">{{ event.day|date:"j" }}</span>
+    </div>
+
     <div class="profile-circle small">
         {% if display == "band" %}
-                {%if band.profile_image %} <img src="{{band.profile_image.url}}">{% endif %}</div>
+                {%if band.profile_image %} <img src="{{band.profile_image.url}}">{% endif %}
         {% else %}
-            {%if venue.profile_image %} <img src="{{venue.profile_image.url}}">{% endif %}</div>
+            {%if venue.profile_image %} <img src="{{venue.profile_image.url}}">{% endif %}
         {% endif %}
+    </div>
     {% endwith %}
+
+
+
     <div class="desc-venue">{{event.venue}}</div>
     <div class="desc-title">{{event}}</div>
-    <div class="desc-date">{{event.day|date:"d/m/Y"}}</div>
+    <div class="desc-date visible-md-block visible-lg-block">{{event.day|date:"d/m/Y"}}</div>
     <p><a class="btn btn-primary btn-lg" href="#" role="button">Ver concierto</a></p>
 </div>

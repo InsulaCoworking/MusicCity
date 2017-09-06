@@ -1,37 +1,57 @@
 {% load chunks %}
 
 {% if list_type == "carousel" %}
-        <div id="events-carousel" class="carousel slide events-carousel">
-            <!-- Carousel items -->
-            <div class="carousel-inner">
-                {% for slide in events|chunks:3 %}
-                <div class="item {% if forloop.first %}active{% endif %}">
-                    <div class="row">
-                        {% for event in slide %}
-                        <div class="col-sm-4">
-                            {% include 'event/_resume_card.html' with event=event display=display %}
-                        </div>
-                        {% endfor %}
+    <div id="events-carousel-large" class="carousel slide events-carousel visible-md-block visible-lg-block">
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+            {% for slide in events|chunks:3 %}
+            <div class="item {% if forloop.first %}active{% endif %}">
+                <div class="row">
+                    {% for event in slide %}
+                    <div class="col-sm-4">
+                        {% include 'event/_resume_card.html' with event=event display=display %}
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-                <!--/item-->
             </div>
-            <a class="left carousel-control" href="#events-carousel" data-slide="prev"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
-            <a class="right carousel-control" href="#events-carousel" data-slide="next"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
-
-            <ol class="left carousel-indicators">
-                {% for slide in events|chunks:3 %}
-                <li data-target="#events-carousel" data-slide-to="{{forloop.counter0}}" {% if forloop.first %}class="active"{% endif %}></li>
-                {% endfor %}
-            </ol>
+            {% endfor %}
+            <!--/item-->
         </div>
+        <a class="left carousel-control" href="#events-carousel-large" data-slide="prev"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
+        <a class="right carousel-control" href="#events-carousel-large" data-slide="next"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+
+        <ol class="left carousel-indicators">
+            {% for slide in events|chunks:3 %}
+            <li data-target="#events-carousel-large" data-slide-to="{{forloop.counter0}}" {% if forloop.first %}class="active"{% endif %}></li>
+            {% endfor %}
+        </ol>
+    </div>
+
+    <div id="events-carousel-small" class="carousel slide events-carousel visible-sm-block visible-xs-block">
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+            {% for event in events %}
+            <div class="item {% if forloop.first %}active{% endif %}">
+                {% include 'event/_resume_card.html' with event=event display=display %}
+            </div>
+            {% endfor %}
+            <!--/item-->
+        </div>
+        <a class="left carousel-control" href="#events-carousel-small" data-slide="prev"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
+        <a class="right carousel-control" href="#events-carousel-small" data-slide="next"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+
+        <ol class="left carousel-indicators">
+            {% for event in events %}
+            <li data-target="#events-carousel-small" data-slide-to="{{forloop.counter0}}" {% if forloop.first %}class="active"{% endif %}></li>
+            {% endfor %}
+        </ol>
+    </div>
 {% else %}
 
 <div class="events-list">
 {% for event in events %}
     <a class="event" href="#">
-        <div class="date">
+        <div class="date-calendar">
             <span class="month">{{ event.day|date:"M" }}</span>
             <span class="day">{{ event.day|date:"j" }}</span>
         </div>

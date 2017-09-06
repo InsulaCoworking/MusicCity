@@ -20,22 +20,64 @@
 {% block bodyattrs %}class="venue"{% endblock%}
 
 {% block content %}
-<div class="jumbo-header" {% if venue.image %} style="background-image:url('{{venue.image.url}}')" {% endif %}>
+<div class="jumbo-header jumbo-venue" {% if venue.image %} style="background-image:url('{{venue.image.url}}')" {% endif %}>
     <div class="jumbotron">
-      <div class="container text-center">
-        <h1>{{venue.name}}</h1>
-        <p class="description">{{venue.description}}</p>
-        <!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Cómo llegar <i class="fa right fa-external-link" aria-hidden="true"></i></a></p>-->
-      </div>
     </div>
 </div>
-<div class="header-bar text-center">
-    <h2>Conciertos</h2>
+<div class="header-bar header-venue">
+    <div class="container">
+        <div class="profile-circle">{%if venue.profile_image %} <img src="{{venue.profile_image.url}}">{% endif %}</div>
+        <h1>{{venue.name}}</h1>
+        <p class="description">{{venue.address}}</p>
+
+        <div class="menu">
+            <a class="fab smoothscroll" href="#info" data-toggle="tooltip" data-placement="bottom" title="Ver información"><i class="fa fa-info" aria-hidden="true" ></i></a>
+            <a class="fab smoothscroll" href="#info" data-toggle="tooltip" data-placement="bottom" title="Ver historial de conciertos"><i class="fa fa-history" aria-hidden="true" ></i></a>
+            {% if can_edit %} <a class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a> {% endif %}
+        </div>
+    </div>
 </div>
 
 
 <div class="container">
-    {% include 'event/_event_list.html' with events=events list_type='carousel' display='band' %}
+    {% if events %}
+        {% include 'event/_event_list.html' with events=events list_type='carousel' display='band' %}
+    {% else %}
+        <p class="lead well text-center">
+            <i class="fa fa-clock-o" aria-hidden="true"></i><br>
+            <span>No hay conciertos programados actualmente para esta sala...</span><br><br>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Ver historial de conciertos de la sala</a>
+        </p>
+
+    {% endif %}
+
+    <a id="info" name="info"></a>
+    <hr>
+
+    <div class="panel">
+        <i class="fa fa-info panel-icon" aria-hidden="true"></i>
+        <div class="size-check visible-md-block visible-lg-block"></div>
+        <div class="row">
+            <div class="col-md-7">
+                <div class="description">
+                    <h3>{{venue.name}}</h3>
+                    <p>{{ venue.description|linebreaks }}</p>
+                    <strong>Dirección</strong>
+                    <p class="lead">{{ venue.address }}</p>
+                    <div class="social-links">
+                        {%if venue.facebook_link %} <a href="{{venue.facebook_link}}" target="_blank" class="card"><i class="fa fa-facebook" aria-hidden="true"></i></a> {% endif %}
+                        {%if venue.twitter_link %} <a href="{{venue.twitter_link}}" target="_blank" class="card"><i class="fa fa-twitter" aria-hidden="true"></i></a> {% endif %}
+                        {%if venue.webpage_link %} <a href="{{venue.webpage_link}}" target="_blank" class="card"><i class="fa fa-globe" aria-hidden="true"></i></a> {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="map"></div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 
 {% endblock %}

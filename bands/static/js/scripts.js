@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
 
     var searchForm = $('#searchForm');
     var url = searchForm.attr('action');
@@ -43,7 +44,24 @@ $(document).ready(function() {
 
   $('.carousel').carousel({
         interval: 10000
-    })
+    });
+
+  var panelMaps = $('.panel .map');
+  function resizeMaps(){
+    panelMaps.each(function(){
+        var panel = $(this).parents('.panel');
+        if (panel.find('.size-check').is(':visible')){
+            $(this).css('height', panel.innerHeight() + 'px');
+        }
+        else{
+            $(this).css('height', 'auto');
+        }
+    });
+  }
+  if (panelMaps.size() > 0){
+    resizeMaps();
+    $(window).on('resize', resizeMaps);
+  }
 
 });
 
