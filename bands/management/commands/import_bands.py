@@ -13,7 +13,7 @@ from bands.models import Band, BandToken, Tag
 
 
 class Command(BaseCommand):
-    help = "Generates new tokens for every band and lists them"
+    help = "Imports bands from CSV file"
 
     def add_arguments(self, parser):
         parser.add_argument('csv_file', type=str)

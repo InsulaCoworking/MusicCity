@@ -72,7 +72,7 @@ a.rrss {
     background-image: url('../img/band-header.jpg');
 }
 .jumbo-header.home .jumbotron{ background-color:transparent; }
-.jumbo-header h1{ color:#e8e8e8 !important; font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif; text-transform:uppercase;
+.jumbo-header h1, .jumbo-header h2{ color:#e8e8e8 !important; font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif; text-transform:uppercase;
 }
 .jumbo-header.app .jumbotron{ min-height:55vh; }
 
@@ -629,7 +629,9 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
 .events-list a.event{
     display:block;
     text-decoration:none;
+    overflow:hidden;
     color:inherit;
+    position:relative;
     clear:both;
     padding-bottom: 1em;
     position: relative;
@@ -639,12 +641,30 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
     transition:400ms all;
     border-top: 1px solid #999;
 }
+.events-list a.event:after{
+    display:block;
+    position:absolute;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 50px;
+    content:"\f105";
+    text-rendering: auto;
+    top:50%;
+    right:30px;
+    transition:400ms all;
+    margin-top:-30px;
+    -webkit-font-smoothing: antialiased;
+    opacity:0;
+}
+.events-list a.event:hover:after{
+    right:20px;
+    opacity:1;
+}
 .events-list a.event:first-child{
     border-top:none;
 }
 .events-list a.event:hover{
-    background-color:#c00812;
-    color:#fff;
+    background-color:#c7ced0;
+    color:#222;
 }
 
 .date-calendar{
@@ -714,7 +734,9 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
     background:#ddd;
     min-height:280px;
 }
-
+.margin-top{
+    margin-top:20px;
+}
 .right-margin{
     margin-right:10px;
 }

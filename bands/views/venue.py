@@ -20,13 +20,38 @@ def venue_detail(request, pk):
         print request.user
         print venue.owner
         if request.user == venue.owner:
-            print "Ohhhhh"
             can_edit = True
 
     return render(request, 'venue/detail.html', {
         'venue': venue,
         'events': events,
         'can_edit': can_edit
+    })
+
+
+def venue_history(request, pk):
+
+    venue = get_object_or_404(Venue, pk=pk)
+    events = Event.objects.filter(venue=venue).order_by('-day')
+
+    eventsbyyear = []
+    for event in events:
+        year = None
+        print event.day
+
+        for eventsyear in eventsbyyear:
+            if event.day != None and eventsyear['year'] == event.day.year:
+                year = eventsyear
+                break
+
+        if year is None:
+            year = {'year': event.day.year, 'events': []}
+            eventsbyyear.append(year)
+        year['events'].append(event)
+
+    return render(request, 'venue/history.html', {
+        'venue': venue,
+        'eventsbyyear': eventsbyyear
     })
 
 '''

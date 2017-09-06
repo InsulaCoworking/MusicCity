@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block title %}Conciertos en {{venue.name}} - Alcalá Suena 2017{% endblock%}
+{% block title %}Conciertos en {{venue.name}} - Alcalá es Música{% endblock%}
 
 {% block social_meta %}
         <meta name="twitter:card" content="summary_large_image">
@@ -32,7 +32,7 @@
 
         <div class="menu">
             <a class="fab smoothscroll" href="#info" data-toggle="tooltip" data-placement="bottom" title="Ver información"><i class="fa fa-info" aria-hidden="true" ></i></a>
-            <a class="fab smoothscroll" href="#info" data-toggle="tooltip" data-placement="bottom" title="Ver historial de conciertos"><i class="fa fa-history" aria-hidden="true" ></i></a>
+            <a class="fab smoothscroll" href="{% url 'venue_history' pk=venue.pk %}" data-toggle="tooltip" data-placement="bottom" title="Ver historial de conciertos"><i class="fa fa-history" aria-hidden="true" ></i></a>
             {% if can_edit %} <a class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a> {% endif %}
         </div>
     </div>
@@ -46,7 +46,7 @@
         <p class="lead well text-center">
             <i class="fa fa-clock-o" aria-hidden="true"></i><br>
             <span>No hay conciertos programados actualmente para esta sala...</span><br><br>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Ver historial de conciertos de la sala</a>
+            <a class="btn btn-primary btn-lg" href="{% url 'venue_history' pk=venue.pk %}" role="button">Ver historial de conciertos de la sala</a>
         </p>
 
     {% endif %}

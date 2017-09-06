@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{venue.name}}: Historial de conciertos | Alcalá es Música{% endblock%}
+
+{% block bodyattrs %}class="venue"{% endblock%}
+
+{% block content %}
+<div class="jumbo-header jumbo-venue" {% if venue.image %} style="background-image:url('{{venue.image.url}}')" {% endif %}>
+    <div class="jumbotron">
+        <div class="text-center"><h2>Histórico de conciertos</h2></div>
+    </div>
+</div>
+<div class="header-bar header-venue">
+    <div class="container">
+        <div class="profile-circle">{%if venue.profile_image %} <img src="{{venue.profile_image.url}}">{% endif %}</div>
+        <h1>{{venue.name}}</h1>
+        <p class="description">{{venue.address}}</p>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-7">
+            {%for year in eventsbyyear %}
+                <h2>{{ year.year }}</h2>
+                {% include 'event/_event_list.html' with events=year.events list_type='list' display='band' %}
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock%}

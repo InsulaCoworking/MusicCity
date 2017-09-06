@@ -51,7 +51,7 @@
         <div class="col-md-5">
             {% if band.embed_code %} <div class="embed">{{band.embed_code|safe}} </div>{% endif %}
             {% if events %}
-                <div class="secondary header-bar"> <h4><i class="fa fa-music right-margin" aria-hidden="true"></i> Próximos conciertos</h4> </div>
+                <div class="secondary header-bar margin-top"> <h4><i class="fa fa-music right-margin" aria-hidden="true"></i> Próximos conciertos</h4> </div>
                 {% include 'event/_event_list.html' with events=events list_type='list' display='venue' %}
             {% endif %}
 
