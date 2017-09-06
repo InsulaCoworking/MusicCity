@@ -41,6 +41,10 @@ $(document).ready(function() {
       event.preventDefault();
   });
 
+  $('.carousel').carousel({
+        interval: 10000
+    })
+
 });
 
 

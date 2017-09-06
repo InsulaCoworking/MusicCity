@@ -348,14 +348,14 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
  .profile-circle{
     width: 140px;
     height: 140px;
-    position: absolute;
-    left:10px;
     overflow: hidden;
     text-align:center;
     border-radius: 50%;
     border: 2px solid #fff;
-    margin-top:-90px;
-
+}
+.profile-circle.small{
+    width:90px;
+    height:90px;
 }
 .profile-circle img {
     display: inline;
@@ -363,8 +363,67 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
     height: 100%;
     width: auto;
 }
+.header-bar .profile-circle{
+    position: absolute;
+    left:10px;
+    margin-top:-90px;
+}
 
+.event-resume{
+    text-align:center;
+    background-color:#fff;
+}
+.event-resume .header{
+    width:100%;
+    height: 150px;
+    background-size:cover;
+    background-position:center;
+    background-color:#ddd;
+}
+.event-resume .profile-circle{
+    margin:auto;
+    margin-top:-45px;
+    margin-bottom:10px;
+}
+.event-resume .desc-title{
+    font-size:1.15em;
+    margin: 0.4em auto;
+    font-weight:bold;
+    padding: 0 10px;
+}
+.event-resume .desc-date{
+    font-family: 'Oswald';
+    font-size:1.5em;
+    margin-bottom:0.8em;
+    color:#c00812;
+}
 
+.events-carousel{
+    padding:0 80px;
+}
+.events-carousel .carousel-control.left, .events-carousel .carousel-control.right{
+    background:none;
+    color:#111;
+}
+.events-carousel .carousel-control.left i{ left:0;}
+.events-carousel .carousel-control.right i{ right:0;}
+.events-carousel .carousel-control.left i, .events-carousel .carousel-control.right i{
+    position:absolute;
+    font-size:40px;
+    top: 50%;
+    margin-top:-25px;
+}
+.events-carousel .carousel-indicators{
+    position:relative;
+    margin-top:30px;
+}
+.events-carousel .carousel-indicators li{
+    border-color: #1f282d;
+}
+.events-carousel .carousel-indicators li.active{
+    background-color: #1f282d;
+
+}
 .social-links{
     margin: 2em 0;
 }
@@ -473,8 +532,6 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
 .filtered .tag{ opacity:0.4; }
 .tag:hover{ opacity:1; cursor:pointer; }
 .filtered .tag.active{ opacity:1; font-weight:bold;}
-
-.band-profile-image{ margin-bottom: 1.5em; }
 
 @media (max-width:768px){
     .header-band .col-sm-6:first-child{ margin-bottom:1em; }

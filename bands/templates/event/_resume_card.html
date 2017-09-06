@@ -1,3 +1,27 @@
-<div class="card">
-    <h2>{{event}}</h2>
+<div class="card event-resume">
+    {% with event.bands.all|first as band %}
+    <div class="header"
+         {% if event.poster %}
+            style="background-image:url('{{event.poster.url}}')"
+         {% else%}
+            {% if band.band_image %}
+                style="background-image:url('{{band.band_image.url}}')"
+            {% else %}
+                {% if event.venue.image %} style="background-image:url('{{event.venue.image.url}}')" {% endif %}
+            {% endif %}
+         {% endif %}
+    >
+
+    </div>
+    <div class="profile-circle small">
+        {% if display == "band" %}
+                {%if band.profile_image %} <img src="{{band.profile_image.url}}">{% endif %}</div>
+        {% else %}
+            {%if venue.profile_image %} <img src="{{venue.profile_image.url}}">{% endif %}</div>
+        {% endif %}
+    {% endwith %}
+    <div class="desc-venue">{{event.venue}}</div>
+    <div class="desc-title">{{event}}</div>
+    <div class="desc-date">{{event.day|date:"d/m/Y"}}</div>
+    <p><a class="btn btn-primary btn-lg" href="#" role="button">Ver concierto</a></p>
 </div>

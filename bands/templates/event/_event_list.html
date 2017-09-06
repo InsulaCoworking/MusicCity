@@ -1,17 +1,15 @@
 {% load chunks %}
 
 {% if list_type == "carousel" %}
-
-        <div id="myCarousel" class="carousel slide">
+        <div id="events-carousel" class="carousel slide events-carousel">
             <!-- Carousel items -->
             <div class="carousel-inner">
                 {% for slide in events|chunks:3 %}
-                <div class="item active">
+                <div class="item {% if forloop.first %}active{% endif %}">
                     <div class="row">
                         {% for event in slide %}
-                        <div class="col-sm-4"><a href="#x">
+                        <div class="col-sm-4">
                             {% include 'event/_resume_card.html' with event=event display=display %}
-                        </a>
                         </div>
                         {% endfor %}
                     </div>
@@ -19,8 +17,14 @@
                 {% endfor %}
                 <!--/item-->
             </div>
-            <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-            <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+            <a class="left carousel-control" href="#events-carousel" data-slide="prev"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
+            <a class="right carousel-control" href="#events-carousel" data-slide="next"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+
+            <ol class="left carousel-indicators">
+                {% for slide in events|chunks:3 %}
+                <li data-target="#events-carousel" data-slide-to="{{forloop.counter0}}" {% if forloop.first %}class="active"{% endif %}></li>
+                {% endfor %}
+            </ol>
         </div>
 {% else %}
 

@@ -33,7 +33,7 @@
 
 <div class="header-bar header-band">
     <div class="container">
-        <div class="profile-circle">{%if band.profile_image %} <img src="{{band.profile_image.url}}" class="band-profile-image">{% endif %}</div>
+        <div class="profile-circle">{%if band.profile_image %} <img src="{{band.profile_image.url}}">{% endif %}</div>
         <h1>{{band.name}}</h1>
         <p class="description">{{band.tag.name}}</p>
 
@@ -42,8 +42,7 @@
 </div>
 
 <div class="container">
-
-
+    
     <div class="row">
         <div class="col-md-7">
             {% if band.embed_code %} <div class="embed">{{band.embed_media|safe}} </div> {% endif %}
