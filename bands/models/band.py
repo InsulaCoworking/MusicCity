@@ -31,6 +31,7 @@ class Band(models.Model):
     bandcamp_link = models.CharField(null=True, blank=True, verbose_name='Página de BandCamp', max_length=250)
     webpage_link = models.CharField(null=True, blank=True, verbose_name='Página web', max_length=250)
     presskit_link = models.CharField(null=True, blank=True, verbose_name='Presskit', max_length=250)
+    spotify_link = models.CharField(null=True, blank=True, verbose_name='Perfil de Spotify', max_length=250)
 
     owner = models.ForeignKey(User, null=True, blank=True, verbose_name="Responsable")
 
