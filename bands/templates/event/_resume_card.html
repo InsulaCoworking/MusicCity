@@ -20,14 +20,14 @@
 
     <div class="profile-circle small">
         {% if display == "band" %}
-                {%if band.profile_image %} <img src="{{band.profile_image.url}}">{% endif %}
+                {%if band.profile_image %} <img src="{{band.profile_thumbnail.url}}">{% endif %}
         {% else %}
-            {%if event.venue.profile_image %} <img src="{{event.venue.profile_image.url}}">{% endif %}
+            {%if event.venue.profile_image %} <img src="{{event.venue.profile_thumbnail.url}}">{% endif %}
         {% endif %}
     </div>
     {% endwith %}
 
-    <div class="desc-venue">{{event.venue}}</div>
+    <div class="desc-venue">{{event.venue_title}}</div>
     <div class="desc-title">{{event}}</div>
     <div class="desc-emphasis visible-md-block visible-lg-block">{{event.day|date:"d/m/Y"}}</div>
     <p><hr>

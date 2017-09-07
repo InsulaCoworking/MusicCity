@@ -17,8 +17,8 @@ def poster_path(instance, filename):
 
 
 class Event(models.Model):
-    bands = models.ManyToManyField(Band, verbose_name='Bandas')
-    venue = models.ForeignKey(Venue, related_name='venue')
+    bands = models.ManyToManyField(Band, blank=True, verbose_name='Bandas')
+    venue = models.ForeignKey(Venue, null=True, blank=True, related_name='venue')
     day = models.DateField(null=True, blank=True)
     time = models.TimeField(null=True, blank=True)
     duration = models.IntegerField(null=True, blank=True, default=60)
@@ -30,6 +30,23 @@ class Event(models.Model):
     price = models.FloatField(null=True, blank=True, verbose_name='Precio')
     price_preorder = models.FloatField(null=True, blank=True, verbose_name='Precio preventa')
     ticket_link = models.TextField(null=True, blank=True, verbose_name='Enlace compra de entradas')
+
+    venue_name = models.TextField(null=True, blank=True, verbose_name='Nombre del espacio')
+    vanue_address = models.TextField(null=True, blank=True, verbose_name='Dirección del espacio')
+
+    @property
+    def venue_title(self):
+        if self.venue:
+            return self.venue.name
+        else:
+            return self.venue_name
+
+    @property
+    def venue_direction(self):
+        if self.venue:
+            return self.venue.address
+        else:
+            return self.vanue_address
 
     class Meta:
         verbose_name = 'Concierto'

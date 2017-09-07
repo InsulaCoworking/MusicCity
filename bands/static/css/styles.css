@@ -71,10 +71,10 @@ a.rrss {
 .jumbo-header.jumbo-band{
     background-image: url('../img/band-header.jpg');
 }
-.jumbo-header.event{
+.jumbo-header.minimal{
     background-image: url('../img/band-bg.jpg');
 }
-.jumbo-header.event .jumbotron{ min-height:150px; }
+.jumbo-header.minimal .jumbotron{ min-height:150px; }
 .jumbo-header.home .jumbotron{ background-color:transparent; }
 .jumbo-header h1, .jumbo-header h2{ color:#e8e8e8 !important; font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif; text-transform:uppercase;
 }
@@ -797,9 +797,9 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
     right:20px;
     opacity:1;
 }
-.band-list .sub{
+.band-list .sub, .lead .sub{
     font-size:0.8em;
-    color:#999;
+    color:#777;
 }
 .margin-top{
     margin-top:20px !important;

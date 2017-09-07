@@ -20,7 +20,7 @@
 {% block bodyattrs %}class="event"{% endblock%}
 
 {% block content %}
-<div class="jumbo-header event">
+<div class="jumbo-header minimal">
     <div class="jumbotron">
       <div class="container text-center">
 
@@ -48,9 +48,9 @@
 
             <div class="profile-circle">
                 {% if display == "band" %}
-                        {%if band.profile_image %} <img src="{{band.profile_image.url}}">{% endif %}
+                        {%if band.profile_image %} <img src="{{band.profile_thumbnail.url}}">{% endif %}
                 {% else %}
-                    {%if event.venue.profile_image %} <img src="{{event.venue.profile_image.url}}">{% endif %}
+                    {%if event.venue.profile_image %} <img src="{{event.venue.profile_thumbnail.url}}">{% endif %}
                 {% endif %}
             </div>
 
@@ -60,8 +60,8 @@
                 <div class="row">
                     <div class="col-md-6 desc-title text-left">{{event}}</div>
                     <div class="col-md-6 desc-title text-right"><strong><span class="right-margin">{{event.day|date:"d/m/Y"}} </span><i class="fa fa-clock-o"></i> {{event.time}}</strong></div>
-
                 </div>
+                <p class="lead text-left">{{event.venue_title}}<br><span class="sub">{{event.venue_direction}}</span></p>
                 <p class="text-left margin-top">{{event.description}}</p>
 
                 <div class="row">
@@ -83,7 +83,7 @@
 
                     <div class="col-md-6 margin-bottom margin-top">
                         {% if not event.price %}
-                        <span class="desc-emphasis">GRATIS</span>
+                            <span class="desc-emphasis"><i class="fa fa-ticket" aria-hidden="true"></i> GRATIS</span>
                         {% else %}
                             <div class="price">
                                 <strong>Precio</strong><br>
@@ -97,7 +97,7 @@
                             {% endif %}
                             {% if event.ticket_link %}
                             <div class="text-center margin-top">
-                                <a class="btn btn-primary btn-lg" href="{{event.ticket_link}}" role="button">Comprar entradas</a>
+                                <a class="btn btn-primary btn-lg" target="_blank" href="{{event.ticket_link}}" role="button"><i class="fa fa-ticket right-margin" aria-hidden="true"></i>Comprar entradas</a>
                             </div>
                             {% endif %}
                         {% endif %}
