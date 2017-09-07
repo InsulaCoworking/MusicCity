@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Conciertos en {{venue.name}} - Alcalá es Música{% endblock%}
+
+{% block social_meta %}
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@aemusica">
+        <meta name="twitter:title" content="{{venue.name}} - Alcalá Suena: Fiesta de la Música 2017">
+        <meta name="twitter:description" content="Todos los conciertos en {{venue.name}} durante Alcalá Suena: Fiesta de la Música 2017">
+        <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{%if venue.image %}{{venue.image.url}}{% else %}{% static "img/logo_banner.jpg" %}{% endif %}">
+
+        <meta property="og:url" content="{{request.build_absolute_uri}}" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="{{venue.name}} - Alcalá Suena: Fiesta de la Música 2017" />
+        <meta property="og:description" content="Todos los conciertos en {{venue.name}} durante Alcalá Suena: Fiesta de la Música 2017" />
+        <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{%if venue.image %}{{venue.image.url}}{% else %}{% static "img/logo_banner.jpg" %}{% endif %}" />
+{% endblock %}
+
+{% block bodyattrs %}class="event"{% endblock%}
+
+{% block content %}
+<div class="jumbo-header event">
+    <div class="jumbotron">
+      <div class="container text-center">
+
+      </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="panel stacked event-resume">
+
+            {% with event.bands.all|first as band %}
+            <div class="panel-header"
+                {% if event.poster %}
+                    style="background-image:url('{{event.poster.url}}')"
+                 {% else%}
+                    {% if band.band_image %}
+                        style="background-image:url('{{band.band_image.url}}')"
+                    {% else %}
+                        {% if event.venue.image %} style="background-image:url('{{event.venue.image.url}}')" {% endif %}
+                    {% endif %}
+                 {% endif %}
+            ></div>
+
+            <div class="profile-circle">
+                {% if display == "band" %}
+                        {%if band.profile_image %} <img src="{{band.profile_image.url}}">{% endif %}
+                {% else %}
+                    {%if event.venue.profile_image %} <img src="{{event.venue.profile_image.url}}">{% endif %}
+                {% endif %}
+            </div>
+
+            {% endwith %}
+
+            <div class="large-padding">
+                <div class="row">
+                    <div class="col-md-6 desc-title text-left">{{event}}</div>
+                    <div class="col-md-6 desc-title text-right"><strong><span class="right-margin">{{event.day|date:"d/m/Y"}} </span><i class="fa fa-clock-o"></i> {{event.time}}</strong></div>
+
+                </div>
+                <p class="text-left margin-top">{{event.description}}</p>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        {% if event.bands %}
+                            <ul class="band-list">
+                            {% for band in event.bands.all %}
+                                <a href="{% url 'band_detail' pk=band.pk %}"><li>
+                                    <div class="profile-circle">
+                                        {%if band.profile_image %} <img src="{{band.profile_image.url}}">{% endif %}
+                                    </div>
+                                    {{band}}<br><span class="sub">{{band.tag}}</span>
+                                </li></a>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6 margin-bottom margin-top">
+                        {% if not event.price %}
+                        <span class="desc-emphasis">GRATIS</span>
+                        {% else %}
+                            <div class="price">
+                                <strong>Precio</strong><br>
+                                <span class="desc-emphasis">{{event.price}}€</span>
+                            </div>
+                            {% if event.price_preorder %}
+                            <div class="price">
+                                <strong>Anticipada</strong><br>
+                                <span class="desc-emphasis">{{event.price_preorder}}€</span>
+                            </div>
+                            {% endif %}
+                            {% if event.ticket_link %}
+                            <div class="text-center margin-top">
+                                <a class="btn btn-primary btn-lg" href="{{event.ticket_link}}" role="button">Comprar entradas</a>
+                            </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <br><br>
+    <div class="row">
+
+        <div class="col-md-5 col-md-offset-1">
+            <div class="secondary header-bar text-right margin-bottom"> <h4><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Compartir en redes</h4> </div>
+            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. </p>
+        </div>
+        <div class="col-md-5">{% include 'event/_resume_card.html' with event=event display=venue hide_btn=True %}</div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -6,7 +6,7 @@
     <div class="jumbo-header home" style="background-image:url('{% static "img/band-bg.jpg" %}')">
         <div class="jumbotron">
           <div class="container text-center">
-              <img class="img-responsive" src="{% static "img/fiesta_musica.png" %}">
+              <h1>Alcalá es Música</h1>
                 <a class="showmore smoothscroll" href="#more"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
           </div>
         </div>
@@ -21,77 +21,17 @@
 <section class="home-content">
 
     <div class="container main card">
+        <div class="text-center"><h3>Próximos conciertos</h3></div>
+        {% if events %}
+            {% include 'event/_event_list.html' with events=events list_type='carousel' display='venue' %}
+        {% else %}
+        <p class="lead well text-center">
+            <i class="fa fa-clock-o" aria-hidden="true"></i><br>
+            <span>No hay conciertos programados actualmente para esta sala...</span><br><br>
+            <a class="btn btn-primary btn-lg" href="{% url 'venue_history' pk=venue.pk %}" role="button">Ver historial de conciertos de la sala</a>
+        </p>
 
-        <div class="row">
-            <div class="col-sm-9 col-md-10">
-                <p class="lead"><span>
-                    Más de 140 conciertos gratuitos en 11 escenarios repartidos por un casco histórico patrimonio de la Humanidad.
-                    Alcala de Henares se llena de música en un proyecto creado por los artistas de la ciudad en el que se mezclan todo tipo de estilos, grupos profesionales y amateurs, noveles y cabezas de cartel en una producción con más de 800 músicos, técnicos, profesionales y voluntarios implicados en la producción.
-              </span>
-                </p>
-            </div>
-            <div class="col-sm-3 col-md-2 hidden-xs"><a href="https://www.canva.com/design/DACUpX9urHM/0fEzcfON3oPVNcIgHZTKpQ/view?website" target="_blank" class="card dossier">
-                <img src="{% static "img/As2.jpg" %}" alt="dossier" class="img-responsive">
-                <p>
-                    ver dossier
-                </p>
-            </a> </div>
-        </div>
-
-        <div class="row double-sep">
-
-            <div class="col-sm-6"><img src="{% static "img/app_screens.png" %}" class="img-responsive"></div>
-
-            <div class="col-sm-6">
-                <p class="lead">¿Quieres acceder a toda la información actualizada de los conciertos de la forma más cómoda en tu móvil?</p>
-                <div class="text-center"><a class="btn btn-primary btn-lg red" href="{% url 'app_info' %}"> Descárgate la app de Alcalá Suena</a></div>
-                <p class="lead">
-                    Haz tu propia programación de conciertos, guíate para llegar a cada escenario, y muchas opciones más... <br><br>
-                    También puedes buscar los conciertos que más te interesen desde nuestro buscador en la web</p>
-                <div class="text-center"> <a class="showmore red smoothscroll" href="#main-search"><i class="fa fa-angle-down" aria-hidden="true"></i></a></div>
-            </div>
-
-        </div>
-
-        <br><br>
-        <a name="main-search" id="main-search"></a>
-        <h3 class="heading double-sep">¡Encuentra los conciertos que te interesan!</h3>
-        <form method="post" action="{% url 'search' %}" class="form" id="searchForm">
-           <div class="form-group col-sm-4 col-xs-12">
-            <label class="sr-only" for="day">Fecha</label>
-            <select class="form-control select2" id="day" name="day">
-                <option value="">Cualquier día</option>
-                {% for day in days %}
-                <option value="{{day|date:"Y-m-d"}}">{{ day|date:"l, d F" }}</option>
-                {% endfor %}
-            </select>
-          </div>
-           <div class="form-group  col-sm-4 col-xs-12">
-            <label class="sr-only" for="venue">Lugar</label>
-            <select class="form-control select2" id="venue" name="venue">
-                <option value="">Cualquier lugar</option>
-                {% for venue in venues %}
-                <option value="{{venue.pk}}">{{venue.name}}</option>
-                {% endfor %}
-            </select>
-          </div>
-           <div class="form-group  col-sm-4 col-xs-12">
-            <label class="sr-only" for="tag">Estilo musical</label>
-            <select class="form-control select2" id="tag" name="tag">
-                <option value="">Cualquier estilo</option>
-                 {% for tag in tags %}
-                <option value="{{tag.id}}">{{tag.name}}</option>
-                {% endfor %}
-            </select>
-          </div>
-            <div class="text-center"><button id="filter" class="btn btn-primary btn-lg red">Filtrar</button> <button id="viewall" class="btn btn-primary btn-lg">Ver todos</button> </div>
-        </form>
-
-    <div id="results">
-        <h3 class="text-center">
-            <i class="fa fa-search" aria-hidden="true"></i><br>
-            Utiliza el buscador para filtrar los resultados
-        </h3>
+    {% endif %}
 
     </div> <!-- /container -->
          </div>

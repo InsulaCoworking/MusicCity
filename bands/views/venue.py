@@ -17,8 +17,6 @@ def venue_detail(request, pk):
 
     can_edit = False
     if request.user.is_authenticated():
-        print request.user
-        print venue.owner
         if request.user == venue.owner:
             can_edit = True
 

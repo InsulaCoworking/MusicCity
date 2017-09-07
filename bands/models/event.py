@@ -28,7 +28,8 @@ class Event(models.Model):
     event_uid = models.UUIDField(default=uuid.uuid4, editable=False)
     poster = ProcessedImageField(null=True, blank=True, upload_to=poster_path, processors=[ResizeToFit(900,900, upscale=False)], format='JPEG', verbose_name='Imagen del evento')
     price = models.FloatField(null=True, blank=True, verbose_name='Precio')
-    ticketLink = models.TextField(null=True, blank=True, verbose_name='Enlace compra de entradas')
+    price_preorder = models.FloatField(null=True, blank=True, verbose_name='Precio preventa')
+    ticket_link = models.TextField(null=True, blank=True, verbose_name='Enlace compra de entradas')
 
     class Meta:
         verbose_name = 'Concierto'

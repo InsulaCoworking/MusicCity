@@ -21,8 +21,9 @@ def index(request):
     venues = Venue.objects.all()
     tags = Tag.objects.all()
     days = Event.objects.order_by('day').values_list('day', flat=True).distinct()
+    events = Event.objects.all().order_by('-day')[:9]
 
-    return render(request, 'index.html', { 'venues': venues, 'tags':tags, 'days':days })
+    return render(request, 'index.html', { 'venues': venues, 'tags':tags, 'days':days, 'events':events })
 
 
 

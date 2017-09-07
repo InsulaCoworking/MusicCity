@@ -11,7 +11,6 @@
             {% endif %}
          {% endif %}
     >
-
     </div>
 
     <div class="date-calendar visible-sm-block visible-xs-block">
@@ -23,15 +22,17 @@
         {% if display == "band" %}
                 {%if band.profile_image %} <img src="{{band.profile_image.url}}">{% endif %}
         {% else %}
-            {%if venue.profile_image %} <img src="{{venue.profile_image.url}}">{% endif %}
+            {%if event.venue.profile_image %} <img src="{{event.venue.profile_image.url}}">{% endif %}
         {% endif %}
     </div>
     {% endwith %}
 
-
-
     <div class="desc-venue">{{event.venue}}</div>
     <div class="desc-title">{{event}}</div>
-    <div class="desc-date visible-md-block visible-lg-block">{{event.day|date:"d/m/Y"}}</div>
-    <p><a class="btn btn-primary btn-lg" href="#" role="button">Ver concierto</a></p>
+    <div class="desc-emphasis visible-md-block visible-lg-block">{{event.day|date:"d/m/Y"}}</div>
+    <p><hr>
+    {% if not hide_btn %}
+        <a class="btn btn-primary btn-lg" href="{% url 'event_detail' pk=event.pk %}" role="button">Ver concierto</a>
+    {% endif %}
+    </p>
 </div>

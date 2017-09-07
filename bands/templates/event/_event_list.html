@@ -50,7 +50,7 @@
 
 <div class="events-list">
 {% for event in events %}
-    <a class="event" href="#">
+    <a class="event" href="{% url 'event_detail' pk=event.pk %}">
         <div class="date-calendar">
             <span class="month">{{ event.day|date:"M" }}</span>
             <span class="day">{{ event.day|date:"j" }}</span>
