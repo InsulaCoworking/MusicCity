@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 
-from bands.models import Event
+from bands.models import Event, Tag, Venue
 
 
 def event_detail(request, pk):
@@ -16,3 +16,20 @@ def event_detail(request, pk):
         'event': event,
         'can_edit': can_edit
     })
+
+
+def events_schedule(request):
+
+    events = Event.objects.all()
+
+    if request.is_ajax():
+        pass
+    else:
+        tags = Tag.objects.all()
+        venues = Venue.objects.all()
+
+        return render(request, 'event/schedule.html', {
+            'events': events,
+            'tags': tags,
+            'venues': venues
+        })
