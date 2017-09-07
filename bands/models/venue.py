@@ -25,6 +25,7 @@ class Venue(models.Model):
                                        format='JPEG',
                                        options={'quality': 70})
     address = models.TextField(null=True, blank=True)
+    public_space = models.BooleanField(default=False, verbose_name='Espacio en la vía pública')
 
     facebook_link = models.CharField(null=True, blank=True, verbose_name='Página de Facebook', max_length=250)
     twitter_link = models.CharField(null=True, blank=True, verbose_name='Perfil de Twitter', max_length=250)
