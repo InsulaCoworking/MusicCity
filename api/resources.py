@@ -26,6 +26,12 @@ class BandResource(ModelResource):
         collection_name = 'bands'
         include_resource_uri = False
 
+    # Add thumbnail field
+    def dehydrate(self, bundle):
+        if bundle.obj.profile_thumbnail:
+            bundle.data['profile_thumbnail'] = bundle.obj.profile_thumbnail.url
+        return bundle
+
     # Remove the wrapper
     def alter_list_data_to_serialize(self, request, data):
         if self.Meta.collection_name in data and len(data[self.Meta.collection_name]) > 0:
@@ -43,6 +49,12 @@ class VenueResource(ModelResource):
         resource_name = 'venues'
         collection_name = 'venues'
         include_resource_uri = False
+
+    # Add thumbnail field
+    def dehydrate(self, bundle):
+        if bundle.obj.profile_thumbnail:
+            bundle.data['profile_thumbnail'] = bundle.obj.profile_thumbnail.url
+        return bundle
 
     # Remove the wrapper
     def alter_list_data_to_serialize(self, request, data):

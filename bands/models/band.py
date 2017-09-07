@@ -3,8 +3,8 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
 from django.db import models
-from imagekit.models import ProcessedImageField
-from pilkit.processors import ResizeToFit
+from imagekit.models import ProcessedImageField, ImageSpecField
+from pilkit.processors import ResizeToFit, ResizeToFill
 
 from bands.helpers import RandomFileName
 from bands.models import Tag
@@ -19,6 +19,11 @@ class Band(models.Model):
     band_image = ProcessedImageField(null=True, blank=True, upload_to=RandomFileName('band/'),
                                         processors=[ResizeToFit(1200, 600, upscale=False)], format='JPEG',
                                         verbose_name='Imagen de cabecera')
+    profile_thumbnail = ImageSpecField(source='profile_image',
+                                      processors=[ResizeToFill(150, 150, upscale=False)],
+                                      format='JPEG',
+                                      options={'quality': 70})
+
     city = models.CharField(null=True, blank=True, verbose_name='Ciudad', max_length=140)
     num_members = models.IntegerField(null=True, blank=True, default=1)
     description = models.TextField(null=True, blank=True, verbose_name='Descripción')

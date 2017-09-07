@@ -3,8 +3,8 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
 from django.db import models
-from imagekit.models import ProcessedImageField
-from pilkit.processors import ResizeToFit
+from imagekit.models import ProcessedImageField, ImageSpecField
+from pilkit.processors import ResizeToFit, ResizeToFill
 
 from bands.helpers import RandomFileName
 
@@ -20,6 +20,10 @@ class Venue(models.Model):
     profile_image = ProcessedImageField(null=True, blank=True, upload_to=RandomFileName('venue/'),
                                 verbose_name='Imagen de perfil',
                                 processors=[ResizeToFit(512, 512, upscale=False)], format='JPEG')
+    profile_thumbnail = ImageSpecField(source='profile_image',
+                                       processors=[ResizeToFill(150, 150, upscale=False)],
+                                       format='JPEG',
+                                       options={'quality': 70})
     address = models.TextField(null=True, blank=True)
 
     facebook_link = models.CharField(null=True, blank=True, verbose_name='Página de Facebook', max_length=250)
