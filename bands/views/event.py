@@ -22,6 +22,18 @@ def events_schedule(request):
 
     events = Event.objects.all()
 
+    band_filter = request.GET.get('band', None)
+    venue_filter = request.GET.get('venue', None)
+    tag_filter = request.GET.get('tag', None)
+    day_filter = request.GET.get('day', None)
+
+    if band_filter:
+        events = events.filter(band__pk=band_filter)
+    if venue_filter:
+        events = events.filter(venue__pk=venue_filter)
+    if tag_filter:
+        events = events.filter(band__tag__pk=tag_filter)
+
     if request.is_ajax():
         pass
     else:
@@ -31,5 +43,6 @@ def events_schedule(request):
         return render(request, 'event/schedule.html', {
             'events': events,
             'tags': tags,
-            'venues': venues
+            'venues': venues,
+            'venue_filter': venue_filter
         })

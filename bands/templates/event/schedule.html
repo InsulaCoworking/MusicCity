@@ -30,10 +30,57 @@
 
 <div class="container">
     <div class="row margin-top">
-        <div class="col-md-3 col-lg-2">aaaa</div>
+        <div class="col-md-3 col-lg-2">
+            <form id="event-filter">
+
+                <div class="filter">
+                    <label for="venue_select">Por fecha</label>
+                    <input type="radio" id="this_week" name="date_end"><label for="this_week">Esta semana</label>
+                    <input type="radio" id="next_week" name="date_end"><label for="next_week">Próxima semana</label>
+                    <a class="btn collapsed" role="button" data-toggle="collapse" href="#advancedDateFilter" aria-expanded="false" aria-controls="advancedDateFilter">
+  Avanzado
+</a>
+                    <div class="collapse" id="advancedDateFilter">
+                        <input type="text" name="date_start" placeholder="Desde">
+                        <input type="text" name="date_end" placeholder="Hasta">
+                    </div>
+                </div>
+
+                <div class="filter">
+                    <label for="venue_select">Por espacio</label>
+                    <select id="venue_select" name="venue">
+                        <option value="" {% if not venue_filter %} selected {% endif %}>----</option>
+                        {% for venue in venues %}
+                        {% with venue.pk|slugify as venue_pk %}
+                        <option value="{{venue.pk}}" {%if venue_filter == venue_pk %} selected {%endif%}>{{venue.name}}</option>
+                        {% endwith %}
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="filter">
+                    <label for="venue_select">Por etiqueta</label>
+                    <select id="tag_select" name="tag">
+                        <option value="" {% if not tag_filter %} selected {% endif %}>----</option>
+                        {% for tag in tags %}
+                        <option value="{{venue.pk}}" {%if tag_filter == tag.pk %} selected {%endif%}>{{tag.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <input type="submit" class="btn btn-large btn-primary" value="Buscar">
+            </form>
+        </div>
+
         <div class="col-md-9 col-lg-10">{% include 'event/search_results.html' with events=events %}</div>
     </div>
 
 </div>
 
 {% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+
+</script>
+{% endblock scripts %}
