@@ -34,33 +34,48 @@
 
 <div class="container">
     <div class="row margin-top">
-        <div class="col-md-3 col-lg-2 events-searchbox panel">
+        <div class="col-md-3 col-lg-2 events-searchbox panel" style="margin-top:0;">
             <i class="fa fa-search panel-icon" aria-hidden="true"></i>
-            <form id="event-filter">
+            <form id="event-filter" action="{% url 'events_schedule' %}">
+
+                <div class="filter margin-top">
+                    <input class="form-control" id="search" value="{{query_string}}" type="text" name="q" placeholder="Buscar...">
+                </div>
 
                 <div class="filter">
-                    <label for="venue_select">Por fecha</label>
+                    <div class="secondary header-bar"> <h5><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Por fecha</h5> </div>
 
       <div class="btn-group btn-group-vertical" data-toggle="buttons">
-        <label class="btn active">
-          <input type="radio" id="this_week" data-startdate={{dates.thisweek_start}} data-enddate="{{dates.thisweek_end}}" name="date_end" checked><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i> <span> Esta semana</span>
+        <label class="btn {%if not date_filter %}active{%endif%}">
+          <input type="radio" id="this_week" data-startdate={{dates.thisweek_start|date:"d/m/Y"}} name="preselect_date" data-enddate="{{dates.thisweek_end|date:"d/m/Y"}}" {%if not date_filter %}checked{%endif%}><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i> <span> Esta semana</span>
         </label>
         <label class="btn">
-          <input type="radio" id="next_week" data-startdate={{dates.nextweek_start}} data-enddate="{{dates.nextweek_end}}" name="date_end"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span> Próxima semana</span>
+          <input type="radio" id="next_week" data-startdate={{dates.nextweek_start|date:"d/m/Y"}} name="preselect_date" data-enddate="{{dates.nextweek_end|date:"d/m/Y"}}"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span> Próxima semana</span>
         </label>
       </div>
 
-                    <a class="btn collapsed" role="button" data-toggle="collapse" href="#advancedDateFilter" aria-expanded="false" aria-controls="advancedDateFilter">
-  Avanzado
+                    <div class="btn-group">
+                    <a class="btn {%if not date_filter %}collapsed{%endif%} advancefilter" role="button" data-toggle="collapse" href="#advancedDateFilter" aria-expanded="false" aria-controls="advancedDateFilter">
+  <i class="fa fa-angle-up fa-2x" aria-hidden="true"></i> Avanzado
 </a>
-                    <div class="collapse" id="advancedDateFilter">
-                        <input class="form-control"  type="text" name="date_start" placeholder="Desde">
-                        <input class="form-control"  type="text" name="date_end" placeholder="Hasta">
+                        </div>
+                    <div class="collapse {%if date_filter %}in{%endif%}" id="advancedDateFilter">
+
+                        <div class="input-group">
+                          <input class="form-control" id="dateRange" type="text" name="date_range" placeholder="Desde - hasta...">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" id="dateRangeBtn" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+                          </span>
+                        </div>
+
+
+                        <input type="hidden" name="start_date" value="{{dates.start_date|date:"d/m/Y"}}">
+                        <input type="hidden" name="end_date" value="{{dates.end_date|date:"d/m/Y"}}">
                     </div>
                 </div>
 
                 <div class="filter">
-                    <label for="venue_select">Por espacio</label>
+                    <div class="secondary header-bar"> <h5><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Por espacio</h5> </div>
                     <select class="form-control"  id="venue_select" name="venue">
                         <option value="" {% if not venue_filter %} selected {% endif %}>----</option>
                         {% for venue in venues %}
@@ -72,7 +87,7 @@
                 </div>
 
                 <div class="filter">
-                    <label for="venue_select">Por etiqueta</label>
+                    <div class="secondary header-bar"> <h5><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Por etiqueta</h5> </div>
                     <select class="form-control" id="tag_select" name="tag">
                         <option value="" {% if not tag_filter %} selected {% endif %}>----</option>
                         {% for tag in tags %}
@@ -81,11 +96,11 @@
                     </select>
                 </div>
 
-                <input type="submit" class="btn btn-large btn-primary" value="Buscar">
+                <input type="submit" id="searchButton" class="btn btn-large btn-primary" value="Buscar">
             </form>
         </div>
 
-        <div class="col-md-9 col-lg-10">{% include 'event/search_results.html' with events=events %}</div>
+        <div class="col-md-9 col-lg-10" id="search_results">{% include 'event/search_results.html' with events=events %}</div>
     </div>
 
 </div>
@@ -96,6 +111,46 @@
 <script type="text/javascript" src="{% static "js/moment.min.js" %}"></script>
 <script type="text/javascript" src="{% static "js/daterangepicker.js" %}"></script>
 <script type="text/javascript">
+    var startDate = $('input[name="start_date"]');
+    var endDate = $('input[name="end_date"]');
+    var preselectDate = $('input[name="preselect_date"]');
+    var selectResults = $('#search_results');
+
+    preselectDate.on('change', function(){
+        var selected = $(this);
+        daterange.data('daterangepicker').setStartDate(selected.attr('data-startdate'));
+        daterange.data('daterangepicker').setEndDate(selected.attr('data-enddate'));
+        startDate.val(selected.attr('data-startdate'));
+        endDate.val(selected.attr('data-enddate'));
+    });
+
+    var daterange = $('#dateRange').daterangepicker({
+        startDate: startDate.val(),
+        endDate: endDate.val(),
+        locale: {
+            format: 'DD/MM/YYYY'
+        }
+    }, function(start, end, label){
+        preselectDate.prop("checked", false).parent().removeClass('active');
+        startDate.val(start.format('DD/MM/YYYY'));
+        endDate.val(end.format('DD/MM/YYYY'));
+    });
+
+    $('#dateRangeBtn').on('click', function(){
+        daterange.focus();
+    });
+
+    $('form#event-filter').on('submit', function(e){
+        var form = $(this);
+        e.preventDefault();
+        var url = form.attr('action');
+
+        $.get(url, form.serialize(), function(data){
+            selectResults.html(data);
+        });
+
+    });
+
 
 </script>
 {% endblock scripts %}

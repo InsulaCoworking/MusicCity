@@ -104,6 +104,17 @@ div[data-toggle="buttons"] label:active, div[data-toggle="buttons"] label.active
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+a.advancefilter{ color: #333; }
+a.advancefilter.collapsed{ color: #666;}
+a.advancefilter .fa.fa-angle-up{
+    transition: 400ms;
+    vertical-align:middle;
+}
+a.advancefilter.collapsed .fa.fa-angle-up{
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
 
 a.rrss {
     margin-top: 20px;
@@ -116,10 +127,6 @@ a.rrss {
     font-size: 30px;
     display: inline-block;
     border-radius: 20px;
-}
-
-.form-control {
-    border: 2px solid #cc0000;
 }
 
 .band_header {
@@ -257,7 +264,7 @@ body{
     margin-bottom:3em;
 }
 .header-bar h2{ font-weight: 700; font-size:38px;}
-.header-bar p, .header-bar h3, .header-bar h4{ margin:0;}
+.header-bar p, .header-bar h3, .header-bar h4, .header-bar h5{ margin:0;}
 .header-bar.secondary{
     padding:15px;
     margin-bottom:0;
@@ -914,6 +921,11 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
     font-size:0.8em;
     color:#777;
 }
+form#event-filter .filter{
+    padding-top:10px;
+    margin-bottom:1em;
+}
+
 .margin-top{
     margin-top:20px !important;
 }
