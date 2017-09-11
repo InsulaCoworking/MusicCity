@@ -155,6 +155,8 @@
         $.get(url, form.serialize(), function(data){
             selectResults.find('.results').html(data);
             selectResults.removeClass('loading');
+
+            window.history.replaceState('page2', '', url + '?' + form.serialize());
         });
 
     });
