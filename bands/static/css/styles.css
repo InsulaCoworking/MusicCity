@@ -925,6 +925,24 @@ form#event-filter .filter{
     padding-top:10px;
     margin-bottom:1em;
 }
+#search_results{
+    position:relative;
+    transition:0.5s;
+}
+#search_results .loading-spinner{
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-top:-10px;
+    margin-left:-10px;
+    display:none;
+}
+#search_results.loading{
+    opacity:0.6;
+}
+#search_results.loading .loading-spinner{
+    display:block;
+}
 
 .margin-top{
     margin-top:20px !important;

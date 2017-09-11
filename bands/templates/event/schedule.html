@@ -100,7 +100,13 @@
             </form>
         </div>
 
-        <div class="col-md-9 col-lg-10" id="search_results">{% include 'event/search_results.html' with events=events %}</div>
+        <div class="col-md-9 col-lg-10" id="search_results">
+            <div class="results">
+                {% include 'event/search_results.html' with events=events %}
+            </div>
+            <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw loading-spinner"></i>
+            <span class="sr-only">Loading...</span>
+        </div>
     </div>
 
 </div>
@@ -141,12 +147,14 @@
     });
 
     $('form#event-filter').on('submit', function(e){
+        selectResults.addClass('loading');
         var form = $(this);
         e.preventDefault();
         var url = form.attr('action');
 
         $.get(url, form.serialize(), function(data){
-            selectResults.html(data);
+            selectResults.find('.results').html(data);
+            selectResults.removeClass('loading');
         });
 
     });
