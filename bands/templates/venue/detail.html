@@ -64,11 +64,7 @@
                     <p>{{ venue.description|linebreaks }}</p>
                     <strong>Dirección</strong>
                     <p class="lead">{{ venue.address }}</p>
-                    <div class="social-links">
-                        {%if venue.facebook_link %} <a href="{{venue.facebook_link}}" target="_blank" class="card"><i class="fa fa-facebook" aria-hidden="true"></i></a> {% endif %}
-                        {%if venue.twitter_link %} <a href="{{venue.twitter_link}}" target="_blank" class="card"><i class="fa fa-twitter" aria-hidden="true"></i></a> {% endif %}
-                        {%if venue.webpage_link %} <a href="{{venue.webpage_link}}" target="_blank" class="card"><i class="fa fa-globe" aria-hidden="true"></i></a> {% endif %}
-                    </div>
+                    {% include 'common/social_links.html' with obj=venue %}
                 </div>
             </div>
             <div class="col-md-5">

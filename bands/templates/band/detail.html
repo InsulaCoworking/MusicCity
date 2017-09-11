@@ -40,15 +40,7 @@
             <p>{{band.description|linebreaks}}</p>
             {%if band.genre %}<h5><strong>Estilo:</strong> {{band.genre}}</h5>{% endif %}
             {%if band.city %}<h5><strong>Procedencia:</strong> {{band.city}}</h5>{% endif %}
-            <div class="social-links">
-                {%if band.facebook_link %} <a href="{{band.facebook_link}}" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Página de Facebook" class="card"><i class="fa fa-facebook" aria-hidden="true"></i></a> {% endif %}
-                {%if band.twitter_link %} <a href="{{band.twitter_link}}" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Perfil de Twitter" class="card"><i class="fa fa-twitter" aria-hidden="true"></i></a> {% endif %}
-                {%if band.bandcamp_link %} <a href="{{band.bandcamp_link}}" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Página de Bandcamp" class="card"><i class="fa fa-bandcamp" aria-hidden="true"></i></a> {% endif %}
-                {%if band.youtube_link %} <a href="{{band.youtube_link}}" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Canal de Youtube" class="card"><i class="fa fa-youtube" aria-hidden="true"></i></a> {% endif %}
-                {%if band.spotify_link %} <a href="{{band.spotify_link}}" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Perfil de Spotify" class="card"><i class="fa fa-spotify" aria-hidden="true"></i></a> {% endif %}
-                {%if band.webpage_link %} <a href="{{band.webpage_link}}" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Página web" class="card"><i class="fa fa-globe" aria-hidden="true"></i></a> {% endif %}
-                {%if band.presskit_link %} <a href="{{band.presskit_link}}" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Presskit" class="card"><i class="fa fa-newspaper-o" aria-hidden="true"></i></a> {% endif %}
-            </div>
+            {% include 'common/social_links.html' with obj=band %}
         </div>
         <div class="col-md-5">
             {% if band.embed_code %} <div class="embed">{{band.embed_code|safe}} </div>{% endif %}
