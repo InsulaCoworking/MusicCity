@@ -1,8 +1,12 @@
 
 <div class="row">
     {% for event in events %}
-        <div class="col-sm-6 col-md-6 col-lg-4">
-        {% include 'event/_resume_card.html' with event=event display="venue" hide_btn=True %}
-        </div>
+
+            <div class="col-sm-6 col-md-6 col-lg-4 event-result">
+                <a class="hover" href="{% url 'event_detail' pk=event.pk %}"></a>
+            {% include 'event/_resume_card.html' with event=event display="venue" hide_btn=True %}
+
+            </div>
+        </a>
     {% endfor %}
 </div>
