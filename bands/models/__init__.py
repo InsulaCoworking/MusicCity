@@ -7,4 +7,5 @@ from band import Band
 from event import Event
 from band import BandToken
 from settings import Settings
+from professional_tag import ProfessionalTag
 from professional import Professional

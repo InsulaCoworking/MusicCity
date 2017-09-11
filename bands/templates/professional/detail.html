@@ -20,13 +20,13 @@
 {% block extra_styles %}<style> .embed iframe{ width:100% !important; max-width:100%; } </style>{% endblock extra_styles %}
 
 {% block content %}
-<div class="jumbo-header jumbo-band" {% if band.band_image %} style="background-image:url('{{band.band_image.url}}')" {% endif %}>
+<div class="jumbo-header jumbo-band" {% if pro.image %} style="background-image:url('{{pro.image.url}}')" {% endif %}>
     <div class="jumbotron"></div>
 </div>
 
 <div class="header-bar header-band">
     <div class="container">
-        <div class="profile-circle">{%if pro.profile_image %} <img src="{{pro.profile_image.url}}">{% endif %}</div>
+        <div class="profile-circle">{%if pro.profile_image %} <img src="{{pro.profile_thumbnail.url}}">{% endif %}</div>
         <h1>{{pro.name}}</h1>
         <p class="description">{{pro.tag.name}}</p>
     </div>

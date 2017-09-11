@@ -7,11 +7,13 @@ from imagekit.models import ProcessedImageField, ImageSpecField
 from pilkit.processors import ResizeToFit, ResizeToFill
 
 from bands.helpers import RandomFileName
+from bands.models import ProfessionalTag
 
 
 class Professional(models.Model):
     user = models.ForeignKey(User, null=True, blank=True, verbose_name='Responsable')
     name = models.CharField(null=False, verbose_name='Nombre', max_length=240)
+    tag = models.ForeignKey(ProfessionalTag, default=None, verbose_name='Categoría', related_name="pro_tag")
     description = models.TextField(null=False, blank=True)
     latitude = models.FloatField(null=False)
     longitude = models.FloatField(null=False)
