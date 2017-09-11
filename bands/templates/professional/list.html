@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Bandas - Alcala Suena 2017{% endblock%}
+
+
+{% block content %}
+<div class="jumbo-header jumbo-band" >
+    <div class="jumbotron">
+      <div class="container text-center">
+        <h1>Profesionales</h1>
+        <p class="description">Un festival participativo con más de 140 grupos actuando en calles y plazas del Casco Histórico de Alcalá, Patromonio de la Humanidad</p>
+      </div>
+    </div>
+</div>
+<div class="header-bar text-center header-band">
+
+</div>
+
+<div class="container">
+
+    <div class="clearfix tags">
+    {%for tag in tags %}
+    <div class="tag pull-left card" style="background-color:{{tag.color}}" data-tag="{{tag.id}}">{{tag.name}}</div>
+    {% endfor %}
+        </div>
+
+    <div class="clearfix gallery double-sep">
+        {% for pro in pros %}
+        <div class="mosaicflow__item {{band.tag.id}}">
+          <a href="{% url 'pro_detail' pk=pro.pk%}" class="band_link" title="{{pro.name}}" style="border-color:{{band.tag.color}}">
+              <img src="{% if pro.band_image %}{{pro.band_image.url}}{%else%}{%static "img/band-header.jpg"%}{%endif%}" alt="{{pro.name}}">
+              <span>{{pro.name}}</span>
+          </a>
+        </div>
+         {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static "js/jquery.mosaicflow.min.js" %}"></script>
+<script type="text/javascript">
+
+var tags = $('.tags');
+var bands = $('.mosaicflow__item');
+
+  $('.gallery').mosaicflow({
+    minColumns: 2,
+    minItemWidth: 260
+  }).on('mosaicflow-layout', function(){ $('.loading').fadeOut(); });
+
+tags.on('click', '.tag', function(){
+    var tag = $(this);
+    if (tag.hasClass('active')){
+        tag.removeClass('active');
+        tags.removeClass('filtered');
+         $('.mosaicflow__item').show();
+    }
+    else{
+        tags.addClass('filtered').find('.tag').removeClass('active');
+        tag.addClass('active');
+        var filter = tag.attr('data-tag');
+        $('.mosaicflow__item').hide().filter('.'+filter).show();
+    }
+});
+
+
+</script>
+{% endblock %}

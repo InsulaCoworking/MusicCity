@@ -21,6 +21,9 @@ urlpatterns = [
     url(r'^agenda/$', views.events_schedule, name='events_schedule'),
     url(r'^events/$', views.events_schedule, name='events'),
 
+    url(r'^pros/$', views.pro_list, name='pros_list'),
+    url(r'^pros/(?P<pk>\d+)$', views.pro_detail, name='pro_detail'),
+
     # url(r'^billing/$', views.billing_form, name='billing'),
     # url(r'^billing/list/$', views.billing_list, name='billing'),
     # url(r'^billing/download/$', views.download_csv, name='download_csv'),
