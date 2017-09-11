@@ -1,17 +1,32 @@
 import random
 
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, InvalidPage
 from django.shortcuts import render, get_object_or_404
 
-from bands.models import Professional
+from bands.models import Professional, ProfessionalTag
 
 
 def pro_list(request):
 
-    pros = list(Professional.objects.all())
-    random.shuffle(pros)
-    return render(request, 'professional/list.html', {
-        'pros': pros
-    })
+    pro_list = Professional.objects.all()
+    paginator = Paginator(pro_list, 15)
+    page = request.GET.get('page')
+    try:
+        pros = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        pros = paginator.page(1)
+    except (EmptyPage, InvalidPage):
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        pros = paginator.page(paginator.num_pages)
+
+    if request.is_ajax():
+        pass
+    else:
+        tags = ProfessionalTag.objects.all()
+        return render(request, 'professional/list.html', {
+            'pros': pros, 'tags':tags, 'filtered_tags':None, 'page':page
+        })
 
 def pro_detail(request, pk):
     pro = get_object_or_404(Professional, pk=pk)

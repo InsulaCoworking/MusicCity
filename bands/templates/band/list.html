@@ -20,7 +20,7 @@
 
     <div class="clearfix tags">
     {%for tag in tags %}
-    <div class="tag pull-left card" style="background-color:{{tag.color}}" data-tag="{{tag.id}}">{{tag.name}}</div>
+    <div class="tag-filter pull-left card" style="background-color:{{tag.color}}" data-tag="{{tag.id}}">{{tag.name}}</div>
     {% endfor %}
         </div>
 
@@ -49,7 +49,7 @@ var bands = $('.mosaicflow__item');
     minItemWidth: 260
   }).on('mosaicflow-layout', function(){ $('.loading').fadeOut(); });
 
-tags.on('click', '.tag', function(){
+tags.on('click', '.tag-filter', function(){
     var tag = $(this);
     if (tag.hasClass('active')){
         tag.removeClass('active');
@@ -57,7 +57,7 @@ tags.on('click', '.tag', function(){
          $('.mosaicflow__item').show();
     }
     else{
-        tags.addClass('filtered').find('.tag').removeClass('active');
+        tags.addClass('filtered').find('.tag-filter').removeClass('active');
         tag.addClass('active');
         var filter = tag.attr('data-tag');
         $('.mosaicflow__item').hide().filter('.'+filter).show();

@@ -685,20 +685,22 @@ a .event-resume{
     font-size:1.15em;
 }
 
-.tag{
-    padding: 5px 15px 5px 20px;
-    border-bottom-left-radius:15px;
-    border-top-left-radius:15px;
+.tag-filter{
+    padding: 13px 18px;
+    border-radius:23px;
     margin-right:6px;
     margin-bottom:10px;
     position:relative;
+    border:2px solid;
     font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif;
+    cursor:pointer;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+    transition:0.4s;
 }
-.tag:before{ content:'·'; position:absolute; font-weight:bold; left:5px; color:#cecece; font-size:30px;font-family:serif; top:-5px;}
 
-.filtered .tag{ opacity:0.4; }
-.tag:hover{ opacity:1; cursor:pointer; }
-.filtered .tag.active{ opacity:1; font-weight:bold;}
+.filtered .tag-filter:not(.active){ border-color:#aaa !important; opacity:0.8; }
+.tag-filter:hover{ opacity:1; cursor:pointer; box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), inset 0 5px 4px 0 rgba(0,0,0,0.13), 0 6px 5px 0 rgba(0,0,0,0.18), 0 3px 1px -2px rgba(0,0,0,0.2); }
+.filtered .tag-filter.active{ opacity:1; font-weight:bold;}
 
 @media (max-width:768px){
     .header-band .col-sm-6:first-child{ margin-bottom:1em; }
