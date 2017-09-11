@@ -27,6 +27,84 @@ header h1 {
     border-radius: 18px;
 }
 
+label input[type="radio"] ~ i.fa{
+    display: inline-block;
+    vertical-align:middle;
+}
+input[type="radio"], input[type="radio"]:focus{
+    outline:none !important;
+    outline-color: transparent;
+}
+
+label input[type="radio"] ~ i.fa.fa-circle-o{
+    color: #666;    display: inline;
+}
+label input[type="radio"] ~ i.fa.fa-dot-circle-o{
+    display: none;
+}
+label input[type="radio"]:checked ~ i.fa.fa-circle-o{
+    display: none;
+}
+label input[type="radio"]:checked ~ i.fa.fa-dot-circle-o{
+    color: #cc0000;    display: inline-block;
+}
+label:hover input[type="radio"] ~ i.fa {
+    color: #cc0000;
+}
+
+label input[type="checkbox"] ~ i.fa.fa-square-o{
+    color: #666;    display: inline;
+}
+label input[type="checkbox"] ~ i.fa.fa-check-square-o{
+    display: none;
+}
+label input[type="checkbox"]:checked ~ i.fa.fa-square-o{
+    display: none;
+}
+label input[type="checkbox"]:checked ~ i.fa.fa-check-square-o{
+    color: #cc0000;    display: inline;
+}
+label:hover input[type="checkbox"] ~ i.fa {
+    color: #cc0000;
+}
+
+div[data-toggle="buttons"] label.active{
+    color: #cc0000;
+}
+
+div[data-toggle="buttons"] label {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 2em;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: top;
+    cursor: pointer;
+    background-color: none;
+    border: 0px solid
+    #c8c8c8;
+    border-radius: 3px;
+    color: #666;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    outline: none !important;
+}
+
+div[data-toggle="buttons"] label:hover {
+    color: #cc0000;
+}
+
+div[data-toggle="buttons"] label:active, div[data-toggle="buttons"] label.active {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 a.rrss {
     margin-top: 20px;
     margin-bottom: 10px;
@@ -473,6 +551,8 @@ a .event-resume{
     background-color: #1f282d;
 
 }
+
+
 .event-result{
     position:relative;
 }
@@ -497,12 +577,9 @@ a .event-resume{
   margin-top: -40px;
    margin-left: -25px;
   font: normal normal normal 50px/1 FontAwesome;
-  content: "\f002";
+  content: "\f05a";
   color:#fff;
   transition:all 400ms;
-}
-.event-result .hover.soon:after{
-  content: "\f017";
 }
 .event-result:hover .hover{ cursor:pointer; opacity: 1;}
 .event-result:hover .hover:after{ top: 50%;}

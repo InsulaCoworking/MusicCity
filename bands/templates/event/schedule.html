@@ -19,6 +19,10 @@
 
 {% block bodyattrs %}class="event"{% endblock%}
 
+{% block extra_styles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/daterangepicker.css" %}"/>
+{% endblock extra_styles %}
+
 {% block content %}
 <div class="jumbo-header minimal">
     <div class="jumbotron">
@@ -30,25 +34,34 @@
 
 <div class="container">
     <div class="row margin-top">
-        <div class="col-md-3 col-lg-2">
+        <div class="col-md-3 col-lg-2 events-searchbox panel">
+            <i class="fa fa-search panel-icon" aria-hidden="true"></i>
             <form id="event-filter">
 
                 <div class="filter">
                     <label for="venue_select">Por fecha</label>
-                    <input type="radio" id="this_week" name="date_end"><label for="this_week">Esta semana</label>
-                    <input type="radio" id="next_week" name="date_end"><label for="next_week">Próxima semana</label>
+
+      <div class="btn-group btn-group-vertical" data-toggle="buttons">
+        <label class="btn active">
+          <input type="radio" id="this_week" data-startdate={{dates.thisweek_start}} data-enddate="{{dates.thisweek_end}}" name="date_end" checked><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i> <span> Esta semana</span>
+        </label>
+        <label class="btn">
+          <input type="radio" id="next_week" data-startdate={{dates.nextweek_start}} data-enddate="{{dates.nextweek_end}}" name="date_end"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span> Próxima semana</span>
+        </label>
+      </div>
+
                     <a class="btn collapsed" role="button" data-toggle="collapse" href="#advancedDateFilter" aria-expanded="false" aria-controls="advancedDateFilter">
   Avanzado
 </a>
                     <div class="collapse" id="advancedDateFilter">
-                        <input type="text" name="date_start" placeholder="Desde">
-                        <input type="text" name="date_end" placeholder="Hasta">
+                        <input class="form-control"  type="text" name="date_start" placeholder="Desde">
+                        <input class="form-control"  type="text" name="date_end" placeholder="Hasta">
                     </div>
                 </div>
 
                 <div class="filter">
                     <label for="venue_select">Por espacio</label>
-                    <select id="venue_select" name="venue">
+                    <select class="form-control"  id="venue_select" name="venue">
                         <option value="" {% if not venue_filter %} selected {% endif %}>----</option>
                         {% for venue in venues %}
                         {% with venue.pk|slugify as venue_pk %}
@@ -60,7 +73,7 @@
 
                 <div class="filter">
                     <label for="venue_select">Por etiqueta</label>
-                    <select id="tag_select" name="tag">
+                    <select class="form-control" id="tag_select" name="tag">
                         <option value="" {% if not tag_filter %} selected {% endif %}>----</option>
                         {% for tag in tags %}
                         <option value="{{venue.pk}}" {%if tag_filter == tag.pk %} selected {%endif%}>{{tag.name}}</option>
@@ -80,6 +93,8 @@
 {% endblock %}
 
 {% block scripts %}
+<script type="text/javascript" src="{% static "js/moment.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/daterangepicker.js" %}"></script>
 <script type="text/javascript">
 
 </script>
