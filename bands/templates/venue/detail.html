@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load settings_value %}
+{% load l10n %}
 
 {% block title %}Conciertos en {{venue.name}} - Alcalá es Música{% endblock%}
 
@@ -68,12 +70,38 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <div class="map"></div>
+                <div id="map" class="map"></div>
             </div>
         </div>
 
     </div>
 
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function initMap() {
+    var uluru = {lat: {{ venue.latitude|unlocalize }}, lng: {{ venue.longitude|unlocalize }} };
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 16,
+      center: uluru,
+      zoomControl: false,
+        scaleControl: true,
+        streetViewControl: false,
+        scaleControl:false,
+        mapTypeControl:false
+    });
+    var marker = new google.maps.Marker({
+      position: uluru,
+      map: map,
+
+    });
+  }
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key={% settings_value "GMAPS_APIKEY" %}&callback=initMap">
+</script>
 
 {% endblock %}
