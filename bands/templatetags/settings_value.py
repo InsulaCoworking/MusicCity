@@ -3,7 +3,7 @@ from django.conf import settings
 
 register = template.Library()
 
-ALLOWABLE_VALUES = ("GMAPS_APIKEY", "CONSTANT_NAME_2",)
+ALLOWABLE_VALUES = ("GMAPS_APIKEY", "MAIN_PAGE_TITLE",)
 
 # settings value (based on https://stackoverflow.com/a/21593607)
 @register.simple_tag

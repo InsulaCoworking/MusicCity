@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block title %}Conciertos en {{venue.name}} - Alcalá es Música{% endblock%}
+{% block title %}Agenda{% endblock%}
 
 {% block social_meta %}
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:site" content="@aemusica">
         <meta name="twitter:title" content="{{venue.name}} - Alcalá Suena: Fiesta de la Música 2017">
         <meta name="twitter:description" content="Todos los conciertos en {{venue.name}} durante Alcalá Suena: Fiesta de la Música 2017">
         <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{%if venue.image %}{{venue.image.url}}{% else %}{% static "img/logo_banner.jpg" %}{% endif %}">

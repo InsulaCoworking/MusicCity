@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Django settings for alcalasuena project.
 
@@ -117,5 +118,6 @@ MEDIA_ROOT = ROOT_DIR + '/media'
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 LOGIN_URL = '/login/'
+MAIN_PAGE_TITLE = 'AlcaláEsMúsica'
 
 from settings_secret import *
