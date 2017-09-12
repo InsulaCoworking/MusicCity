@@ -7,7 +7,7 @@
 <div class="jumbo-header" style="background-image:url('{% static "img/venues-header.jpg" %}')" >
     <div class="jumbotron">
       <div class="container text-center">
-        <h1>Escenarios</h1>
+        <h1>Espacios</h1>
         <p class="description">Los espacios más emblemáticos de esta ciudad patrimonio se visten de fiesta en un festival particular en el que además de buena música, poder disfrutar de un entorno inigualable</p>
       </div>
     </div>
@@ -31,8 +31,8 @@
 </div>
 </div>
 
-<div class="header-bar text-center no-margin  double-sep">
-    <h2>Mapa de escenarios</h2>
+<div class="header-bar text-center no-margin double-sep">
+    <h2 class="top-padding">Mapa de escenarios</h2>
     Selecciona cada punto en el mapa para ver su información
 </div>
 
@@ -71,7 +71,7 @@
               var marker = new RichMarker({
                   position: venuePosition,
                   map: map,
-                  content: '<div class="marker-wrapper"><img src="' + media_root + markers[i].profile_image + '"></div>'
+                  content: '<div class="marker-wrapper"><div class="marker"><img src="' + media_root + markers[i].profile_image + '"></div></div>'
                 });
 
                 //extend the bounds to include each marker's position

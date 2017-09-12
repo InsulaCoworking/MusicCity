@@ -41,6 +41,7 @@
 
 <div class="container">
     {% if events %}
+        <p class="lead text-center">Próximos conciertos</p>
         {% include 'event/_event_list.html' with events=events list_type='carousel' display='band' %}
     {% else %}
         <p class="lead well text-center">
@@ -101,7 +102,7 @@
     var marker = new RichMarker({
       position: venuePosition,
       map: map,
-      content: '<div class="marker-wrapper"><img src="' + '{{venue.profile_image.url}}' + '"></div>'
+      content: '<div class="marker-wrapper"><div class="marker"><img src="' + '{{venue.profile_image.url}}' + '"></div></div>'
     });
   }
 </script>

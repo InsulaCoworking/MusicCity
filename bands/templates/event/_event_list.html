@@ -8,7 +8,17 @@
             <div class="item {% if forloop.first %}active{% endif %}">
                 <div class="row">
                     {% for event in slide %}
-                    <div class="col-sm-4">
+                    <div class="
+                        {% if events|length > 3 %}
+                            col-sm-4
+                        {% else %}
+                            {% if events|length == 2 %}
+                                col-sm-6
+                            {% else %}
+                                col-sm-8 col-sm-offset-2
+                            {% endif %}
+                        {% endif %}
+                        ">
                         {% include 'event/_resume_card.html' with event=event display=display %}
                     </div>
                     {% endfor %}
@@ -17,6 +27,8 @@
             {% endfor %}
             <!--/item-->
         </div>
+
+        {% if events|length > 3 %}
         <a class="left carousel-control" href="#events-carousel-large" data-slide="prev"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
         <a class="right carousel-control" href="#events-carousel-large" data-slide="next"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
 
@@ -25,6 +37,7 @@
             <li data-target="#events-carousel-large" data-slide-to="{{forloop.counter0}}" {% if forloop.first %}class="active"{% endif %}></li>
             {% endfor %}
         </ol>
+        {% endif %}
     </div>
 
     <div id="events-carousel-small" class="carousel slide events-carousel visible-sm-block visible-xs-block">
@@ -37,6 +50,8 @@
             {% endfor %}
             <!--/item-->
         </div>
+
+        {% if events|length > 1 %}
         <a class="left carousel-control" href="#events-carousel-small" data-slide="prev"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
         <a class="right carousel-control" href="#events-carousel-small" data-slide="next"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
 
@@ -45,6 +60,8 @@
             <li data-target="#events-carousel-small" data-slide-to="{{forloop.counter0}}" {% if forloop.first %}class="active"{% endif %}></li>
             {% endfor %}
         </ol>
+        {% endif %}
+
     </div>
 {% else %}
 
