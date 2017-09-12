@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-
+{% load settings_value %}
 {% block title %}Espacios{% endblock%}
 
 {% block content %}
@@ -36,61 +36,54 @@
     Selecciona cada punto en el mapa para ver su información
 </div>
 
-<section id="map">
-        <img src="{% static "img/drawn_map.jpg" %}" alt="Mapa">
-    <div class="point" style="left:57%;top:43%;" data-venue="8">1</div>
-    <div class="point" style="left:63%;top:28%;" data-venue="1">2</div>
-    <div class="point" style="left:59%;top:23%;" data-venue="10">3</div>
-    <div class="point" style="left:54%;top:16%;" data-venue="2">4</div>
-    <div class="point" style="left:54%;top:52%;" data-venue="11">5</div>
-    <div class="point" style="left:46%;top:57%;" data-venue="7">6</div>
-    <div class="point" style="left:34%;top:73%;" data-venue="5">7</div>
-    <div class="point" style="left:25%;top:87%;" data-venue="9">8</div>
-    <div class="point" style="left:28%;top:59%;" data-venue="6">9</div>
-    <div class="point" style="left:26%;top:78%;" data-venue="4">10</div>
-    <div class="point" style="left:15%;top:83%;" data-venue="3">11</div>
-
-    <div class="modal fade" id="venue-dialog" tabindex="-1" role="dialog" aria-labelledby="dialog_confirm_mapLabel" aria-hidden="true">
-        <div class="modal-dialog card venue-card">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p>You didn't move the map pin, are you sure it is on your address/house?</p>
-                </div>
-                <div class="modal-footer"> <span style="float:left"><button type="button" class="btn btn-default" data-dismiss="modal">No, I'll do it now </button></span>
-            <span style="float:right"><button type="button" class="btn btn-primary" data-dismiss="modal" onclick="jQuery('#mapchanged').val(1);jQuery('#registration').submit();">Yes, I am sure</button></span>
-
-                </div>
-            </div>
-        </div>
-    </div>
+<section id="map" class="loading-container" style="min-height:400px;">
+    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw loading-spinner"></i>
+    <span class="sr-only">Loading...</span>
 
 </section>
-<div class="header-bar text-center no-margin">
-</div>
 
 {% endblock %}
 
 {% block scripts %}
+{% include 'common/include_gmaps.html' %}
+
 <script type="text/javascript">
     var venue_dialog = $('#venue-dialog');
-    var map = $('#map')
-    map.on('click', '.point', function(){
-        $marker = $(this);
-        if ($marker.attr('data-venue') !== ''){
-            var data = $('.venue-'+$marker.attr('data-venue'));
-            console.log(data.html());
-            venue_dialog.find('.modal-dialog').html(data.html());
-            venue_dialog.find('.fab').show();
-        }
-        venue_dialog.modal();
-        $('.modal-backdrop').appendTo(map);
-        //removing body classes to able click events
-        $('body').removeClass();
+    var map_canvas = $('#map');
+    var media_root = {{MEDIA_URL}};
 
-     });
-     map.on('click', '.fab', function(){
-        console.log(this);
-        window.location = $(this).attr('data-href');
-     });
+    function initMap() {
+        $.get('{% url "venues_map_info" %}', function(markers){
+
+            map = new google.maps.Map(map_canvas[0], {
+                zoomControl: true,
+                scaleControl: false,
+                streetViewControl: false,
+                scaleControl:false,
+                mapTypeControl:false
+            });
+            map_canvas.removeClass('loading-container');
+
+            var bounds = new google.maps.LatLngBounds();
+            for (var i = 0; i < markers.length; i++) {
+
+              var venuePosition = new google.maps.LatLng(markers[i].latitude, markers[i].longitude);
+              var marker = new RichMarker({
+                  position: venuePosition,
+                  map: map,
+                  content: '<div class="marker-wrapper"><img src="' + media_root + markers[i].profile_image + '"></div>'
+                });
+
+                //extend the bounds to include each marker's position
+                bounds.extend(marker.position);
+
+            }
+
+            //now fit the map to the newly inclusive bounds
+            map.fitBounds(bounds);
+
+        });
+
+      }
 </script>
 {% endblock scripts %}

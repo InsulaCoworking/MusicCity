@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% load settings_value %}
 {% load l10n %}
 
 {% block title %}Conciertos en {{venue.name}}{% endblock%}
@@ -69,7 +68,10 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <div id="map" class="map"></div>
+                <div id="map" class="map loading-container">
+                    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw loading-spinner"></i>
+                    <span class="sr-only">Loading...</span>
+                </div>
             </div>
         </div>
 
@@ -80,27 +82,28 @@
 {% endblock %}
 
 {% block scripts %}
+{% include 'common/include_gmaps.html' %}
 <script>
   function initMap() {
-    var uluru = {lat: {{ venue.latitude|unlocalize }}, lng: {{ venue.longitude|unlocalize }} };
+    var venuePosition = new google.maps.LatLng({{ venue.latitude|unlocalize }}, {{ venue.longitude|unlocalize }});
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 16,
-      center: uluru,
-      zoomControl: false,
+        zoom: 16,
+        center: venuePosition,
+        zoomControl: false,
         scaleControl: true,
         streetViewControl: false,
         scaleControl:false,
         mapTypeControl:false
     });
-    var marker = new google.maps.Marker({
-      position: uluru,
-      map: map,
 
+    $('#map').removeClass('loading-container');
+
+    var marker = new RichMarker({
+      position: venuePosition,
+      map: map,
+      content: '<div class="marker-wrapper"><img src="' + '{{venue.profile_image.url}}' + '"></div>'
     });
   }
-</script>
-<script async defer
-src="https://maps.googleapis.com/maps/api/js?key={% settings_value "GMAPS_APIKEY" %}&callback=initMap">
 </script>
 
 {% endblock %}
