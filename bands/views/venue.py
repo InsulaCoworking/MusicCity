@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import json
+
+from django.core import serializers
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from bands.models import Venue, Event
 
@@ -9,6 +13,13 @@ def venues_list(request):
 
     venues = Venue.objects.all()
     return render(request, 'venue/list.html', {'venues': venues})
+
+
+def venues_map_info(request):
+
+    venues = Venue.objects.values('name', 'latitude', 'longitude', 'address', 'profile_image')
+    data = list(venues)
+    return JsonResponse(data, safe=False, content_type="application/json")
 
 def venue_detail(request, pk):
 

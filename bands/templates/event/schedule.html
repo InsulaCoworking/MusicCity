@@ -146,14 +146,14 @@
     });
 
     $('form#event-filter').on('submit', function(e){
-        selectResults.addClass('loading');
+        selectResults.addClass('loading-container');
         var form = $(this);
         e.preventDefault();
         var url = form.attr('action');
 
         $.get(url, form.serialize(), function(data){
             selectResults.find('.results').html(data);
-            selectResults.removeClass('loading');
+            selectResults.removeClass('loading-container');
 
             window.history.replaceState('page2', '', url + '?' + form.serialize());
         });

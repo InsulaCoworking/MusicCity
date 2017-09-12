@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^survey/', views.survey, name='survey'),
 
     url(r'^venues/$', views.venues_list, name='venues_list'),
+    url(r'^venues/map$', views.venues_map_info, name='venues_map_info'),
     url(r'^venues/(?P<pk>\d+)$', views.venue_detail, name='venue_detail'),
     url(r'^venues/(?P<pk>\d+)/history$', views.venue_history, name='venue_history'),
 
