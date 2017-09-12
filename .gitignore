@@ -1,2 +1,3 @@
 *.pyc
 .idea/
+musiccity/settings_secret.py
