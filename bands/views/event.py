@@ -1,4 +1,6 @@
 import datetime
+
+from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage, EmptyPage
 from django.shortcuts import render, get_object_or_404
 
 from bands.helpers import get_query
@@ -56,6 +58,17 @@ def events_schedule(request):
         events = events.filter(venue__pk=venue_filter)
     if tag_filter:
         events = events.filter(band__tag__pk=tag_filter)
+
+    paginator = Paginator(events, 3)
+    page = request.GET.get('page')
+    try:
+        events = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        events = paginator.page(1)
+    except (EmptyPage, InvalidPage):
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        events = paginator.page(paginator.num_pages)
 
     if request.is_ajax():
         return render(request, 'event/search_results.html', {

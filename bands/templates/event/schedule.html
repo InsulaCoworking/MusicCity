@@ -121,6 +121,19 @@
     var preselectDate = $('input[name="preselect_date"]');
     var selectResults = $('#search_results');
 
+    function loadResults(url){
+        if (url == null || url == '' || url.startsWith('#')){
+            return;
+        }
+
+        selectResults.addClass('loading-container');
+        $.get(url, {}, function(data){
+            selectResults.find('.results').html(data);
+            selectResults.removeClass('loading-container');
+            window.history.replaceState({}, '', url);
+        });
+    }
+
     preselectDate.on('change', function(){
         var selected = $(this);
         daterange.data('daterangepicker').setStartDate(selected.attr('data-startdate'));
@@ -146,20 +159,19 @@
     });
 
     $('form#event-filter').on('submit', function(e){
-        selectResults.addClass('loading-container');
-        var form = $(this);
         e.preventDefault();
-        var url = form.attr('action');
-
-        $.get(url, form.serialize(), function(data){
-            selectResults.find('.results').html(data);
-            selectResults.removeClass('loading-container');
-
-            window.history.replaceState('page2', '', url + '?' + form.serialize());
-        });
-
+        var form = $(this);
+        var url = form.attr('action') + '?' + form.serialize();
+        loadResults(url);
     });
 
+    selectResults.on('click', '.pagination a', function(e){
+        e.preventDefault();
+        if ($(this).parent().hasClass('active'))
+            return;
+        var url = $(this).attr('href')
+        loadResults(url);
+    });
 
 </script>
 {% endblock scripts %}

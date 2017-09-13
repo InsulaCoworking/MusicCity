@@ -9,4 +9,8 @@
             </div>
         </a>
     {% endfor %}
+
+    <div class="clearfix col-xs-12">
+        {% include 'common/pagination.html' with page=events %}
+    </div>
 </div>
