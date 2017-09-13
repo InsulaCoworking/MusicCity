@@ -36,6 +36,16 @@
     <span class="sr-only">Loading...</span>
 </section>
 
+<div class="infowindow_base hidden">
+    <a class="infowindow">
+        <div class="profile-circle card">
+            <img src="{% static "img/venue-icon.png" %}">
+        </div>
+        <span class="title"></span>
+        <span class="address"></span>
+    </a>
+</div>
+
 {% endblock %}
 
 {% block scripts %}
@@ -44,6 +54,11 @@
 <script type="text/javascript">
     var map_canvas = $('#map');
     var media_root = {{MEDIA_URL}};
+
+    var infoWindow_base = $('.infowindow_base');
+    var prev_infowindow = false;
+
+
     function initMap() {
         $.get('{% url "pros_map_info" %}', function(markers){
 
@@ -62,6 +77,20 @@
               var venuePosition = new google.maps.LatLng(markers[i].latitude, markers[i].longitude);
               var image = (markers[i].profile_image && markers[i].profile_image.length > 0)?
                             (media_root + markers[i].profile_image) : '{% static "img/pro-icon.png" %}';
+
+              windowContent = infoWindow_base.clone()
+                                .find('.title').text(markers[i].name).end()
+                                //.find('.address').text(markers[i].address).end()
+                                .find('a').attr('href', '/pros/' + markers[i].pk).end()
+                                .find('img').attr('src', image).end()
+
+
+              // A new Info Window is created and set content
+              var infowindow = new google.maps.InfoWindow({
+                content: windowContent.html(),
+                maxWidth: 350
+              });
+
               var marker = new RichMarker({
                   position: venuePosition,
                   map: map,
@@ -69,6 +98,18 @@
                 });
                 //extend the bounds to include each marker's position
                 bounds.extend(marker.position);
+
+
+                google.maps.event.addListener(marker, 'click', (function(marker,infowindow){
+                    return function() {
+                        if( prev_infowindow ) {
+                           prev_infowindow.close();
+                        }
+                        prev_infowindow = infowindow;
+                        infowindow.open(map,marker);
+                    };
+                })(marker,infowindow));
+
             }
 
             //now fit the map to the newly inclusive bounds
