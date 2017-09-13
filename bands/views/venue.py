@@ -40,6 +40,23 @@ def venue_detail(request, pk):
         'can_edit': can_edit
     })
 
+def venue_edit(request, pk):
+
+    venue = get_object_or_404(Venue, pk=pk)
+    events = Event.objects.filter(venue=venue)
+
+    can_edit = False
+    if request.user.is_authenticated():
+        if request.user.is_superuser or (
+                    request.user.has_perm('bands.manage_venue') and request.user == venue.owner ):
+            can_edit = True
+
+    return render(request, 'venue/detail.html', {
+        'venue': venue,
+        'events': events,
+        'can_edit': can_edit
+    })
+
 
 def venue_history(request, pk):
 

@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^venues/map$', views.venues_map_info, name='venues_map_info'),
     url(r'^venues/(?P<pk>\d+)$', views.venue_detail, name='venue_detail'),
     url(r'^venues/(?P<pk>\d+)/history$', views.venue_history, name='venue_history'),
+    url(r'^venues/(?P<pk>\d+)/edit', views.venue_edit, name='venue_edit'),
 
     url(r'^events/(?P<pk>\d+)$', views.event_detail, name='event_detail'),
 

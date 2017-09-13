@@ -1,13 +1,13 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from bands.models import Venue, Band
 
-
+@login_required
 def profile(request):
 
     venue = None
     params = {}
-
     if request.user.has_perm('bands.manage_venue'):
         params['manage_venue'] = True
         venues = Venue.objects.filter(owner=request.user)[:1]

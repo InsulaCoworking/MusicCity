@@ -33,7 +33,7 @@
         <div class="menu">
             <a class="fab smoothscroll" href="#info" data-toggle="tooltip" data-placement="bottom" title="Ver información"><i class="fa fa-info" aria-hidden="true" ></i></a>
             <a class="fab smoothscroll" href="{% url 'venue_history' pk=venue.pk %}" data-toggle="tooltip" data-placement="bottom" title="Ver historial de conciertos"><i class="fa fa-history" aria-hidden="true" ></i></a>
-            {% if can_edit %} <a class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a> {% endif %}
+            {% if can_edit %} <a class="fab smoothscroll" href="{% url 'venue_edit' pk=venue.pk %}" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a> {% endif %}
         </div>
     </div>
 </div>
