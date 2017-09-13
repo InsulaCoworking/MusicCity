@@ -37,32 +37,69 @@
     {% include 'common/pagination.html' with page=pros %}
 
 </div>
+
+<section id="map" class="loading-container" style="min-height:400px;">
+    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw loading-spinner"></i>
+    <span class="sr-only">Loading...</span>
+
+</section>
+
 {% endblock %}
 
 {% block scripts %}
-<script type="text/javascript" src="{% static "js/jquery.mosaicflow.min.js" %}"></script>
+{% include 'common/include_gmaps.html' %}
+
 <script type="text/javascript">
+    var map_canvas = $('#map');
+    var media_root = {{MEDIA_URL}};
+    function initMap() {
+        $.get('{% url "pros_map_info" %}', function(markers){
 
+            map = new google.maps.Map(map_canvas[0], {
+                zoomControl: true,
+                scaleControl: false,
+                streetViewControl: false,
+                scaleControl:false,
+                mapTypeControl:false
+            });
+            map_canvas.removeClass('loading-container');
+
+            var bounds = new google.maps.LatLngBounds();
+            for (var i = 0; i < markers.length; i++) {
+
+              var venuePosition = new google.maps.LatLng(markers[i].latitude, markers[i].longitude);
+              var image = (markers[i].profile_image && markers[i].profile_image.length > 0)?
+                            (media_root + markers[i].profile_image) : '{% static "img/pro-icon.png" %}';
+              var marker = new RichMarker({
+                  position: venuePosition,
+                  map: map,
+                  content: '<div class="marker-wrapper"><div class="marker"><img src="' + image + '"></div></div>'
+                });
+
+                //extend the bounds to include each marker's position
+                bounds.extend(marker.position);
+            }
+
+            //now fit the map to the newly inclusive bounds
+            map.fitBounds(bounds);
+
+        });
+      }
+</script>
+
+<script type="text/javascript">
 var tags = $('.tags');
-var bands = $('.mosaicflow__item');
-
-  $('.gallery').mosaicflow({
-    minColumns: 2,
-    minItemWidth: 260
-  }).on('mosaicflow-layout', function(){ $('.loading').fadeOut(); });
 
 tags.on('click', '.tag-filter', function(){
     var tag = $(this);
     if (tag.hasClass('active')){
         tag.removeClass('active');
         tags.removeClass('filtered');
-         $('.mosaicflow__item').show();
     }
     else{
         tags.addClass('filtered').find('.tag-filter').removeClass('active');
         tag.addClass('active');
         var filter = tag.attr('data-tag');
-        $('.mosaicflow__item').hide().filter('.'+filter).show();
     }
 });
 

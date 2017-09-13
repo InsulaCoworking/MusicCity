@@ -68,10 +68,12 @@
             for (var i = 0; i < markers.length; i++) {
 
               var venuePosition = new google.maps.LatLng(markers[i].latitude, markers[i].longitude);
+              var image = (markers[i].profile_image && markers[i].profile_image.length > 0)?
+                            (media_root + markers[i].profile_image) : '{% static "img/venue-icon.png" %}';
               var marker = new RichMarker({
                   position: venuePosition,
                   map: map,
-                  content: '<div class="marker-wrapper"><div class="marker"><img src="' + media_root + markers[i].profile_image + '"></div></div>'
+                  content: '<div class="marker-wrapper"><div class="marker"><img src="' + image + '"></div></div>'
                 });
 
                 //extend the bounds to include each marker's position

@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import json
+import random
 
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse
@@ -11,13 +12,14 @@ from bands.models import Venue, Event
 
 def venues_list(request):
 
-    venues = Venue.objects.all()
+    venues = list(Venue.objects.all())
+    random.shuffle(venues)
     return render(request, 'venue/list.html', {'venues': venues})
 
 
 def venues_map_info(request):
 
-    venues = Venue.objects.values('name', 'latitude', 'longitude', 'address', 'profile_image')
+    venues = Venue.objects.values('pk', 'name', 'latitude', 'longitude', 'address', 'profile_image')
     data = list(venues)
     return JsonResponse(data, safe=False, content_type="application/json")
 

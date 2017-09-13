@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^events/$', views.events_schedule, name='events'),
 
     url(r'^pros/$', views.pro_list, name='pros_list'),
+    url(r'^pros/map$', views.pros_map_info, name='pros_map_info'),
     url(r'^pros/(?P<pk>\d+)$', views.pro_detail, name='pro_detail'),
 
     # url(r'^billing/$', views.billing_form, name='billing'),
