@@ -1,0 +1,11 @@
+<div class="clearfix row auto-clear">
+    {% for pro in pros %}
+    <div class="col-sm-6 col-md-4 col-lg-4 resume-card-container">
+      <a href="{% url 'pro_detail' pk=pro.pk%}" class="resume_link" title="{{pro.name}}" style="border-color:{{pro.tag.color}}">
+          {% include 'professional/resume_card.html' with pro=pro %}
+      </a>
+    </div>
+     {% endfor %}
+</div>
+
+{% include 'common/pagination.html' with page=pros %}

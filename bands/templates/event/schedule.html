@@ -121,19 +121,6 @@
     var preselectDate = $('input[name="preselect_date"]');
     var selectResults = $('#search_results');
 
-    function loadResults(url){
-        if (url == null || url == '' || url.startsWith('#')){
-            return;
-        }
-
-        selectResults.addClass('loading-container');
-        $.get(url, {}, function(data){
-            selectResults.find('.results').html(data);
-            selectResults.removeClass('loading-container');
-            window.history.replaceState({}, '', url);
-        });
-    }
-
     preselectDate.on('change', function(){
         var selected = $(this);
         daterange.data('daterangepicker').setStartDate(selected.attr('data-startdate'));
@@ -162,16 +149,9 @@
         e.preventDefault();
         var form = $(this);
         var url = form.attr('action') + '?' + form.serialize();
-        loadResults(url);
+        loadResults(selectResults, url);
     });
-
-    selectResults.on('click', '.pagination a', function(e){
-        e.preventDefault();
-        if ($(this).parent().hasClass('active'))
-            return;
-        var url = $(this).attr('href')
-        loadResults(url);
-    });
+    loadPaginationAjax(selectResults);
 
 </script>
 {% endblock scripts %}

@@ -10,6 +10,11 @@ from bands.models import Professional, ProfessionalTag
 def pro_list(request):
 
     pro_list = Professional.objects.all()
+
+    tag_filter = request.GET.get('tag', None)
+    if tag_filter:
+        pro_list = pro_list.filter(tag__pk=tag_filter)
+
     paginator = Paginator(pro_list, 6)
     page = request.GET.get('page')
     try:
@@ -22,7 +27,9 @@ def pro_list(request):
         pros = paginator.page(paginator.num_pages)
 
     if request.is_ajax():
-        pass
+        return render(request, 'professional/search_results.html', {
+            'pros': pros, 'page': page
+        })
     else:
         tags = ProfessionalTag.objects.all()
         return render(request, 'professional/list.html', {

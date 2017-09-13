@@ -1,3 +1,26 @@
+
+function loadResults(resultsContainer, url){
+    if (url == null || url == '' || url.startsWith('#')){
+        return;
+    }
+    resultsContainer.addClass('loading-container');
+    $.get(url, {}, function(data){
+        resultsContainer.find('.results').html(data);
+        resultsContainer.removeClass('loading-container');
+        window.history.replaceState({}, '', url);
+    });
+}
+
+function loadPaginationAjax(){
+    list.on('click', '.pagination a', function(e){
+        e.preventDefault();
+        if ($(this).parent().hasClass('active'))
+            return;
+        var url = $(this).attr('href')
+        loadResults(list, url);
+    });
+}
+
 $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
 
