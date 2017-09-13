@@ -31,7 +31,7 @@ def pro_list(request):
             'pros': pros, 'page': page
         })
     else:
-        tags = ProfessionalTag.objects.all()
+        tags = ProfessionalTag.objects.filter(pro_tag__isnull=False).distinct()
         return render(request, 'professional/list.html', {
             'pros': pros, 'tags':tags, 'filtered_tags':None, 'page':page
         })
