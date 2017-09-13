@@ -30,7 +30,8 @@ def venue_detail(request, pk):
 
     can_edit = False
     if request.user.is_authenticated():
-        if request.user == venue.owner:
+        if request.user.is_superuser or (
+                    request.user.has_perm('bands.manage_venue') and request.user == venue.owner ):
             can_edit = True
 
     return render(request, 'venue/detail.html', {

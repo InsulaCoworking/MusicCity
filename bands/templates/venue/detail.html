@@ -102,7 +102,7 @@
     var marker = new RichMarker({
       position: venuePosition,
       map: map,
-      content: '<div class="marker-wrapper"><div class="marker"><img src="' + '{{venue.profile_image.url}}' + '"></div></div>'
+      content: '<div class="marker-wrapper"><div class="marker"><img src="' + '{%if venue.profile_image %}{{venue.profile_thumbnail.url}}{%else%}{% static "img/venue-icon.png" %}{%endif%}' + '"></div></div>'
     });
   }
 </script>
