@@ -24,12 +24,11 @@
     {% endfor %}
         </div>
 
-    <div class="clearfix gallery double-sep">
+    <div class="clearfix row">
         {% for pro in pros %}
-        <div class="mosaicflow__item {{band.tag.id}}">
-          <a href="{% url 'pro_detail' pk=pro.pk%}" class="band_link" title="{{pro.name}}" style="border-color:{{band.tag.color}}">
-              <img src="{% if pro.band_image %}{{pro.band_image.url}}{%else%}{%static "img/band-header.jpg"%}{%endif%}" alt="{{pro.name}}">
-              <span>{{pro.name}}</span>
+        <div class="col-sm-6 col-md-4 resume-card-container">
+          <a href="{% url 'pro_detail' pk=pro.pk%}" class="resume_link" title="{{pro.name}}" style="border-color:{{pro.tag.color}}">
+              {% include 'professional/resume_card.html' with pro=pro %}
           </a>
         </div>
          {% endfor %}
@@ -75,7 +74,6 @@
                   map: map,
                   content: '<div class="marker-wrapper"><div class="marker"><img src="' + image + '"></div></div>'
                 });
-
                 //extend the bounds to include each marker's position
                 bounds.extend(marker.position);
             }

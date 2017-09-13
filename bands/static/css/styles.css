@@ -474,31 +474,69 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
     left:10px;
     margin-top:-90px;
 }
-a .event-resume{
+a .event-resume, a .profile-resume{
     color:#333;
+}
+a:hover .profile-resume, a:hover .profile-resume span{
+    text-decoration:none !important;
 }
 .event-resume{
     text-align:center;
     background-color:#fff;
 }
-.event-resume .header{
+.profile-resume{
+    text-align:center;
+    background-size:cover;
+    background-position:center;
+}
+.event-resume .header, .profile-resume .header{
     width:100%;
     height: 150px;
     background-size:cover;
     background-position:center;
+}
+.event-resume .header{
     background-color:#ddd;
 }
-.event-resume .profile-circle{
+.profile-resume .header{
+    height:120px;
+}
+.profile-resume{
+    margin-bottom:2em;
+}
+.resume-card-container a{
+    text-decoration:none;
+}
+.profile-resume .profile-title{
+    display:block;
+    text-align:center;
+    font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif;
+    text-transform: uppercase;
+    font-size: 1.15em;
+}
+.profile-resume .profile-body{
+    background-color:rgba(255,255,255,0.87);
+    padding:30px 10px;
+}
+.event-resume .profile-circle, .profile-resume .profile-circle{
     margin:auto;
     margin-top:-45px;
     margin-bottom:10px;
+}
+.profile-resume .profile-circle{
+    width:90px;
+    height:90px;
+    transition:0.4s;
+    margin-top:-75px;
+}
+.profile-resume:hover .profile-circle{
+    transform:scale(1.1);
 }
 .event-resume .desc-title, .event-resume .desc-venue{ padding: 0 10px; }
 .event-resume .desc-title{
     font-size:1.15em;
     margin: 0.4em auto;
     font-weight:bold;
-
 }
 .event-resume .desc-emphasis{
     font-family: 'Oswald';

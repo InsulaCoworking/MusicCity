@@ -10,7 +10,7 @@ from bands.models import Professional, ProfessionalTag
 def pro_list(request):
 
     pro_list = Professional.objects.all()
-    paginator = Paginator(pro_list, 4)
+    paginator = Paginator(pro_list, 6)
     page = request.GET.get('page')
     try:
         pros = paginator.page(page)
