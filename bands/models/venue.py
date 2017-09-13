@@ -35,6 +35,9 @@ class Venue(models.Model):
         verbose_name = 'Escenario'
         verbose_name_plural = 'Escenarios'
         ordering = ['name']
+        permissions = (
+            ("manage_venue", "Puede gestionar un espacio"),
+        )
 
     def __unicode__(self):
         return self.name
