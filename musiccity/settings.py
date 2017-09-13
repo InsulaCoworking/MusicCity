@@ -119,6 +119,8 @@ MEDIA_ROOT = ROOT_DIR + '/media'
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/dashboard/'
+
 MAIN_PAGE_TITLE = 'AlcaláEsMúsica'
 
 from settings_secret import *

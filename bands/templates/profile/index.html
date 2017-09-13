@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load settings_value %}
+{% block title %}Espacios{% endblock%}
+
+{% block content %}
+<div class="jumbo-header minimal" style="background-image:url('{% static "img/venues-header.jpg" %}')" >
+    <div class="jumbotron">
+    </div>
+</div>
+<div class="header-bar text-center">
+</div>
+
+<div class="container">
+<div class="row dashboard">
+    <div class="col-md-6">
+        {% if manage_venue %}
+            <h1>Mi espacio</h1>
+            {% if prompt_new_venue %}
+                Todavía no tienes? Créalo!
+            {% else %}
+                <div class="list-group">
+                    <div class="list-group-header" {% if venue.image %} style="background-image:url('{{venue.image.url}}')" {% endif %}>
+                        <h3>{{venue.name}}</h3>
+                        {{venue.address}}
+                    </div>
+                    <a class="list-group-item" href="{% url 'venue_detail' pk=venue.pk %}"><i class="fa fa-eye right-margin" aria-hidden="true"></i> Ver perfil público del espacio</a>
+                    <a class="list-group-item" href="{% url 'venue_edit' pk=venue.pk %}"><i class="fa fa-pencil right-margin" aria-hidden="true"></i> Editar espacio</a>
+                    <a class="list-group-item" href="{% url 'venue_history' pk=venue.pk %}"><i class="fa fa-music right-margin" aria-hidden="true"></i> Historial de conciertos en el espacio</a>
+                </div>
+
+            {% endif %}
+        {% else %}
+
+        {% endif %}
+    </div>
+    <div class="col-md-6">
+        {% if manage_event %}
+            <h1>Conciertos</h1>
+            <div class="list-group">
+              <a class="list-group-item" href="#"><i class="fa fa-history right-margin" aria-hidden="true"></i> Mis conciertos pasados</a>
+              <a class="list-group-item" href="#"><i class="fa fa-plus right-margin" aria-hidden="true"></i> Crear concierto</a>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+</div>
+
+{% endblock %}
