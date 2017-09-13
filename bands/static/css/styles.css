@@ -1047,6 +1047,33 @@ form#event-filter .filter{
     width: auto;
 }
 
+.infowindow .profile-circle{
+    position:absolute;
+    left:0;
+    top:0;
+    height:45px;
+    width:45px;
+}
+.infowindow:hover{
+    text-decoration:none;
+}
+.infowindow .title, .infowindow .address{
+    font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif;
+    text-transform: uppercase;
+    display:block;
+    padding-left:55px;
+    font-weight: 500;
+}
+.infowindow .title{
+    color:#222;
+    font-size:18px;
+}
+.infowindow .address{
+    color:#777;
+    font-weight: 500;
+    min-height:20px;
+}
+
 .margin-top{
     margin-top:20px !important;
 }
