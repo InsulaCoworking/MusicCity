@@ -18,23 +18,19 @@
 
 <div class="container">
 
-    <div class="clearfix tags">
-    {%for tag in tags %}
-    <div class="tag-filter pull-left card" style="background-color:{{tag.color}}" data-tag="{{tag.id}}">{{tag.name}}</div>
-    {% endfor %}
-        </div>
-
-
-    <div class="clearfix row auto-clear resume-card-row">
-        {% for band in bands %}
-        <div class="col-sm-6 col-md-4 col-lg-4 resume-card-container">
-          <a href="{% url 'band_detail' pk=band.pk%}" class="resume_link" title="{{band.name}}" style="border-color:{{band.tag.color}}">
-              {% include 'band/resume_card.html' with band=band %}
-          </a>
-        </div>
-         {% endfor %}
+    <div class="clearfix tags margin-bottom text-center">
+        {%for tag in tags %}
+            <div class="tag-filter card" style="border-color:{{tag.color}}" data-tag="{{tag.id}}">{{tag.name}}</div>
+        {% endfor %}
     </div>
-    {% include 'common/pagination.html' with page=pros %}
+
+    <div id="bands-list">
+        <div class="results">
+            {% include 'band/search_results.html' with bands=bands %}
+        </div>
+        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw loading-spinner"></i>
+        <span class="sr-only">Loading...</span>
+    </div>
 
 </div>
 {% endblock %}
@@ -44,27 +40,23 @@
 <script type="text/javascript">
 
 var tags = $('.tags');
-var bands = $('.mosaicflow__item');
-
-  $('.gallery').mosaicflow({
-    minColumns: 2,
-    minItemWidth: 260
-  }).on('mosaicflow-layout', function(){ $('.loading').fadeOut(); });
-
+var list = $('#bands-list');
 tags.on('click', '.tag-filter', function(){
     var tag = $(this);
     if (tag.hasClass('active')){
         tag.removeClass('active');
         tags.removeClass('filtered');
-         $('.mosaicflow__item').show();
+        loadResults(list, '?');
     }
     else{
         tags.addClass('filtered').find('.tag-filter').removeClass('active');
         tag.addClass('active');
         var filter = tag.attr('data-tag');
-        $('.mosaicflow__item').hide().filter('.'+filter).show();
+        loadResults(list, '?tag=' + filter);
     }
 });
+
+loadPaginationAjax(list);
 
 
 </script>

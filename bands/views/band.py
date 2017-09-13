@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import random
 
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, InvalidPage
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 
@@ -12,12 +13,31 @@ from bands.models import Event, Tag, Band, BandToken
 
 def bands_list(request):
 
-    bands = list(Band.objects.all())
-    tags = Tag.objects.all()
-    random.shuffle(bands)
-    return render(request, 'band/list.html', {
-        'bands': bands, 'tags': tags
-    })
+    bands = Band.objects.all()
+    tag_filter = request.GET.get('tag', None)
+    if tag_filter:
+        bands = bands.filter(tag__pk=tag_filter)
+
+    paginator = Paginator(bands, 6)
+    page = request.GET.get('page')
+    try:
+        bands = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        bands = paginator.page(1)
+    except (EmptyPage, InvalidPage):
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        bands = paginator.page(paginator.num_pages)
+
+    if request.is_ajax():
+        return render(request, 'band/search_results.html', {
+            'bands': bands, 'page': page
+        })
+    else:
+        tags = Tag.objects.filter(band_tag__isnull=False).distinct()
+        return render(request, 'band/list.html', {
+            'bands': bands, 'tags': tags, 'page': page
+        })
 
 def band_detail(request, pk):
     band = get_object_or_404(Band, pk=pk)
