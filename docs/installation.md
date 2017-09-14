@@ -25,7 +25,6 @@ sudo make install
 Instalar pip y virtualenv
 ```
 wget https://bootstrap.pypa.io/get-pip.py
-python get-pip.py
 sudo python get-pip.py
 sudo pip install virtualenvwrapper
 ```
@@ -49,11 +48,6 @@ git clone https://github.com/InsulaCoworking/MusicCity.git
 cd MusicCity
 ```
 
-Instalamos las dependencias del proyecto:
-```
-pip install -r requirements.txt
-```
-
 Instalamos mySQL (nos pedirá introducir la constraseña de root):
 ```
 sudo apt-get install mysql-server
@@ -61,10 +55,16 @@ sudo apt-get install python-dev libmysqlclient-dev
 sudo systemctl mysql start
 ```
 
+Instalamos las dependencias del proyecto:
+```
+pip install -r requirements.txt
+```
+
+
 Entramos en la consola de mySQL (`mysqladmin -u root -p`):
 ```
 create database musiccity;
-grant all privileges on alcalasuena.* to 'insuler'@'localhost' identified by "insula";
+grant all privileges on musiccity.* to 'insuler'@'localhost' identified by "insula";
 ```
 
 ### Apache
