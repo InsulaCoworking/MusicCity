@@ -63,8 +63,10 @@
                 <div class="description">
                     <h3>{{venue.name}}</h3>
                     <p>{{ venue.description|linebreaks }}</p>
-                    <strong>Dirección</strong>
-                    <p class="lead">{{ venue.address }}</p>
+                    {% if venue.address %}
+                        <strong>Dirección</strong>
+                        <p class="lead">{{ venue.address }}</p>
+                    {% endif %}
                     {% include 'common/social_links.html' with obj=venue %}
                 </div>
             </div>
