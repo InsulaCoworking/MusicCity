@@ -27,8 +27,7 @@
         {% else %}
         <p class="lead well text-center">
             <i class="fa fa-clock-o" aria-hidden="true"></i><br>
-            <span>No hay conciertos programados actualmente para esta sala...</span><br><br>
-            <a class="btn btn-primary btn-lg" href="{% url 'venue_history' pk=venue.pk %}" role="button">Ver historial de conciertos de la sala</a>
+            <span>No hay conciertos programados actualmente...</span><br><br>
         </p>
 
     {% endif %}
