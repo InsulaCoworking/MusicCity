@@ -47,9 +47,25 @@
 
             <div class="profile-circle">
                 {% if display == "band" %}
-                        {%if band.profile_image %} <img src="{{band.profile_thumbnail.url}}">{% endif %}
+                    {%if band.profile_image %}
+                        <img src="{{band.profile_thumbnail.url}}">
+                    {%else %}
+                        {%if event.venue.profile_image %}
+                            <img src="{{event.venue.profile_thumbnail.url}}">
+                        {%else %}
+                            <img src="{% static "img/venue-icon.png" %}">
+                        {% endif %}
+                    {% endif %}
                 {% else %}
-                    {%if event.venue.profile_image %} <img src="{{event.venue.profile_thumbnail.url}}">{% endif %}
+                    {%if event.venue.profile_image %}
+                        <img src="{{event.venue.profile_thumbnail.url}}">
+                    {%else %}
+                        {%if band.profile_image %}
+                            <img src="{{band.profile_thumbnail.url}}">
+                        {%else %}
+                            <img src="{% static "img/venue-icon.png" %}">
+                        {% endif %}
+                    {% endif %}
                 {% endif %}
             </div>
 
