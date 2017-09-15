@@ -16,9 +16,9 @@
 </div>
 
 <div class="container">
-<div class="row">
+<div class="row auto-clear">
     {% for venue in venues %}
-    <div class="col-md-6 col-lg-4">
+    <div class="col-sm-6 col-md-6 col-lg-4">
         <a class="card venue-card venue-{{venue.pk}}" href="{% url 'venue_detail' pk=venue.pk %}">
 
             <div class="venue-image" {% if venue.image %} style="background-image:url('{{venue.image.url}}')" {% endif %}></div>
