@@ -59,9 +59,7 @@ def venue_edit(request, pk):
 
     if request.method == "POST":
         form = VenueForm(request.POST, request.FILES, instance=venue)
-        print "aaaaa"
         if form.is_valid():
-            print "aaaaxxxxxa"
             venue = form.save()
             return redirect('venue_detail', pk=venue.pk)
         else:

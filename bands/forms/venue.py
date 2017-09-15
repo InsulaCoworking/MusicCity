@@ -24,5 +24,7 @@ class VenueForm(forms.ModelForm):
             'facebook_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Página de Facebook'}),
             'twitter_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Perfil de Twitter'}),
             'webpage_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Página web'}),
+            'profile_image': forms.FileInput(attrs={}),
+            'image': forms.FileInput(attrs={}),
         }
 

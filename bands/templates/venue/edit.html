@@ -22,26 +22,39 @@
 {% block content %}
 <form method="POST" class="post-form" enctype="multipart/form-data">
     {% csrf_token %}
-<div class="jumbo-header jumbo-venue" {% if venue.image %} style="background-image:url('{{venue.image.url}}')" {% endif %}>
+<div class="jumbo-header jumbo-venue" id="venue-image" {% if venue.image %} style="background-image:url('{{venue.image.url}}')" {% endif %}>
     <div class="jumbotron">
+        <div class="file-field image-field absolute-pos" data-ref="#venue-image" data-ref-type="background" style="left:50%;top:50%;">
+        <div class="btn fab">
+            <span><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
+            {{form.image}}
+        </div>
     </div>
+    </div>
+
 </div>
 <div class="header-bar header-venue">
     <div class="container">
-        <div class="profile-circle">{%if venue.profile_image %} <img src="{{venue.profile_image.url}}">{% endif %}</div>
+        <div class="file-field image-field absolute-pos" data-ref="#profile-image" data-ref-type="image" style="left:10px;top:10px;">
+            <div class="btn fab">
+                <span><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
+                {{form.profile_image}}
+            </div>
+        </div>
+        <div class="profile-circle"><img id="profile-image" src="{%if venue.profile_image %} {{venue.profile_image.url}}{% endif %}"></div>
         <h1 id="venue-name">{{venue.name}}</h1>
         <p class="description">{{venue.address}}</p>
 
         <div class="menu">
             <a class="fab smoothscroll" href="{% url 'venue_history' pk=venue.pk %}" data-toggle="tooltip" data-placement="bottom" title="Ver historial de conciertos"><i class="fa fa-history" aria-hidden="true" ></i></a>
-            <a class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Guardar"><i class="fa fa-save" aria-hidden="true"></i></a>
+            <button type="submit" class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Guardar"><i class="fa fa-save" aria-hidden="true"></i></button>
         </div>
     </div>
 </div>
 
 <div class="container">
     <hr>
-
+    {{form.form_errors}}
     <div class="panel">
         <i class="fa fa-info panel-icon" aria-hidden="true"></i>
         <div class="size-check visible-md-block visible-lg-block"></div>
@@ -164,6 +177,7 @@
         }
     );
   }
+
 </script>
 
 {% endblock %}

@@ -86,6 +86,30 @@ $(document).ready(function() {
     $(window).on('resize', resizeMaps);
   }
 
+
+  $(".image-field").each(function(){
+        var field = $(this);
+        var target = field.attr('data-ref');
+        var type = field.attr('data-ref-type');
+        console.log(type);
+        field.find('input').on('change', function(){
+            var input = this;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    if (type == 'image'){
+                        $(target).attr('src', e.target.result);
+                    }
+                    else{
+                        $(target).css('background-image', 'url(' + e.target.result + ')');
+                    }
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
+    });
+
+
 });
 
 

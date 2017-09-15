@@ -169,6 +169,7 @@ a.rrss {
     background-position:center;
 }
 .jumbo-header .jumbotron{
+    position: relative;
     background-color:rgba(0,0,0,0.4);
     color:#fff;
     text-shadow: 0 0 3px #111;
@@ -383,6 +384,8 @@ a.venue-card:hover{
     cursor:pointer;
     font-size:25px;
     margin-left:10px;
+    outline:none;
+    border:none;
     border-radius:50%;
     color:#fff;
     text-align:center;
@@ -1143,6 +1146,29 @@ form#event-filter .filter{
     border-color:transparent;
     box-shadow:none;
 }
+.file-field .btn{
+    float: left;
+    height: 60px;
+    width: 60px;
+    line-height: 50px;
+    position:relative;
+    cursor:pointer;
+}
+
+.file-field input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+}
+
 .margin-top{
     margin-top:20px !important;
 }
@@ -1157,4 +1183,7 @@ form#event-filter .filter{
 }
 .top-padding{
     padding-top:20px !important;
+}
+.absolute-pos{
+    position:absolute;
 }
