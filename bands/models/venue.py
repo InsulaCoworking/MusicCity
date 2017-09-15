@@ -13,8 +13,8 @@ class Venue(models.Model):
     owner = models.ForeignKey(User, null=True, blank=True, verbose_name='Responsable')
     name = models.CharField(null=False, verbose_name='Nombre', max_length=240)
     description = models.TextField(null=False, blank=True)
-    latitude = models.FloatField(null=False)
-    longitude = models.FloatField(null=False)
+    latitude = models.FloatField(null=False, verbose_name='Latitud')
+    longitude = models.FloatField(null=False, verbose_name='Longitud')
     image = ProcessedImageField(null=True, blank=True, upload_to=RandomFileName('venue/'), verbose_name='Imagen de cabecera',
                                  processors=[ResizeToFit(900, 900, upscale=False)], format='JPEG')
     profile_image = ProcessedImageField(null=True, blank=True, upload_to=RandomFileName('venue/'),

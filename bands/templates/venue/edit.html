@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load l10n %}
+
+{% block title %}Conciertos en {{venue.name}}{% endblock%}
+
+{% block social_meta %}
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{venue.name}} - Alcalá Suena: Fiesta de la Música 2017">
+        <meta name="twitter:description" content="Todos los conciertos en {{venue.name}} durante Alcalá Suena: Fiesta de la Música 2017">
+        <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{%if venue.image %}{{venue.image.url}}{% else %}{% static "img/logo_banner.jpg" %}{% endif %}">
+
+        <meta property="og:url" content="{{request.build_absolute_uri}}" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="{{venue.name}} - Alcalá Suena: Fiesta de la Música 2017" />
+        <meta property="og:description" content="Todos los conciertos en {{venue.name}} durante Alcalá Suena: Fiesta de la Música 2017" />
+        <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{%if venue.image %}{{venue.image.url}}{% else %}{% static "img/logo_banner.jpg" %}{% endif %}" />
+{% endblock %}
+
+{% block bodyattrs %}class="venue"{% endblock%}
+
+{% block content %}
+<form method="POST" class="post-form" enctype="multipart/form-data">
+    {% csrf_token %}
+<div class="jumbo-header jumbo-venue" {% if venue.image %} style="background-image:url('{{venue.image.url}}')" {% endif %}>
+    <div class="jumbotron">
+    </div>
+</div>
+<div class="header-bar header-venue">
+    <div class="container">
+        <div class="profile-circle">{%if venue.profile_image %} <img src="{{venue.profile_image.url}}">{% endif %}</div>
+        <h1 id="venue-name">{{venue.name}}</h1>
+        <p class="description">{{venue.address}}</p>
+
+        <div class="menu">
+            <a class="fab smoothscroll" href="{% url 'venue_history' pk=venue.pk %}" data-toggle="tooltip" data-placement="bottom" title="Ver historial de conciertos"><i class="fa fa-history" aria-hidden="true" ></i></a>
+            <a class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Guardar"><i class="fa fa-save" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <hr>
+
+    <div class="panel">
+        <i class="fa fa-info panel-icon" aria-hidden="true"></i>
+        <div class="size-check visible-md-block visible-lg-block"></div>
+        <div class="row">
+            <div class="col-md-7">
+                <div class="description">
+                    <div class="form-group" data-links="#venue-name">
+                        <label>Nombre</label>
+                        {{ form.name }}
+                    </div>
+
+                    <div class="form-group" data-links="#venue-address">
+                        <label>Dirección</label>
+                        {{ form.address }}
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        {{ form.description }}
+                    </div>
+
+
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                        {{form.public_space}}
+                      </span>
+                        <div class="form-control">Espacio en la vía pública</div>
+                    </div>
+
+                    <div class="social-links">
+                        <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="Página de Facebook"><i class="fa fa-facebook " aria-hidden="true"></i></span>
+                          {{form.facebook_link}}
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="Perfil de Twitter"><i class="fa fa-twitter " aria-hidden="true"></i></span>
+                          {{form.twitter_link}}
+                        </div></div>
+
+                        <div class="form-group">
+                        <div class="input-group">
+                          <span data-toggle="tooltip" data-placement="bottom" title="Página web" class="input-group-addon" ><i class="fa fa-globe " aria-hidden="true"></i></span>
+                          {{form.webpage_link}}
+                        </div></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div id="map" class="map no-resize loading-container">
+                    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw loading-spinner"></i>
+                    <span class="sr-only">Loading...</span>
+                </div>
+
+                <div class="description">
+                        <h4 class="text-center"><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i> Geolocalización</h4>
+                        <p class="text-center">Mueve el pin por el mapa hasta posicionarlo en la localización correcta. Puedes hacer zoom con los controles</p>
+                        <div class="form-group">
+                            <label>Latitud</label>
+                            {{ form.latitude }}
+                        </div>
+                        <div class="form-group">
+                            <label>Longitud</label>
+                            {{ form.longitude }}
+                        </div>
+                </div>
+                <div class="description text-center">
+                    <input type="submit" class="right-margin left-margin btn btn-primary btn-lg" value="Guardar">
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+</div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+{% include 'common/include_gmaps.html' %}
+<script>
+  function initMap() {
+    var venuePosition = new google.maps.LatLng({{ venue.latitude|unlocalize }}, {{ venue.longitude|unlocalize }});
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: venuePosition,
+        zoomControl: true,
+        scaleControl: true,
+        streetViewControl: false,
+        mapTypeControl:false
+    });
+
+    $('#map').removeClass('loading-container');
+
+    var marker = new RichMarker({
+      position: venuePosition,
+      map: map,
+      draggable:true,
+      content: '<div class="marker-wrapper"><div class="marker"><img src="' + '{%if venue.profile_image %}{{venue.profile_thumbnail.url}}{%else%}{% static "img/venue-icon.png" %}{%endif%}' + '"></div></div>'
+    });
+
+    var latInput = $('[name="latitude"]');
+    var lngInput = $('[name="longitude"]');
+
+    google.maps.event.addListener(
+        marker,
+        'drag',
+        function() {
+            latInput.val( marker.position.lat() );
+            lngInput.val( marker.position.lng() );
+        }
+    );
+  }
+</script>
+
+{% endblock %}

@@ -69,7 +69,7 @@ $(document).ready(function() {
         interval: 10000
     });
 
-  var panelMaps = $('.panel .map');
+  var panelMaps = $('.panel .map:not(.no-resize)');
   function resizeMaps(){
     panelMaps.each(function(){
         var panel = $(this).parents('.panel');

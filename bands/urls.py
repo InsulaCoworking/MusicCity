@@ -4,28 +4,28 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^search$', views.search, name='search'),
+    url(r'^search/$', views.search, name='search'),
     url(r'^app/$', views.app_info, name='app_info'),
     url(r'^survey/', views.survey, name='survey'),
 
     url(r'^venues/$', views.venues_list, name='venues_list'),
-    url(r'^venues/map$', views.venues_map_info, name='venues_map_info'),
-    url(r'^venues/(?P<pk>\d+)$', views.venue_detail, name='venue_detail'),
-    url(r'^venues/(?P<pk>\d+)/history$', views.venue_history, name='venue_history'),
-    url(r'^venues/(?P<pk>\d+)/edit', views.venue_edit, name='venue_edit'),
+    url(r'^venues/map/$', views.venues_map_info, name='venues_map_info'),
+    url(r'^venues/(?P<pk>\d+)/$', views.venue_detail, name='venue_detail'),
+    url(r'^venues/(?P<pk>\d+)/history/$', views.venue_history, name='venue_history'),
+    url(r'^venues/(?P<pk>\d+)/edit/', views.venue_edit, name='venue_edit'),
 
-    url(r'^events/(?P<pk>\d+)$', views.event_detail, name='event_detail'),
+    url(r'^events/(?P<pk>\d+)/$', views.event_detail, name='event_detail'),
 
     url(r'^bands/$', views.bands_list, name='bands_list'),
-    url(r'^bands/(?P<pk>\d+)$', views.band_detail, name='band_detail'),
-    url(r'^band/edit/(?P<token>\w+)$', views.edit_band, name='edit_band'),
+    url(r'^bands/(?P<pk>\d+)/$', views.band_detail, name='band_detail'),
+    url(r'^band/edit/(?P<token>\w+)/$', views.edit_band, name='edit_band'),
 
     url(r'^agenda/$', views.events_schedule, name='events_schedule'),
     url(r'^events/$', views.events_schedule, name='events'),
 
     url(r'^pros/$', views.pro_list, name='pros_list'),
-    url(r'^pros/map$', views.pros_map_info, name='pros_map_info'),
-    url(r'^pros/(?P<pk>\d+)$', views.pro_detail, name='pro_detail'),
+    url(r'^pros/map/$', views.pros_map_info, name='pros_map_info'),
+    url(r'^pros/(?P<pk>\d+)/$', views.pro_detail, name='pro_detail'),
 
     # url(r'^billing/$', views.billing_form, name='billing'),
     # url(r'^billing/list/$', views.billing_list, name='billing'),

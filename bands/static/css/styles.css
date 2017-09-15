@@ -293,7 +293,7 @@ body{
     margin-bottom:3em;
 }
 .header-bar h2{ font-weight: 700; font-size:38px;}
-.header-bar p, .header-bar h3, .header-bar h4, .header-bar h5{ margin:0;}
+.header-bar p, .header-bar h3, .header-bar h4, .header-bar h5{ margin:0; min-height:1em;}
 .header-bar.secondary{
     padding:15px;
     margin-bottom:0;
@@ -1102,7 +1102,47 @@ form#event-filter .filter{
 .dashboard .list-group-item .fa{
     color:#cc0000;
 }
-
+.editable{
+    position:relative;
+}
+.editable input, .editable textarea{
+    font-size:inherit;
+    font-family:inherit;
+    text-transform:inherit;
+    color:#222;
+    border-radius:0;
+    background-color:rgba(255,255,255,0.9);
+    display:none;
+    padding:0;
+}
+.editable input, .editable textarea{
+    display:block;
+    position:absolute;
+    height:100%;
+    width:100%;
+    top:0;
+    left:0;
+}
+.social-links a {
+    vertical-align:middle;
+}
+.input-group .input-group-addon{
+    background:#1f282d;
+    color:#fff;
+    min-width:30px;
+}
+.input-group .input-group-addon i{
+    width:20px;
+    font-size:21px;
+}
+.input-group .input-group-addon input[type="checkbox"]{
+    height:18px;
+    width:18px;
+}
+.input-group div.form-control{
+    border-color:transparent;
+    box-shadow:none;
+}
 .margin-top{
     margin-top:20px !important;
 }
