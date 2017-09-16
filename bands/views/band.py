@@ -30,9 +30,12 @@ def bands_list(request):
         bands = paginator.page(paginator.num_pages)
 
     if request.is_ajax():
-        return render(request, 'band/search_results.html', {
+        response = render(request, 'band/search_results.html', {
             'bands': bands, 'page': page
         })
+        response['Cache-Control'] = 'no-cache'
+        response['Vary'] = 'Accept'
+        return response
     else:
         tags = Tag.objects.filter(band_tag__isnull=False).distinct()
         return render(request, 'band/list.html', {

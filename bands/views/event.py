@@ -50,7 +50,6 @@ def events_schedule(request):
     if ('q' in request.GET) and request.GET['q'].strip():
         query_string = request.GET['q']
         entry_query = get_query(query_string, ['title', 'venue_name', 'venue__name', 'bands__name'])
-        print entry_query
         if entry_query:
             events = events.filter(entry_query)
 
@@ -71,9 +70,12 @@ def events_schedule(request):
         events = paginator.page(paginator.num_pages)
 
     if request.is_ajax():
-        return render(request, 'event/search_results.html', {
+        response = render(request, 'event/search_results.html', {
             'events':events
         })
+        response['Cache-Control'] = 'no-cache'
+        response['Vary'] = 'Accept'
+        return response
     else:
         tags = Tag.objects.all()
         venues = Venue.objects.all()

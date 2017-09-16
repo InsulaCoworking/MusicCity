@@ -27,9 +27,12 @@ def pro_list(request):
         pros = paginator.page(paginator.num_pages)
 
     if request.is_ajax():
-        return render(request, 'professional/search_results.html', {
+        response = render(request, 'professional/search_results.html', {
             'pros': pros, 'page': page
         })
+        response['Cache-Control'] = 'no-cache'
+        response['Vary'] = 'Accept'
+        return response
     else:
         tags = ProfessionalTag.objects.filter(pro_tag__isnull=False).distinct()
         return render(request, 'professional/list.html', {
