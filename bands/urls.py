@@ -32,5 +32,8 @@ urlpatterns = [
     # url(r'^billing/download/$', views.download_csv, name='download_csv'),
     url(r'^login/$', auth_views.login, {'redirect_authenticated_user': True }, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
+
     url(r'^dashboard/$', views.profile, name='dashboard'),
+    url(r'^profile/events$', views.user_events, name='user_events'),
+    
 ]

@@ -52,6 +52,9 @@ class Event(models.Model):
         verbose_name = 'Concierto'
         verbose_name_plural = 'Conciertos'
         ordering = ['day', 'time']
+        permissions = (
+            ("manage_events", "Puede crear eventos"),
+        )
 
     def __unicode__(self):
         if self.title:

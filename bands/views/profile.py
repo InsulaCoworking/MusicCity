@@ -1,7 +1,20 @@
+import datetime
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from bands.models import Venue, Band
+from bands.models import Venue, Band, Event
+
+
+def can_manage_events(user):
+    if user.has_perm('bands.manage_events'):
+        return True
+    else:
+        if Venue.objects.filter(owner=user).count() > 0:
+            return True
+        elif Band.objects.filter(owner=user).count() > 0:
+            return True
+        else:
+            return False
 
 @login_required
 def profile(request):
@@ -18,9 +31,21 @@ def profile(request):
             params['prompt_new_venue'] = True
 
     bands = Band.objects.filter(owner=request.user)[:1]
-    if len(bands) >= 1:
+    if can_manage_events(request.user):
         params['manage_event'] = True
 
     print params
 
     return render(request, 'profile/index.html', params)
+
+
+def user_events(request):
+
+    params = {}
+    if can_manage_events(request.user):
+        params['manage_event'] = True
+
+    today = datetime.date.today()
+    params['events'] = Event.objects.filter(created_by=request.user, day__gte=today)
+
+    return render(request, 'profile/events.html', params)

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Mis conciertos{% endblock%}
+
+{% block social_meta %}
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{venue.name}} - Alcalá Suena: Fiesta de la Música 2017">
+        <meta name="twitter:description" content="Todos los conciertos en {{venue.name}} durante Alcalá Suena: Fiesta de la Música 2017">
+        <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{%if venue.image %}{{venue.image.url}}{% else %}{% static "img/logo_banner.jpg" %}{% endif %}">
+
+        <meta property="og:url" content="{{request.build_absolute_uri}}" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="{{venue.name}} - Alcalá Suena: Fiesta de la Música 2017" />
+        <meta property="og:description" content="Todos los conciertos en {{venue.name}} durante Alcalá Suena: Fiesta de la Música 2017" />
+        <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{%if venue.image %}{{venue.image.url}}{% else %}{% static "img/logo_banner.jpg" %}{% endif %}" />
+{% endblock %}
+
+{% block bodyattrs %}class="event schedule"{% endblock%}
+
+{% block extra_styles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/daterangepicker.css" %}"/>
+{% endblock extra_styles %}
+
+{% block content %}
+<div class="jumbo-header minimal">
+    <div class="jumbotron">
+      <div class="container text-center">
+            <h2>Mis conciertos</h2>
+      </div>
+    </div>
+</div>
+
+<div class="container margin-top">
+
+    <div class="row">
+        <div class="col-md-8">
+            {% if events %}
+                {% include 'event/_event_list.html' with events=events list_type='list' display='venue' %}
+            {% else %}
+                <p class="lead well text-center">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i><br>
+                    <span>No tienes ningún concierto programado...</span><br><br>
+                    <a class="btn btn-primary btn-lg" href="#" role="button">Ver mi historial de conciertos pasados</a>
+                </p>
+            {% endif %}
+        </div>
+        <div class="col-md-4 margin-top">
+
+            <div class="text-center margin-bottom"><i class="fa fa-info-circle fa-3x" aria-hidden="true"></i></div>
+            Aquí aparecen los conciertos programados por ti que todavía no han tenido lugar. Para ver el histórico de conciertos
+            pasados creados por ti, accede a <a href="#"><strong> Conciertos pasados</strong></a><br><br>
+
+            {% if manage_event %}
+                <i class="fa fa-check " aria-hidden="true"></i> Tienes permisos para crear nuevos conciertos<br><br>
+                <a class="btn btn-primary btn-lg" href="#" role="button">Crear nuevo concierto</a>
+            {% endif %}
+
+        </div>
+    </div>
+
+
+
+</div>
+
+{% endblock %}
