@@ -16,7 +16,7 @@
         <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{%if venue.image %}{{venue.image.url}}{% else %}{% static "img/logo_banner.jpg" %}{% endif %}" />
 {% endblock %}
 
-{% block bodyattrs %}class="event"{% endblock%}
+{% block bodyattrs %}class="event schedule"{% endblock%}
 
 {% block extra_styles %}
     <link rel="stylesheet" type="text/css" href="{% static "css/daterangepicker.css" %}"/>
@@ -32,10 +32,11 @@
 </div>
 
 <div class="container">
-    <div class="row margin-top">
-        <div class="col-md-3 col-lg-2 events-searchbox panel" style="margin-top:0;">
-            <i class="fa fa-search panel-icon" aria-hidden="true"></i>
-            <form id="event-filter" action="{% url 'events_schedule' %}">
+    <div class="row">
+        <div class="col-md-3 col-lg-2 events-searchbox panel">
+            <i class="fa fa-search panel-icon hidden-md hidden-lg" aria-hidden="true" data-toggle="collapse" data-target="#event-filter" aria-expanded="false" aria-controls="event-filter"></i>
+            <i class="fa fa-search panel-icon hidden-xs hidden-sm" aria-hidden="true" ></i>
+            <form id="event-filter" class="top-padding collapse" action="{% url 'events_schedule' %}">
 
                 <div class="filter margin-top">
                     <input class="form-control" id="search" value="{{query_string}}" type="text" name="q" placeholder="Buscar...">
@@ -73,29 +74,40 @@
                     </div>
                 </div>
 
-                <div class="filter">
-                    <div class="secondary header-bar"> <h5><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Por espacio</h5> </div>
-                    <select class="form-control"  id="venue_select" name="venue">
-                        <option value="" {% if not venue_filter %} selected {% endif %}>----</option>
-                        {% for venue in venues %}
-                        {% with venue.pk|slugify as venue_pk %}
-                        <option value="{{venue.pk}}" {%if venue_filter == venue_pk %} selected {%endif%}>{{venue.name}}</option>
-                        {% endwith %}
-                        {% endfor %}
-                    </select>
+                <div class="row">
+                    <div class="col-sm-6 col-md-12">
+                        <div class="filter">
+                            <div class="secondary header-bar"> <h5><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Por espacio</h5> </div>
+                            <select class="form-control"  id="venue_select" name="venue">
+                                <option value="" {% if not venue_filter %} selected {% endif %}>----</option>
+                                {% for venue in venues %}
+                                {% with venue.pk|slugify as venue_pk %}
+                                <option value="{{venue.pk}}" {%if venue_filter == venue_pk %} selected {%endif%}>{{venue.name}}</option>
+                                {% endwith %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-12">
+                        <div class="filter">
+                            <div class="secondary header-bar"> <h5><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Por etiqueta</h5> </div>
+                            <select class="form-control" id="tag_select" name="tag">
+                                <option value="" {% if not tag_filter %} selected {% endif %}>----</option>
+                                {% for tag in tags %}
+                                <option value="{{venue.pk}}" {%if tag_filter == tag.pk %} selected {%endif%}>{{tag.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="filter">
-                    <div class="secondary header-bar"> <h5><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Por etiqueta</h5> </div>
-                    <select class="form-control" id="tag_select" name="tag">
-                        <option value="" {% if not tag_filter %} selected {% endif %}>----</option>
-                        {% for tag in tags %}
-                        <option value="{{venue.pk}}" {%if tag_filter == tag.pk %} selected {%endif%}>{{tag.name}}</option>
-                        {% endfor %}
-                    </select>
+                <div class="text-center">
+                    <input type="submit" id="searchButton" class="btn btn-block btn-large btn-primary" value="Buscar">
+                    <br>
                 </div>
 
-                <input type="submit" id="searchButton" class="btn btn-large btn-primary" value="Buscar">
             </form>
         </div>
 

@@ -1097,8 +1097,29 @@ form#event-filter .filter{
 }
 .list-group-header h3{
     margin-bottom:0;
-
 }
+
+
+
+.events-searchbox, .schedule #search_results{
+    margin-top:25px;
+}
+
+@media (max-width:991px){
+    .events-searchbox, .schedule #search_results{
+        margin-top:0;
+    }
+    .events-searchbox{
+        margin-bottom:3em;
+    }
+}
+@media (min-width:992px){
+    .events-searchbox .collapse{
+        display:block !important;
+    }
+}
+
+
 .dashboard h1{
     font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif;
     text-transform: uppercase;
