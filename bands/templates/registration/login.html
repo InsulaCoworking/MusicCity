@@ -4,20 +4,40 @@
 
 {% block content %}
 
-<div class="jumbo-header jumbo-band" {% if band.band_image %} style="background-image:url('{{band.band_image.url}}')" {% endif %}>
+<div class="jumbo-header jumbo-band minimal" >
     <div class="jumbotron">
+        <div class="container text-center">
+            <h1>Entrar</h1>
+        </div>
     </div>
 </div>
-<div class="header-bar text-center "><h2>Login</h2>
-</div>
 
-<div class="container card main">
-  <form method="post" class="edit-form">
+<div class="container card main" style="max-width:500px;">
+  <form method="post" class="edit-form" >
     {% csrf_token %}
-      <table>
-    {{ form.as_table }}
-          <tr><td></td><td><button type="submit" class="btn btn-primary btn-lg">Login</button></td></tr>
-      </table>
+        <div class="form-group">
+            <label>Nombre de usuario</label>
+            {{form.username}}
+        </div>
+
+      <div class="form-group">
+          <label>Contraseña</label>
+            {{form.password}}
+        </div>
+        <p class="text-right form-group">
+          ¿Olvidaste tu contraseña?
+      </p>
+      <p class="text-center">
+          <button type="submit" class="btn btn-primary btn-lg">Entrar</button>
+      </p>
+      <!--
+      <hr>
+      <p class="text-center">
+          Todavía no tienes un usuario?
+          <a href="#" class="btn btn-primary btn-lg">Regístrate</a>
+      </p>
+        -->
+
 
   </form>
 </div>

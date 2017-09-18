@@ -1222,4 +1222,6 @@ form#event-filter .filter{
 .absolute-pos{
     position:absolute;
 }
-
+span.secondary-color{
+    color:#bbb;
+}
