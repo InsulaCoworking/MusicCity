@@ -338,6 +338,7 @@ footer .img-responsive{ max-width:80%; margin:auto; }
 .navbar-default .navbar-collapse, .navbar-default .navbar-form{ border:none;}
 .navbar-brand{ padding-top: 1px; }
 .navbar-brand-text{ color:#fff; line-height:50px; height:50px;}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover{ background-color:#c00812; color:#fff; }
 @media (max-width: 768px){
 .nav.navbar-nav{ background-color: #211916; }
 }
@@ -1210,6 +1211,10 @@ form#event-filter .filter{
     .large-padding{
         padding:10px 24px;
     }
+
+    .navbar-collapse.collapse{
+        background-color: #211916;
+    }
 }
 .top-padding{
     padding-top:20px !important;
@@ -1217,3 +1222,4 @@ form#event-filter .filter{
 .absolute-pos{
     position:absolute;
 }
+
