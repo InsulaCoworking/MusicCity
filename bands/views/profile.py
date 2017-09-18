@@ -16,10 +16,10 @@ def can_manage_events(user):
         else:
             return False
 
+
 @login_required
 def profile(request):
 
-    venue = None
     params = {}
     if request.user.has_perm('bands.manage_venue'):
         params['manage_venue'] = True
@@ -39,6 +39,7 @@ def profile(request):
     return render(request, 'profile/index.html', params)
 
 
+@login_required
 def user_events(request):
 
     params = {}
@@ -49,3 +50,16 @@ def user_events(request):
     params['events'] = Event.objects.filter(created_by=request.user, day__gte=today)
 
     return render(request, 'profile/events.html', params)
+
+
+@login_required
+def user_history(request):
+
+    params = {}
+    if can_manage_events(request.user):
+        params['manage_event'] = True
+
+    today = datetime.date.today()
+    params['events'] = Event.objects.filter(created_by=request.user, day__lt=today)
+
+    return render(request, 'profile/history.html', params)

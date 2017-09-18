@@ -48,8 +48,8 @@
         <div class="col-md-4 margin-top">
 
             <div class="text-center margin-bottom"><i class="fa fa-info-circle fa-3x" aria-hidden="true"></i></div>
-            Aquí aparecen los conciertos programados por ti que todavía no han tenido lugar. Para ver el histórico de conciertos
-            pasados creados por ti, accede a <a href="{% url 'user_history' %}"><strong> Conciertos pasados</strong></a><br><br>
+            Aquí aparecen los conciertos programados por ti que ya han pasado, y por lo tanto no se pueden editar. Para ver los conciertos
+            creados por ti que están pendientes, ve a <a href="{% url 'user_events' %}"><strong> Mis conciertos</strong></a><br><br>
 
             {% if manage_event %}
                 <i class="fa fa-check " aria-hidden="true"></i> Tienes permisos para crear nuevos conciertos<br><br>
