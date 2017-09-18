@@ -460,12 +460,12 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
     height: 70px;
     width:70px;
  }
- .header-bar{ padding-top:0; }
- .header-bar .container{
+ .header-bar.profile { padding-top:0; }
+ .header-bar.profile .container{
     padding-left: 170px;
     position:relative;
  }
-.header-bar h1{ margin-top: 0; }
+.header-bar.profile h1{ margin-top: 0; }
 .header-band .day{ font-size:3rem; display:block;}
 .header-band .hour{ display:block;
     margin:auto;
@@ -948,6 +948,7 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
 .panel.stacked{
     margin-top:-40px;
     z-index:100;
+    position: relative;
 }
 
 .band-list{
@@ -1102,6 +1103,9 @@ form#event-filter .filter{
     font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif;
     text-transform: uppercase;
 }
+.dashboard .list-group-header{
+    min-height:88px;
+}
 .dashboard .list-group-item .fa{
     color:#cc0000;
 }
@@ -1180,6 +1184,11 @@ form#event-filter .filter{
 }
 .large-padding{
     padding:10px 60px;
+}
+@media (max-width:767px){
+    .large-padding{
+        padding:10px 24px;
+    }
 }
 .top-padding{
     padding-top:20px !important;
