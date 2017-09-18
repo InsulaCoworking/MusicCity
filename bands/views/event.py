@@ -1,8 +1,10 @@
 import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage, EmptyPage
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
+from bands.forms.event import EventForm
 from bands.helpers import get_query
 from bands.models import Event, Tag, Venue
 
@@ -96,3 +98,40 @@ def events_schedule(request):
                 'nextweek_end': nextweek_end
             }
         })
+
+
+@login_required
+def event_add(request):
+
+    params = { 'new_event': True }
+    if request.user.has_perm('bands.manage_events'):
+        # can create events in any venue or with any band
+        params['venues'] = Venue.objects.all()
+    else:
+
+        if request.user.has_perm('bands.manage_venue'):
+            # if user owns a venue, can create events in that venue
+            params['manage_venue'] = True
+            venues = Venue.objects.filter(owner=request.user)[:1]
+            if len(venues) >= 1:
+                params['venue'] = venues[0]
+            else:
+                params['prompt_new_venue'] = True
+        else:
+            # if user owns a band, can create events with that band in any venue
+            params['venues'] = Venue.objects.all()
+
+    if request.method == "POST":
+        form = EventForm(request.POST, request.FILES)
+        if form.is_valid():
+            event = form.save()
+            return redirect('event_detail', pk=event.pk)
+        else:
+            print form.errors.as_data()
+    else:
+        form = EventForm()
+
+    params['form'] = form
+    print params
+
+    return render(request, 'event/form.html', params)

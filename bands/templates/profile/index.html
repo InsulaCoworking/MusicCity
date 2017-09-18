@@ -50,7 +50,7 @@
                 <div class="list-group-header" style="background-image:url('{% static "img/band-header.jpg" %}')">
 
                     </div>
-                <a class="list-group-item" href="#"><i class="fa fa-plus right-margin" aria-hidden="true"></i> Crear concierto</a>
+                <a class="list-group-item" href="{% url 'event_add' %}"><i class="fa fa-plus right-margin" aria-hidden="true"></i> Crear concierto</a>
               <a class="list-group-item" href="{% url 'user_events' %}"><i class="fa fa-music right-margin" aria-hidden="true"></i> Conciertos programados</a>
                 <a class="list-group-item" href="{% url 'user_history' %}"><i class="fa fa-history right-margin" aria-hidden="true"></i> Mis conciertos pasados</a>
 

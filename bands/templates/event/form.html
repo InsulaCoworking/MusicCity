@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Crear evento{% endblock%}
+
+
+{% block bodyattrs %}class="event"{% endblock%}
+
+{% block content %}
+<div class="jumbo-header minimal">
+    <div class="jumbotron">
+      <div class="container text-center">
+      </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="panel stacked event-resume">
+
+            {% with event.bands.all|first as band %}
+            <div class="panel-header"
+                {% if event.poster %}
+                    style="background-image:url('{{event.poster.url}}')"
+                 {% else%}
+                    {% if band.band_image %}
+                        style="background-image:url('{{band.band_image.url}}')"
+                    {% else %}
+                        {% if event.venue.image %} style="background-image:url('{{event.venue.image.url}}')" {% endif %}
+                    {% endif %}
+                 {% endif %}
+            ></div>
+
+            <div class="profile-circle">
+                {% if display == "band" %}
+                    {%if band.profile_image %}
+                        <img src="{{band.profile_thumbnail.url}}">
+                    {%else %}
+                        {%if event.venue.profile_image %}
+                            <img src="{{event.venue.profile_thumbnail.url}}">
+                        {%else %}
+                            <img src="{% static "img/venue-icon.png" %}">
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    {%if event.venue.profile_image %}
+                        <img src="{{event.venue.profile_thumbnail.url}}">
+                    {%else %}
+                        {%if band.profile_image %}
+                            <img src="{{band.profile_thumbnail.url}}">
+                        {%else %}
+                            <img src="{% static "img/venue-icon.png" %}">
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            {% endwith %}
+
+            <div class="large-padding">
+                <div class="row">
+                    <div class="col-md-6 desc-title text-left">{{event}}</div>
+                    <div class="col-md-6 desc-title text-right"><strong><span class="right-margin">{{event.day|date:"d/m/Y"}} </span><i class="fa fa-clock-o"></i> {{event.time}}</strong></div>
+                </div>
+                <p class="lead text-left">{{event.venue_title}}<br><span class="sub">{{event.venue_direction}}</span></p>
+                <p class="text-left margin-top">{{event.description}}</p>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        {% if event.bands %}
+                            <ul class="band-list">
+                            {% for band in event.bands.all %}
+                                <a href="{% url 'band_detail' pk=band.pk %}"><li>
+                                    <div class="profile-circle">
+                                        {%if band.profile_image %} <img src="{{band.profile_image.url}}">{% endif %}
+                                    </div>
+                                    {{band}}<br><span class="sub">{{band.tag}}</span>
+                                </li></a>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6 margin-bottom margin-top">
+                        {% if not event.price %}
+                            <span class="desc-emphasis"><i class="fa fa-ticket" aria-hidden="true"></i> GRATIS</span>
+                        {% else %}
+                            <div class="price">
+                                <strong>Precio</strong><br>
+                                <span class="desc-emphasis">{{event.price}}€</span>
+                            </div>
+                            {% if event.price_preorder %}
+                            <div class="price">
+                                <strong>Anticipada</strong><br>
+                                <span class="desc-emphasis">{{event.price_preorder}}€</span>
+                            </div>
+                            {% endif %}
+                            {% if event.ticket_link %}
+                            <div class="text-center margin-top">
+                                <a class="btn btn-primary btn-lg" target="_blank" href="{{event.ticket_link}}" role="button"><i class="fa fa-ticket right-margin" aria-hidden="true"></i>Comprar entradas</a>
+                            </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <br><br>
+    <div class="row">
+        <div class="col-md-5 col-md-offset-1">
+            <div class="secondary header-bar text-right margin-bottom"> <h4><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Compartir en redes</h4> </div>
+            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. </p>
+        </div>
+        <div class="col-md-5">{% include 'event/_resume_card.html' with event=event display=venue hide_btn=True %}</div>
+
+    </div>
+
+</div>
+
+{% endblock %}

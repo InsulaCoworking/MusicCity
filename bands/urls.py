@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^venues/(?P<pk>\d+)/history/$', views.venue_history, name='venue_history'),
     url(r'^venues/(?P<pk>\d+)/edit/', views.venue_edit, name='venue_edit'),
 
-    url(r'^events/(?P<pk>\d+)/$', views.event_detail, name='event_detail'),
+
 
     url(r'^bands/$', views.bands_list, name='bands_list'),
     url(r'^bands/(?P<pk>\d+)/$', views.band_detail, name='band_detail'),
@@ -22,6 +22,8 @@ urlpatterns = [
 
     url(r'^agenda/$', views.events_schedule, name='events_schedule'),
     url(r'^events/$', views.events_schedule, name='events'),
+    url(r'^events/add/$', views.event_add, name='event_add'),
+    url(r'^events/(?P<pk>\d+)/$', views.event_detail, name='event_detail'),
 
     url(r'^pros/$', views.pro_list, name='pros_list'),
     url(r'^pros/map/$', views.pros_map_info, name='pros_map_info'),
