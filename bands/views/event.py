@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from bands.forms.event import EventForm
 from bands.helpers import get_query
-from bands.models import Event, Tag, Venue
+from bands.models import Event, Tag, Venue, Band
 
 
 def event_detail(request, pk):
@@ -124,7 +124,20 @@ def event_add(request):
     if request.method == "POST":
         form = EventForm(request.POST, request.FILES)
         if form.is_valid():
-            event = form.save()
+
+            event = form.save(commit=False)
+
+            event_bands = form.cleaned_data.get('event_bands')
+            bands = event_bands.split(',')
+
+
+            event.save()
+
+            for order, band_pk in enumerate(bands, start=1):
+                band = Band.objects.get(pk=band_pk)
+                print band
+                event.bands.add(band)
+
             return redirect('event_detail', pk=event.pk)
         else:
             print form.errors.as_data()

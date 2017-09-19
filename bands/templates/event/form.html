@@ -24,7 +24,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 panel stacked">
-            <form method="POST" class="post-form description" enctype="multipart/form-data">
+            <form method="POST" id="event-form" class="post-form description" enctype="multipart/form-data">
             {% csrf_token %}
             <h3>{% if new_event %} Crear evento {% else %} Editar evento {% endif %}</h3><br>
 
@@ -105,9 +105,11 @@
                 {% endif %}
                 </div>
 
-                <div class="col-sm-6 text-center margin-bottom"><h4>Artistas</h4>
-                <ul class="band-list">
-                    <a href="#"><li><div class="profile-circle"><i class="fa fa-plus" aria-hidden="true"></i></div>Añadir banda</li></a>
+                <div class="col-sm-6 text-center margin-bottom">
+                    <h4>Artistas</h4>
+                {{form.event_bands}}
+                <ul class="band-list" id="bands-selected">
+                    <a  data-toggle="modal" data-target="#band-modal"><li><div class="profile-circle"><i class="fa fa-plus" aria-hidden="true"></i></div>Añadir banda</li></a>
                 </ul>
                 </div>
 
@@ -240,6 +242,31 @@
 
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="band-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Elige banda a añadir</h4>
+      </div>
+      <div class="modal-body">
+              <div id="bands-list" data-initial="{% url 'bands_list' %}" data-preservehistory="true">
+            <div class="results">
+
+                </div>
+            <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw loading-spinner"></i>
+            <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 
@@ -265,6 +292,31 @@
         daterange.focus();
     });
 
+var list = $('#bands-list');
+var selected = $('#bands-selected');
+var bandModal = $('#band-modal');
+var bandsInput = $('input[name="event_bands"]');
+
+loadPaginationAjax(list);
+list.find('.results').on('click', '.resume-card-container > a', function(e){
+    e.preventDefault();
+    var band = $(this);
+    var elem = $('<li></li>')
+                    .attr('data-id', band.attr('data-id'))
+                    .append(band.find('.profile-circle').clone())
+                    .append(band.find('.profile-title').text())
+                    .append('<br>')
+                    .append('<span class="sub">' + band.find('.profile-desc').text() + '</span>')
+    selected.prepend(elem);
+    bandModal.modal('hide');
+});
+
+$('#event-form').on('submit', function(e){
+    var ids = selected.find('li').map(function(){
+        return $(this).attr('data-id');
+    }).get();
+    bandsInput.val(ids.join(','));
+});
 
 </script>
 {% endblock scripts %}

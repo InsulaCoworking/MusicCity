@@ -11,6 +11,8 @@ class EventForm(forms.ModelForm):
         kwargs.setdefault('label_suffix', '')
         form = super(EventForm, self).__init__(*args, **kwargs)
 
+    event_bands = forms.CharField(widget=forms.HiddenInput())
+
     class Meta:
         model = Event
         exclude = ['created_by']
@@ -22,7 +24,6 @@ class EventForm(forms.ModelForm):
 
             'poster': forms.FileInput(attrs={}),
 
-            'bands': forms.HiddenInput(),
             'venue': forms.HiddenInput(),
 
             'day': forms.DateInput(attrs={'class': 'form-control'}),

@@ -5,6 +5,7 @@ import random
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, InvalidPage
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 from django.utils import timezone
 
 from bands.forms.band import BandForm
@@ -18,7 +19,7 @@ def bands_list(request):
     if tag_filter:
         bands = bands.filter(tag__pk=tag_filter)
 
-    paginator = Paginator(bands, 6)
+    paginator = Paginator(bands, 2)
     page = request.GET.get('page')
     try:
         bands = paginator.page(page)
@@ -31,7 +32,7 @@ def bands_list(request):
 
     if request.is_ajax():
         response = render(request, 'band/search_results.html', {
-            'bands': bands, 'page': page
+            'ajax_url': reverse('bands_list'), 'bands': bands, 'page': page
         })
         response['Cache-Control'] = 'no-cache'
         response['Vary'] = 'Accept'
