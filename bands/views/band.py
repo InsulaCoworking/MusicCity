@@ -19,7 +19,7 @@ def bands_list(request):
     if tag_filter:
         bands = bands.filter(tag__pk=tag_filter)
 
-    paginator = Paginator(bands, 2)
+    paginator = Paginator(bands, 6)
     page = request.GET.get('page')
     try:
         bands = paginator.page(page)
