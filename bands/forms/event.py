@@ -16,7 +16,7 @@ class EventForm(forms.ModelForm):
         exclude = ['created_by']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows':6}),
             'venue_address': forms.TextInput(attrs={'class': 'form-control'}),
             'venue_name': forms.TextInput(attrs={'class': 'form-control'}),
 
@@ -28,8 +28,8 @@ class EventForm(forms.ModelForm):
             'day': forms.DateInput(attrs={'class': 'form-control'}),
             'time': forms.TimeInput(attrs={'class': 'form-control'}),
 
-            'price': forms.NumberInput(attrs={'class': 'form-control'}),
-            'price_preorder': forms.NumberInput(attrs={'class': 'form-control'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control text-right', 'placeholder':0.00}),
+            'price_preorder': forms.NumberInput(attrs={'class': 'form-control text-right', 'placeholder':0.00}),
             'ticket_link': forms.TextInput(attrs={'class': 'form-control'}),
         }
 

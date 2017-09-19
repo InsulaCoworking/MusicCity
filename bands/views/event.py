@@ -130,6 +130,8 @@ def event_add(request):
             print form.errors.as_data()
     else:
         form = EventForm()
+        if params['venue']:
+            form = EventForm(initial={'venue':params['venue'].pk})
 
     params['form'] = form
     print params

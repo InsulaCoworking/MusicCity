@@ -954,6 +954,7 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
 
 .band-list{
     list-style:none;
+    padding:0;
 }
 .band-list a{ display:block; text-decoration:none; color:inherit;  position:relative; border-radius:5px;}
 .band-list a:hover{ font-weight:bold; background-color:#c7ced0;
@@ -972,6 +973,7 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
    width:60px;
    left:10px;
    top:50%;
+   line-height: 55px;
    margin-top:-30px;
 }
 .band-list a:after{
@@ -1018,7 +1020,13 @@ form#event-filter .filter{
 .loading-container .loading-spinner{
     display:block;
 }
-
+.poster-image{
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
+    background-color:#ddd;
+    position:relative;
+}
 .marker-wrapper{
     position:absolute;
 }

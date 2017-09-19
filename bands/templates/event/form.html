@@ -6,6 +6,12 @@
 
 {% block bodyattrs %}class="event"{% endblock%}
 
+
+{% block extra_styles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/daterangepicker.css" %}"/>
+{% endblock extra_styles %}
+
+
 {% block content %}
 <div class="jumbo-header minimal">
     <div class="jumbotron">
@@ -17,6 +23,116 @@
 
 <div class="container">
     <div class="row">
+        <div class="col-md-12 panel stacked">
+            <form method="POST" class="post-form description" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h3>{% if new_event %} Crear evento {% else %} Editar evento {% endif %}</h3><br>
+
+                {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group" data-links="#venue-name">
+                        <label>Título</label>
+                        {{ form.title }}
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group" data-links="#venue-address">
+                        <label>Fecha</label>
+                        {{ form.day }}
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group" data-links="#venue-address">
+                        <label>Hora</label>
+                        {{ form.time }}
+                    </div>
+                </div>
+
+                <div class="col-sm-8 col-md-9">
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        {{ form.description }}
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-md-3">
+                    <div class="form-group">
+                        <label>Imagen de cabecera</label>
+                        <div class="poster-image" id="poster-image" style="height:150px;width:100%;">
+                        <div class="file-field image-field absolute-pos" data-ref="#poster-image" data-ref-type="background"  style="left:50%;top:50%;margin-top:-30px;margin-left:-40px;">
+                            <div class="btn fab">
+                                <span><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
+                                {{form.poster}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+                <div class="col-sm-6 text-center ">
+                    <h4>Espacio</h4>
+                    {{form.venue}}
+                {% if manage_venue and venue %}
+                    <ul class="band-list">
+                        <li>{{venue.name}}
+                            <div class="profile-circle">
+                                {%if venue.profile_image %} <img src="{{venue.profile_image.url}}">{% endif %}
+                            </div>
+                            <div class="sub">{{venue.address}}</div>
+                        </li>
+                    </ul>
+                {% endif %}
+                </div>
+
+                <div class="col-sm-6 text-center margin-bottom"><h4>Artistas</h4>
+                <ul class="band-list">
+                    <a href="#"><li><div class="profile-circle"><i class="fa fa-plus" aria-hidden="true"></i></div>Añadir banda</li></a>
+                </ul>
+                </div>
+
+                <div class="col-sm-4">
+                    <label>Anticipada</label>
+                    <div class="input-group">
+                        {{form.price_preorder}}
+                    <span class="input-group-addon">€</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label>Taquilla</label>
+                    <div class="input-group">
+                        {{form.price}}
+                        <span class="input-group-addon">€</span>
+                    </div>
+                </div>
+                <div class="col-sm-4"><label>Link entradas</label>{{form.ticket_link}}</div>
+
+
+                <div class="col-sm-12 margin-top text-right"><button class="btn btn-primary btn-lg" type="submit">{% if new_event %} Publicar evento {% else %} Guardar {% endif %}</button> </div>
+            </form>
+        </div>
+
+        <div class="col-md-5 hidden">
         <div class="panel stacked event-resume">
 
             {% with event.bands.all|first as band %}
@@ -27,7 +143,13 @@
                     {% if band.band_image %}
                         style="background-image:url('{{band.band_image.url}}')"
                     {% else %}
-                        {% if event.venue.image %} style="background-image:url('{{event.venue.image.url}}')" {% endif %}
+                        {% if event.venue.image %}
+                            style="background-image:url('{{event.venue.image.url}}')"
+                        {% else %}
+                            {% if venue %}
+                                style="background-image:url('{{event.venue.image.url}}')"
+                            {% endif %}
+                        {% endif %}
                     {% endif %}
                  {% endif %}
             ></div>
@@ -60,11 +182,11 @@
 
             <div class="large-padding">
                 <div class="row">
-                    <div class="col-md-6 desc-title text-left">{{event}}</div>
-                    <div class="col-md-6 desc-title text-right"><strong><span class="right-margin">{{event.day|date:"d/m/Y"}} </span><i class="fa fa-clock-o"></i> {{event.time}}</strong></div>
+                    <div class="col-md-6 desc-title text-left" id="event-title">{{event}}</div>
+                    <div class="col-md-6 desc-title text-right" id="event-date"><strong><span class="right-margin">{{event.day|date:"d/m/Y"}} </span><i class="fa fa-clock-o"></i> <span id="event-time">{{event.time}}</span> </strong></div>
                 </div>
-                <p class="lead text-left">{{event.venue_title}}<br><span class="sub">{{event.venue_direction}}</span></p>
-                <p class="text-left margin-top">{{event.description}}</p>
+                <p class="lead text-left" id="event-venue-title">{{event.venue_title}}<br><span id="event-venue-direction" class="sub">{{event.venue_direction}}</span></p>
+                <p class="text-left margin-top" id="event-description">{{event.description}}</p>
 
                 <div class="row">
 
@@ -89,7 +211,11 @@
                         {% else %}
                             <div class="price">
                                 <strong>Precio</strong><br>
-                                <span class="desc-emphasis">{{event.price}}€</span>
+                                <div class="input-group">
+                                    <span class="desc-emphasis">{{event.price}}€</span>
+                                     <span class="input-group-addon">€</span>
+                                </div>
+
                             </div>
                             {% if event.price_preorder %}
                             <div class="price">
@@ -107,21 +233,38 @@
                 </div>
 
             </div>
-
+            </div>
         </div>
     </div>
 
-
-    <br><br>
-    <div class="row">
-        <div class="col-md-5 col-md-offset-1">
-            <div class="secondary header-bar text-right margin-bottom"> <h4><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Compartir en redes</h4> </div>
-            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. </p>
-        </div>
-        <div class="col-md-5">{% include 'event/_resume_card.html' with event=event display=venue hide_btn=True %}</div>
-
-    </div>
 
 </div>
 
 {% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript" src="{% static "js/moment.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/daterangepicker.js" %}"></script>
+<script type="text/javascript">
+    var day = $('input[name="day"]');
+
+    day.daterangepicker({
+        singleDatePicker: true,
+        showDropdowns:false,
+        locale: {
+            format: 'DD/MM/YYYY'
+        }
+    });
+
+    var endDate = $('input[name="end_date"]');
+    var preselectDate = $('input[name="preselect_date"]');
+    var selectResults = $('#search_results');
+
+    $('#dateRangeBtn').on('click', function(){
+        daterange.focus();
+    });
+
+
+</script>
+{% endblock scripts %}
