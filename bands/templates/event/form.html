@@ -32,6 +32,7 @@
     {% for field in form %}
         {% for error in field.errors %}
             <div class="alert alert-danger">
+                {{ field }}
                 <strong>{{ error|escape }}</strong>
             </div>
         {% endfor %}
@@ -76,31 +77,33 @@
                     <div class="form-group">
                         <label>Imagen de cabecera</label>
                         <div class="poster-image" id="poster-image" style="height:150px;width:100%;">
-                        <div class="file-field image-field absolute-pos" data-ref="#poster-image" data-ref-type="background"  style="left:50%;top:50%;margin-top:-30px;margin-left:-40px;">
-                            <div class="btn fab">
-                                <span><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
-                                {{form.poster}}
+                            <div class="file-field image-field absolute-pos" data-ref="#poster-image" data-ref-type="background"  style="left:50%;top:50%;margin-top:-30px;margin-left:-40px;">
+                                <div class="btn fab">
+                                    <span><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
+                                    {{form.poster}}
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
-
-            </div>
-
-
-
 
                 <div class="col-sm-6 text-center ">
                     <h4>Espacio</h4>
                     {{form.venue}}
                 {% if manage_venue and venue %}
-                    <ul class="band-list">
-                        <li>{{venue.name}}
-                            <div class="profile-circle">
-                                {%if venue.profile_image %} <img src="{{venue.profile_image.url}}">{% endif %}
-                            </div>
-                            <div class="sub">{{venue.address}}</div>
-                        </li>
+                    <ul class="profile-list">
+                        {% include 'venue/_list_elem.html' with venue=venue %}
+                    </ul>
+                {%else %}
+                    <ul class="profile-list" id="venue-selected">
+                        <a href="#" data-toggle="modal" data-target="#venue-modal" >
+                            <li class="default-add">
+                                <div class="profile-circle"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                                Enlazar espacio
+                                <div class="sub">Si es en un espacio de Alcalá, enlázalo!</div>
+                            </li>
+                        </a>
                     </ul>
                 {% endif %}
                 </div>
@@ -108,8 +111,14 @@
                 <div class="col-sm-6 text-center margin-bottom">
                     <h4>Artistas</h4>
                 {{form.event_bands}}
-                <ul class="band-list" id="bands-selected">
-                    <a  data-toggle="modal" data-target="#band-modal"><li><div class="profile-circle"><i class="fa fa-plus" aria-hidden="true"></i></div>Añadir banda</li></a>
+                <ul class="profile-list" id="bands-selected">
+                    <a href="#" data-toggle="modal" data-target="#band-modal">
+                        <li  class="default-add">
+                            <div class="profile-circle"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                            Añadir banda
+                            <div class="sub">Si participa alguna banda alcalaína en el concierto, enlázala!</div>
+                        </li>
+                    </a>
                 </ul>
                 </div>
 
@@ -194,7 +203,7 @@
 
                     <div class="col-md-6">
                         {% if event.bands %}
-                            <ul class="band-list">
+                            <ul class="profile-list">
                             {% for band in event.bands.all %}
                                 <a href="{% url 'band_detail' pk=band.pk %}"><li>
                                     <div class="profile-circle">
@@ -245,13 +254,13 @@
 
 <!-- Modal -->
 <div class="modal fade" id="band-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Elige banda a añadir</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body large-padding">
               <div id="bands-list" data-initial="{% url 'bands_list' %}" data-preservehistory="true">
             <div class="results">
 
@@ -259,6 +268,31 @@
             <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw loading-spinner"></i>
             <span class="sr-only">Loading...</span>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="venue-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Elige el espacio del concierto</h4>
+      </div>
+      <div class="modal-body large-padding">
+              <ul class="row profile-list">
+                    {% for venue in venues %}
+                  <a href="#" class="col-md-6 select-venue">
+                    {% include 'venue/_list_elem.html' with venue=venue %}
+                    </a>
+                      {% endfor %}
+
+                </ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -294,8 +328,11 @@
 
 var list = $('#bands-list');
 var selected = $('#bands-selected');
+var venueSelected = $('#venue-selected');
 var bandModal = $('#band-modal');
+var venueModal = $('#venue-modal');
 var bandsInput = $('input[name="event_bands"]');
+var venueInput = $('input[name="venue"]');
 
 loadPaginationAjax(list);
 list.find('.results').on('click', '.resume-card-container > a', function(e){
@@ -316,6 +353,18 @@ $('#event-form').on('submit', function(e){
         return $(this).attr('data-id');
     }).get();
     bandsInput.val(ids.join(','));
+});
+
+venueModal.find('.select-venue').on('click', function(){
+    var venue = $(this).find('li');
+    var venueId = venue.attr('data-id');
+    venueSelected
+        .find('li[data-id]').remove().end()
+        .find('a')
+            .find('.default-add').hide().end()
+            .append(venue.clone())
+    venueModal.modal('hide');
+    venueInput.val(venueId);
 });
 
 </script>

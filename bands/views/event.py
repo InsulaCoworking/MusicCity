@@ -60,7 +60,7 @@ def events_schedule(request):
     if tag_filter:
         events = events.filter(band__tag__pk=tag_filter)
 
-    paginator = Paginator(events, 3)
+    paginator = Paginator(events, 6)
     page = request.GET.get('page')
     try:
         events = paginator.page(page)
@@ -125,26 +125,29 @@ def event_add(request):
         form = EventForm(request.POST, request.FILES)
         if form.is_valid():
 
-            event = form.save(commit=False)
+            event = form.save()
 
             event_bands = form.cleaned_data.get('event_bands')
             bands = event_bands.split(',')
-
+            for order, band_pk in enumerate(bands, start=1):
+                try:
+                    pk = int(band_pk)
+                    band = Band.objects.get(pk=pk)
+                    event.bands.add(band)
+                except:
+                    pass
 
             event.save()
-
-            for order, band_pk in enumerate(bands, start=1):
-                band = Band.objects.get(pk=band_pk)
-                print band
-                event.bands.add(band)
 
             return redirect('event_detail', pk=event.pk)
         else:
             print form.errors.as_data()
     else:
-        form = EventForm()
-        if params['venue']:
+        if 'venue' in params:
             form = EventForm(initial={'venue':params['venue'].pk})
+        else:
+            form = EventForm()
+
 
     params['form'] = form
     print params

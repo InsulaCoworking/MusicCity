@@ -1,0 +1,8 @@
+{% load staticfiles %}
+<li data-id="{{venue.pk}}">
+    <div class="profile-circle">
+        <img src="{%if venue.profile_image %}{{venue.profile_image.url}}{% else %}{% static "img/venue-icon.png" %} {% endif %}">
+    </div>
+    {{venue.name}}
+    <div class="sub">{{venue.address}}</div>
+</li>

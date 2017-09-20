@@ -952,14 +952,14 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
     position: relative;
 }
 
-.band-list{
+.profile-list{
     list-style:none;
     padding:0;
 }
-.band-list a{ display:block; text-decoration:none; color:inherit;  position:relative; border-radius:5px;}
-.band-list a:hover{ font-weight:bold; background-color:#c7ced0;
+.profile-list a{ display:block; text-decoration:none; color:inherit;  position:relative; border-radius:5px;}
+.profile-list a:hover{ font-weight:bold; background-color:#c7ced0;
     color:#222; }
-.band-list li{
+.profile-list li{
     position:relative;
     text-align:left;
     min-height:80px;
@@ -967,7 +967,7 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
     padding-left:90px;
     font-size:1.3em;
 }
-.band-list .profile-circle{
+.profile-list .profile-circle{
    position:absolute;
    height:60px;
    width:60px;
@@ -976,7 +976,7 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
    line-height: 55px;
    margin-top:-30px;
 }
-.band-list a:after{
+.profile-list a:after{
     display:block;
     position:absolute;
     font: normal normal normal 14px/1 FontAwesome;
@@ -990,11 +990,11 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
     -webkit-font-smoothing: antialiased;
     opacity:0;
 }
-.band-list a:hover:after{
+.profile-list a:hover:after{
     right:20px;
     opacity:1;
 }
-.band-list .sub, .lead .sub{
+.profile-list .sub, .lead .sub{
     font-size:0.8em;
     color:#777;
 }

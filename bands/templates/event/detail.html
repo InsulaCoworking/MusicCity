@@ -83,7 +83,7 @@
 
                     <div class="col-md-6">
                         {% if event.bands %}
-                            <ul class="band-list">
+                            <ul class="profile-list">
                             {% for band in event.bands.all %}
                                 <a href="{% url 'band_detail' pk=band.pk %}"><li>
                                     <div class="profile-circle">

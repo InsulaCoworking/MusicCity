@@ -11,7 +11,7 @@ class EventForm(forms.ModelForm):
         kwargs.setdefault('label_suffix', '')
         form = super(EventForm, self).__init__(*args, **kwargs)
 
-    event_bands = forms.CharField(widget=forms.HiddenInput())
+    event_bands = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Event
