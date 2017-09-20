@@ -16,11 +16,26 @@
 </div>
 
 <div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            Mostrar:
+        <div class="btn-group" data-toggle="buttons">
+          <label class="btn btn-primary active">
+            <input type="radio" name="options" id="option1" autocomplete="off" checked> Todos
+          </label>
+          <label class="btn btn-primary">
+            <input type="radio" name="options" id="option2" autocomplete="off"> Vía pública
+          </label>
+          <label class="btn btn-primary">
+            <input type="radio" name="options" id="option3" autocomplete="off"> Salas
+          </label>
+        </div>
+    </div>
+    </div>
 <div class="row auto-clear">
     {% for venue in venues %}
     <div class="col-sm-6 col-md-6 col-lg-4">
         <a class="card venue-card venue-{{venue.pk}}" href="{% url 'venue_detail' pk=venue.pk %}">
-
             <div class="venue-image" {% if venue.image %} style="background-image:url('{{venue.image.url}}')" {% endif %}></div>
             <div data-href="{% url 'venue_detail' pk=venue.pk %}" class="card fab" style="display:none;"><i class="fa right fa-search" aria-hidden="true"></i></div>
             <span class="title">{{venue.name}}</span>
