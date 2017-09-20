@@ -198,7 +198,7 @@ a.rrss {
 .jumbo-header .description{
     font-size:14px;
 }
-
+.navbar-brand img{ height:48px; }
 .app-info img{
     margin:auto; max-width:90%;
     margin-bottom:-180px;
@@ -448,7 +448,7 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
     color: #fff;
     -webkit-animation: pull-down 700ms infinite alternate;
     animation: pull-down 700ms infinite alternate;
-    text-shadow: 0 3px 3px #c00812;
+    text-shadow: 0 3px 3px rgba(0,0,0,0.6);
 }
 .showmore:hover, .showmore:active{ color:#f1f1f1; }
 
