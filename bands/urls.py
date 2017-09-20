@@ -10,10 +10,10 @@ urlpatterns = [
 
     url(r'^venues/$', views.venues_list, name='venues_list'),
     url(r'^venues/map/$', views.venues_map_info, name='venues_map_info'),
+    url(r'^venues/add/', views.venue_add, name='venue_add'),
     url(r'^venues/(?P<pk>\d+)/$', views.venue_detail, name='venue_detail'),
     url(r'^venues/(?P<pk>\d+)/history/$', views.venue_history, name='venue_history'),
     url(r'^venues/(?P<pk>\d+)/edit/', views.venue_edit, name='venue_edit'),
-
 
 
     url(r'^bands/$', views.bands_list, name='bands_list'),

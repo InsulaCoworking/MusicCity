@@ -132,7 +132,7 @@
             <div class="secondary header-bar text-right margin-bottom"> <h4><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Compartir en redes</h4> </div>
             <p>¡Dale difusión al evento! Con los botones de abajo puedes compartir el concierto en las principales redes sociales y aplicaciones de mensajería con un solo click.<br>También puedes guardar la tarjeta del evento como imagen y compartirla con tus contactos.</p>
             <div class="social-links text-center">
-                {% include 'common/share_link.html' with link=request.get_full_path text=event.title  %}
+                {% include 'common/share_link.html' with link=request.get_full_path text=event  %}
                 <!--<a href="#" data-toggle="tooltip" data-placement="bottom" title="Guardar como imagen"><i class="fa fa-telegram" aria-hidden="true"></i></a>-->
             </div>
         </div>

@@ -27,6 +27,7 @@ def venues_map_info(request):
     data = list(venues)
     return JsonResponse(data, safe=False, content_type="application/json")
 
+
 def venue_detail(request, pk):
 
     venue = get_object_or_404(Venue, pk=pk)
@@ -43,6 +44,7 @@ def venue_detail(request, pk):
         'events': events,
         'can_edit': can_edit
     })
+
 
 @login_required
 def venue_edit(request, pk):
@@ -69,6 +71,30 @@ def venue_edit(request, pk):
     return render(request, 'venue/edit.html', { 'form': form, 'venue':venue })
 
 
+@login_required
+def venue_add(request):
+
+    can_edit = False
+    if request.user.is_superuser or request.user.has_perm('bands.manage_venue'):
+        can_edit = True
+
+    if not can_edit:
+        return redirect( reverse('dashboard') + '?permissions=false' )
+
+    if request.method == "POST":
+        form = VenueForm(request.POST, request.FILES)
+        if form.is_valid():
+            venue = form.save()
+            return redirect('venue_detail', pk=venue.pk)
+        else:
+            print form.errors.as_data()
+    else:
+        form = VenueForm()
+
+    return render(request, 'venue/edit.html', { 'is_new': True, 'form': form, 'venue': None })
+
+
+@login_required
 def venue_history(request, pk):
 
     venue = get_object_or_404(Venue, pk=pk)

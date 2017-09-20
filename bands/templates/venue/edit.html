@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load settings_value %}
 {% load l10n %}
 
 {% block title %}Conciertos en {{venue.name}}{% endblock%}
@@ -46,7 +47,7 @@
         <p class="description">{{venue.address}}</p>
 
         <div class="menu">
-            <a class="fab smoothscroll" href="{% url 'venue_history' pk=venue.pk %}" data-toggle="tooltip" data-placement="bottom" title="Ver historial de conciertos"><i class="fa fa-history" aria-hidden="true" ></i></a>
+            {% if venue %} <a class="fab smoothscroll" href="{% url 'venue_history' pk=venue.pk %}" data-toggle="tooltip" data-placement="bottom" title="Ver historial de conciertos"><i class="fa fa-history" aria-hidden="true" ></i></a> {% endif %}
             <button type="submit" class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Guardar"><i class="fa fa-save" aria-hidden="true"></i></button>
         </div>
     </div>
@@ -120,10 +121,12 @@
                         <div class="form-group">
                             <label>Latitud</label>
                             {{ form.latitude }}
+                            {% if form.latitude.errors %} <div class="alert alert-danger"> {{form.latitude.errors}}</div> {% endif %}
                         </div>
                         <div class="form-group">
                             <label>Longitud</label>
                             {{ form.longitude }}
+                            {% if form.longitude.errors %} <div class="alert alert-danger"> {{form.longitude.errors}}</div> {% endif %}
                         </div>
                 </div>
                 <div class="description text-center">
@@ -146,7 +149,12 @@
 {% include 'common/include_gmaps.html' %}
 <script>
   function initMap() {
+{% if venue %}
     var venuePosition = new google.maps.LatLng({{ venue.latitude|unlocalize }}, {{ venue.longitude|unlocalize }});
+{% else %}
+    var venuePosition = new google.maps.LatLng({% settings_value "INITIAL_LATITUDE"|unlocalize %}, {% settings_value "INITIAL_LONGITUDE"|unlocalize %});
+{% endif %}
+
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 16,
         center: venuePosition,

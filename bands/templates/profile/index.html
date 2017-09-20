@@ -26,7 +26,8 @@
         {% if manage_venue %}
             <h1>Mi espacio</h1>
             {% if prompt_new_venue %}
-                Todavía no tienes? Créalo!
+                <p> Tienes permisos de usuario para gestionar un espacio, pero aún no tienes uno. Créalo!</p>
+        <div class="margin-top"><a href="{% url 'venue_add' %}" class="btn btn-primary btn-lg"><i class="fa fa-plus right-margin" aria-hidden="true"></i>Crear espacio</a></div>
             {% else %}
                 <div class="list-group">
                     <div class="list-group-header" {% if venue.image %} style="background-image:url('{{venue.image.url}}')" {% endif %}>
