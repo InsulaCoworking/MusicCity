@@ -516,6 +516,9 @@ a:hover .profile-resume, a:hover .profile-resume span{
 .event-resume{
     text-align:center;
     background-color:#fff;
+    max-width:480px;
+    margin:auto;
+    position:relative;
 }
 .profile-resume{
     text-align:center;
