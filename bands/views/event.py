@@ -125,11 +125,13 @@ def event_add(request):
         form = EventForm(request.POST, request.FILES)
         if form.is_valid():
 
-            event = form.save()
+            event = form.save(commit=False)
+            event.created_by = request.user
+            event.save()
 
             event_bands = form.cleaned_data.get('event_bands')
             bands = event_bands.split(',')
-            for order, band_pk in enumerate(bands, start=1):
+            for order, band_pk in enumerate(bands):
                 try:
                     pk = int(band_pk)
                     band = Band.objects.get(pk=pk)
