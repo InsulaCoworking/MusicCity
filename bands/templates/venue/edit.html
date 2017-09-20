@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="profile-circle"><img id="profile-image" src="{%if venue.profile_image %} {{venue.profile_image.url}}{% endif %}"></div>
-        <h1 id="venue-name">{{venue.name}}</h1>
+        <h1 id="venue-name">{{venue.name}}{% if is_new %} Nuevo espacio {%endif%}</h1>
         <p class="description">{{venue.address}}</p>
 
         <div class="menu">
@@ -130,7 +130,7 @@
                         </div>
                 </div>
                 <div class="description text-center">
-                    <input type="submit" class="right-margin left-margin btn btn-primary btn-lg" value="Guardar">
+                    <button type="submit" class="right-margin left-margin btn btn-primary btn-lg">{% if is_new %} Crear espacio {% else %} Guardar {% endif %}</button>
                 </div>
 
             </div>
