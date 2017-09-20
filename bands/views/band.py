@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import random
 
+import datetime
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, InvalidPage
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -45,10 +46,16 @@ def bands_list(request):
 
 def band_detail(request, pk):
     band = get_object_or_404(Band, pk=pk)
-    events = Event.objects.filter(bands__id=band.id)
+    today = datetime.date.today()
+    events = Event.objects.filter(bands__id=band.id, day__gte=today)
+
+    can_edit = request.user.is_authenticated() and  (request.user.is_superuser or (
+                    request.user == band.owner ))
+
     return render(request, 'band/detail.html', {
         'band': band,
         'events': events,
+        'can_edit': can_edit,
         'view': request.GET.get('view', None)
     })
 

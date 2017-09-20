@@ -28,10 +28,17 @@
         <div class="profile-circle">{%if band.profile_image %} <img src="{{band.profile_image.url}}">{% endif %}</div>
         <h1>{{band.name}}</h1>
         <p class="description">{{band.tag.name}}</p>
+
+        <div class="menu">
+            {% if events %}
+                <a class="fab smoothscroll" href="#events" data-toggle="tooltip" data-placement="bottom" title="Ver conciertos"><i class="fa fa-music" aria-hidden="true" ></i></a>
+            {% endif %}
+            {% if can_edit %} <a class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a> {% endif %}
+        </div>
     </div>
 </div>
 
-<div class="container">
+<div class="container {% if events or can_edit %} top-padding {%endif%}">
 
     <div class="row">
         <div class="col-md-7">
@@ -43,9 +50,13 @@
         </div>
         <div class="col-md-5">
             {% if band.embed_code %} <div class="embed">{{band.embed_code|safe}} </div>{% endif %}
+            <a id="events" name="events"></a>
+            <div class="secondary header-bar margin-top"> <h4><i class="fa fa-music right-margin" aria-hidden="true"></i> Próximos conciertos</h4> </div>
             {% if events %}
-                <div class="secondary header-bar margin-top"> <h4><i class="fa fa-music right-margin" aria-hidden="true"></i> Próximos conciertos</h4> </div>
+
                 {% include 'event/_event_list.html' with events=events list_type='list' display='venue' %}
+            {% else %}
+                <div class="margin-top margin-bottom">No hay conciertos programados actualmente...</div>
             {% endif %}
 
         </div>
