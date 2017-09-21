@@ -1,2 +1,10 @@
-* linguist-vendored
-*.html linguist-vendored=false
+*.html linguist-vendored=true
+
+# Binary files
+# ============
+*.db		binary
+*.p 		binary
+*.pkl 		binary
+*.pyc 		binary
+*.pyd		binary
+*.pyo 		binary
