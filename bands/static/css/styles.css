@@ -507,11 +507,13 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
     font-family: 'Raleway', sans-serif;
     font-weight:bold;
  }
- .header-bar .menu{
+ .header-bar .menu, .panel .menu{
     text-align:right;
     position:absolute;
     right:40px;
-
+ }
+ .panel .menu{
+    margin-top:-35px;
  }
  .profile-circle{
     width: 140px;

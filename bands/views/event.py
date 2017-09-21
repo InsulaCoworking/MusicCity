@@ -15,7 +15,9 @@ def event_detail(request, pk):
 
     can_edit = False
     if request.user.is_authenticated():
-        if request.user.is_superuser or request.user == event.created_by:
+        if request.user.is_superuser:
+            pass
+        elif request.user == event.created_by and event.day > datetime.date.today():
             can_edit = True
 
     return render(request, 'event/detail.html', {
