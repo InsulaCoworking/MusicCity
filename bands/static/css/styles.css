@@ -1034,6 +1034,22 @@ body.snapshot .header-band .col-sm-6{ margin-bottom:-5px;}
     font-size:0.8em;
     color:#777;
 }
+.profile-list .remove{
+    position:absolute;
+    top:50%;
+    margin-top:-20px;
+    height:40px;
+    width:40px;
+    line-height:40px;
+    text-align:center;
+    right:10px;
+    font-size:28px;
+    border-radius:50%;
+}
+.profile-list .remove:hover{
+    background-color:#ddd;
+    cursor:pointer;
+}
 form#event-filter .filter{
     padding-top:10px;
     margin-bottom:1em;

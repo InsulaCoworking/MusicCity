@@ -123,6 +123,7 @@
                             <div class="profile-circle small">
                             <img src="{%if band.profile_image %}{{band.profile_thumbnail.url}}{%endif%}" alt="">
                             </div>{{band.name}}<br><span class="sub">{{band.genre}}</span>
+                            <i class="fa fa-close remove" data-toggle="tooltip" data-placement="left" title="Quitar banda" aria-hidden="true"></i>
                         </li>
 
                         {% endfor %}
@@ -156,112 +157,11 @@
 
 
                 <div class="col-sm-12 margin-top text-right"><button class="btn btn-primary btn-lg" type="submit">{% if new_event %} Publicar evento {% else %} Guardar {% endif %}</button> </div>
+            </div>
             </form>
+
         </div>
 
-        <div class="col-md-5 hidden">
-        <div class="panel stacked event-resume">
-
-            {% with event.bands.all|first as band %}
-            <div class="panel-header"
-                {% if event.poster %}
-                    style="background-image:url('{{event.poster.url}}')"
-                 {% else%}
-                    {% if band.band_image %}
-                        style="background-image:url('{{band.band_image.url}}')"
-                    {% else %}
-                        {% if event.venue.image %}
-                            style="background-image:url('{{event.venue.image.url}}')"
-                        {% else %}
-                            {% if venue %}
-                                style="background-image:url('{{event.venue.image.url}}')"
-                            {% endif %}
-                        {% endif %}
-                    {% endif %}
-                 {% endif %}
-            ></div>
-
-            <div class="profile-circle">
-                {% if display == "band" %}
-                    {%if band.profile_image %}
-                        <img src="{{band.profile_thumbnail.url}}">
-                    {%else %}
-                        {%if event.venue.profile_image %}
-                            <img src="{{event.venue.profile_thumbnail.url}}">
-                        {%else %}
-                            <img src="{% static "img/venue-icon.png" %}">
-                        {% endif %}
-                    {% endif %}
-                {% else %}
-                    {%if event.venue.profile_image %}
-                        <img src="{{event.venue.profile_thumbnail.url}}">
-                    {%else %}
-                        {%if band.profile_image %}
-                            <img src="{{band.profile_thumbnail.url}}">
-                        {%else %}
-                            <img src="{% static "img/venue-icon.png" %}">
-                        {% endif %}
-                    {% endif %}
-                {% endif %}
-            </div>
-
-            {% endwith %}
-
-            <div class="large-padding">
-                <div class="row">
-                    <div class="col-md-6 desc-title text-left" id="event-title">{{event}}</div>
-                    <div class="col-md-6 desc-title text-right" id="event-date"><strong><span class="right-margin">{{event.day|date:"d/m/Y"}} </span><i class="fa fa-clock-o"></i> <span id="event-time">{{event.time}}</span> </strong></div>
-                </div>
-                <p class="lead text-left" id="event-venue-title">{{event.venue_title}}<br><span id="event-venue-direction" class="sub">{{event.venue_direction}}</span></p>
-                <p class="text-left margin-top" id="event-description">{{event.description}}</p>
-
-                <div class="row">
-
-                    <div class="col-md-6">
-                        {% if event.bands %}
-                            <ul class="profile-list">
-                            {% for band in event.bands.all %}
-                                <a href="{% url 'band_detail' pk=band.pk %}"><li>
-                                    <div class="profile-circle">
-                                        {%if band.profile_image %} <img src="{{band.profile_image.url}}">{% endif %}
-                                    </div>
-                                    {{band}}<br><span class="sub">{{band.tag}}</span>
-                                </li></a>
-                            {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </div>
-
-                    <div class="col-md-6 margin-bottom margin-top">
-                        {% if not event.price %}
-                            <span class="desc-emphasis"><i class="fa fa-ticket" aria-hidden="true"></i> GRATIS</span>
-                        {% else %}
-                            <div class="price">
-                                <strong>Precio</strong><br>
-                                <div class="input-group">
-                                    <span class="desc-emphasis">{{event.price}}€</span>
-                                     <span class="input-group-addon">€</span>
-                                </div>
-
-                            </div>
-                            {% if event.price_preorder %}
-                            <div class="price">
-                                <strong>Anticipada</strong><br>
-                                <span class="desc-emphasis">{{event.price_preorder}}€</span>
-                            </div>
-                            {% endif %}
-                            {% if event.ticket_link %}
-                            <div class="text-center margin-top">
-                                <a class="btn btn-primary btn-lg" target="_blank" href="{{event.ticket_link}}" role="button"><i class="fa fa-ticket right-margin" aria-hidden="true"></i>Comprar entradas</a>
-                            </div>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                </div>
-
-            </div>
-            </div>
-        </div>
     </div>
 
 
@@ -350,6 +250,11 @@ var venueModal = $('#venue-modal');
 var bandsInput = $('input[name="event_bands"]');
 var venueInput = $('input[name="venue"]');
 
+selected.on('click', '.remove', function(){
+    var band = $(this).parent();
+    band.remove();
+});
+
 loadPaginationAjax(list);
 list.find('.results').on('click', '.resume-card-container > a', function(e){
     e.preventDefault();
@@ -360,6 +265,7 @@ list.find('.results').on('click', '.resume-card-container > a', function(e){
                     .append(band.find('.profile-title').text())
                     .append('<br>')
                     .append('<span class="sub">' + band.find('.profile-desc').text() + '</span>')
+                    .append('<i class="fa fa-close remove" data-toggle="tooltip" data-placement="left" title="Quitar banda" aria-hidden="true"></i>')
     selected.prepend(elem);
     bandModal.modal('hide');
 });
