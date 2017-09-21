@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^events/$', views.events_schedule, name='events'),
     url(r'^events/add/$', views.event_add, name='event_add'),
     url(r'^events/(?P<pk>\d+)/$', views.event_detail, name='event_detail'),
+    url(r'^events/(?P<pk>\d+)/edit/$', views.event_edit, name='event_edit'),
 
     url(r'^pros/$', views.pro_list, name='pros_list'),
     url(r'^pros/map/$', views.pros_map_info, name='pros_map_info'),

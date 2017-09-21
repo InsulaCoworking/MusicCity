@@ -3,28 +3,19 @@ import datetime
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage, EmptyPage
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 
 from bands.forms.event import EventForm
 from bands.helpers import get_query
 from bands.models import Event, Tag, Venue, Band
 
 
-def event_detail(request, pk):
-
-    event = get_object_or_404(Event, pk=pk)
-
-    can_edit = False
-    if request.user.is_authenticated():
-        if request.user.is_superuser:
-            pass
-        elif request.user == event.created_by and event.day > datetime.date.today():
-            can_edit = True
-
-    return render(request, 'event/detail.html', {
-        'event': event,
-        'can_edit': can_edit
-    })
-
+def can_edit_event(user, event):
+    return user.is_authenticated() and (
+                user.is_superuser
+            or (
+                user == event.created_by and event.day > datetime.date.today()
+            ))
 
 def events_schedule(request):
 
@@ -102,6 +93,17 @@ def events_schedule(request):
         })
 
 
+def event_detail(request, pk):
+
+    event = get_object_or_404(Event, pk=pk)
+    can_edit = can_edit_event(request.user, event)
+
+    return render(request, 'event/detail.html', {
+        'event': event,
+        'can_edit': can_edit
+    })
+
+
 @login_required
 def event_add(request):
 
@@ -119,9 +121,7 @@ def event_add(request):
                 params['venue'] = venues[0]
             else:
                 params['prompt_new_venue'] = True
-        else:
-            # if user owns a band, can create events with that band in any venue
-            params['venues'] = Venue.objects.all()
+
 
     if request.method == "POST":
         form = EventForm(request.POST, request.FILES)
@@ -152,6 +152,57 @@ def event_add(request):
         else:
             form = EventForm()
 
+    params['form'] = form
+
+    return render(request, 'event/form.html', params)
+
+
+
+@login_required
+def event_edit(request, pk):
+
+    event = get_object_or_404(Event, pk=pk)
+    can_edit = can_edit_event(request.user, event)
+
+    if not can_edit:
+        return redirect(reverse('event_detail', kwargs={'pk': event.pk}) + '?permissions=false')
+
+    params = { 'event': event }
+    if request.user.has_perm('bands.manage_events'):
+        # can create events in any venue or with any band
+        params['venues'] = Venue.objects.all()
+        params['venue'] = event.venue
+    else:
+        if request.user.has_perm('bands.manage_venue'):
+            # if user owns a venue, can create events in that venue
+            params['manage_venue'] = True
+            params['venue'] = event.venue
+
+    if request.method == "POST":
+        form = EventForm(request.POST, request.FILES, instance=event)
+        if form.is_valid():
+
+            event = form.save(commit=False)
+            event.created_by = request.user
+            event.save()
+
+            event.bands.clear()
+            event_bands = form.cleaned_data.get('event_bands')
+            bands = event_bands.split(',')
+            for order, band_pk in enumerate(bands):
+                try:
+                    pk = int(band_pk)
+                    band = Band.objects.get(pk=pk)
+                    event.bands.add(band)
+                except:
+                    pass
+            event.save()
+
+            return redirect('event_detail', pk=event.pk)
+        else:
+            print form.errors.as_data()
+    else:
+        form = EventForm(instance=event)
 
     params['form'] = form
     print params

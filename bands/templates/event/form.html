@@ -98,11 +98,15 @@
                 {%else %}
                     <ul class="profile-list" id="venue-selected">
                         <a href="#" data-toggle="modal" data-target="#venue-modal" >
-                            <li class="default-add">
-                                <div class="profile-circle"><i class="fa fa-plus" aria-hidden="true"></i></div>
-                                Enlazar espacio
-                                <div class="sub">Si es en un espacio de Alcalá, enlázalo!</div>
-                            </li>
+                            {% if venue %}
+                                {% include 'venue/_list_elem.html' with venue=venue %}
+                            {% else %}
+                                <li class="default-add">
+                                    <div class="profile-circle"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                                    Enlazar espacio
+                                    <div class="sub">Si es en un espacio de Alcalá, enlázalo!</div>
+                                </li>
+                            {% endif %}
                         </a>
                     </ul>
                 {% endif %}
@@ -112,6 +116,17 @@
                     <h4>Artistas</h4>
                 {{form.event_bands}}
                 <ul class="profile-list" id="bands-selected">
+
+                    {% if event and event.bands %}
+                        {% for band in event.bands.all %}
+                        <li data-id="{{band.pk}}">
+                            <div class="profile-circle small">
+                            <img src="{%if band.profile_image %}{{band.profile_thumbnail.url}}{%endif%}" alt="">
+                            </div>{{band.name}}<br><span class="sub">{{band.genre}}</span>
+                        </li>
+
+                        {% endfor %}
+                    {% endif %}
                     <a href="#" data-toggle="modal" data-target="#band-modal">
                         <li  class="default-add">
                             <div class="profile-circle"><i class="fa fa-plus" aria-hidden="true"></i></div>
@@ -119,6 +134,7 @@
                             <div class="sub">Si participa alguna banda alcalaína en el concierto, enlázala!</div>
                         </li>
                     </a>
+
                 </ul>
                 </div>
 

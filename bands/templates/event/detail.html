@@ -33,7 +33,7 @@
     <div class="row">
         <div class="panel stacked event-resume">
             <div class="menu">
-                {% if can_edit %} <a href="#" class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>{% endif %}
+                {% if can_edit %} <a href="{% url 'event_edit' pk=event.pk %}" class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>{% endif %}
             </div>
             {% with event.bands.all|first as band %}
             <div class="panel-header"
