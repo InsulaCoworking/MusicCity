@@ -3,9 +3,11 @@ from __future__ import unicode_literals
 
 import json
 import random
+import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
+from django.db.models import Count, Case, When, CharField
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -23,15 +25,31 @@ def venues_list(request):
 
 def venues_map_info(request):
 
-    venues = Venue.objects.values('pk', 'name', 'latitude', 'longitude', 'address', 'profile_image')
+    today = datetime.date.today()
+    venues = Venue.objects.all()
+    values = ['id', 'name', 'latitude', 'longitude', 'address', 'profile_image']
+
+
+    if ('type' in request.GET) and request.GET['type'].strip():
+        type = request.GET['type']
+        if (type == 'recent_events'):
+            venues = venues.annotate(eventscount=Case(
+                        When(venue__day__gte=today, then=1),
+                        output_field=CharField(),
+                    ))\
+                .filter(eventscount__gt=0)
+            values += 'eventscount'
+
+    venues = venues.values()
     data = list(venues)
     return JsonResponse(data, safe=False, content_type="application/json")
 
 
 def venue_detail(request, pk):
 
+    today = datetime.date.today()
     venue = get_object_or_404(Venue, pk=pk)
-    events = Event.objects.filter(venue=venue)
+    events = Event.objects.filter(venue=venue, day__gte=today)
 
     can_edit = False
     if request.user.is_authenticated():

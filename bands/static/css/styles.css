@@ -1122,12 +1122,16 @@ form#event-filter .filter{
 .infowindow:hover{
     text-decoration:none;
 }
-.infowindow .title, .infowindow .address{
+.infowindow{
+    font-weight: 500;
+    color:#347289;
+    font-size:15px;
     font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif;
     text-transform: uppercase;
+}
+.infowindow .title, .infowindow .address, .infowindow span{
     display:block;
     padding-left:55px;
-    font-weight: 500;
 }
 .infowindow .title{
     color:#222;
