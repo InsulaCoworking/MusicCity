@@ -98,13 +98,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
 LANGUAGE_CODE = 'es-es'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 INTERNAL_IPS = ('127.0.0.1',)
@@ -122,5 +118,7 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 
 MAIN_PAGE_TITLE = 'AlcaláEsMúsica'
+
+# Import secret settings (see settings_secret.py.template for reference)
 
 from settings_secret import *
