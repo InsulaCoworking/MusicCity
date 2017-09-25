@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import datetime
+from django.db.models import Count
 from django.shortcuts import render
 
 from bands import helpers
@@ -9,6 +11,7 @@ from bands.models import Event, Venue, Tag
 
 
 def index(request):
+    today = datetime.date.today()
     share_filter = request.GET.get('share', None)
     if share_filter:
         try:
@@ -18,10 +21,11 @@ def index(request):
         except ValueError:
             pass
 
-    venues = Venue.objects.all()
     tags = Tag.objects.all()
     days = Event.objects.order_by('day').values_list('day', flat=True).distinct()
-    events = Event.objects.all().order_by('-day')[:9]
+    events = Event.objects.all().order_by('day')[:9]
+
+    venues = Venue.objects.all().annotate(count=Count('venue')).filter(count__gt=0)
 
     return render(request, 'index.html', { 'venues': venues, 'tags':tags, 'days':days, 'events':events })
 

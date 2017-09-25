@@ -34,6 +34,23 @@
 
     </div> <!-- /container -->
 
+<section id="map" class="loading-container" style="min-height:400px;">
+    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw loading-spinner"></i>
+    <span class="sr-only">Loading...</span>
+
+</section>
+
+<div class="infowindow_base hidden">
+    <a class="infowindow">
+        <div class="profile-circle card">
+            <img src="{% static "img/venue-icon.png" %}">
+        </div>
+        <span class="title"></span>
+        <span class="address"></span>
+        <span><strong class="events"> </strong> Conciertos</span>
+    </a>
+</div>
+
 <div class="header-bar text-center top-padding">
     <div class="container">
         <h1 class="margin-top">Quiénes somos</h1>
@@ -54,3 +71,78 @@ Esta asociación a día de hoy es una pizarra en blanco, con algunas lineas pint
     </div>
 </section>
 {% endblock %}
+
+{% block scripts %}
+{% include 'common/include_gmaps.html' %}
+
+<script type="text/javascript">
+    var venue_dialog = $('#venue-dialog');
+    var map_canvas = $('#map');
+    var media_root = {{MEDIA_URL}};
+
+    var infoWindow_base = $('.infowindow_base');
+    var prev_infowindow = false;
+
+    function initMap() {
+        $.get('{% url "venues_map_info" %}?type=recent_events', function(markers){
+
+            map = new google.maps.Map(map_canvas[0], {
+                zoomControl: true,
+                scaleControl: false,
+                streetViewControl: false,
+                scaleControl:false,
+                mapTypeControl:false
+            });
+            map_canvas.removeClass('loading-container');
+
+            var bounds = new google.maps.LatLngBounds();
+            for (var i = 0; i < markers.length; i++) {
+
+              var venuePosition = new google.maps.LatLng(markers[i].latitude, markers[i].longitude);
+              var image = (markers[i].profile_image && markers[i].profile_image.length > 0)?
+                            (media_root + markers[i].profile_image) : '{% static "img/venue-icon.png" %}';
+
+
+              windowContent = infoWindow_base.clone()
+                                .find('.title').text(markers[i].name).end()
+                                .find('.address').text(markers[i].address).end()
+                                .find('a').attr('href', '/venues/' + markers[i].id).end()
+                                .find('.events').text(markers[i].eventscount).end()
+                                .find('img').attr('src', image).end()
+
+
+              // A new Info Window is created and set content
+              var infowindow = new google.maps.InfoWindow({
+                content: windowContent.html(),
+                maxWidth: 350
+              });
+
+              var marker = new RichMarker({
+                  position: venuePosition,
+                  map: map,
+                  content: '<div class="marker-wrapper"><div class="marker"><img src="' + image + '"></div></div>'
+                });
+
+                //extend the bounds to include each marker's position
+                bounds.extend(marker.position);
+
+              google.maps.event.addListener(marker, 'click', (function(marker,infowindow){
+                    return function() {
+                        if( prev_infowindow ) {
+                           prev_infowindow.close();
+                        }
+                        prev_infowindow = infowindow;
+                        infowindow.open(map,marker);
+                    };
+                })(marker,infowindow));
+
+            }
+
+            //now fit the map to the newly inclusive bounds
+            map.fitBounds(bounds);
+
+        });
+
+      }
+</script>
+{% endblock scripts %}

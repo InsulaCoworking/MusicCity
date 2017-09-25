@@ -270,7 +270,7 @@ h3.eventsday{
 .card.main{
     transform:none;
     background-color:#fff;
-    margin-top:-25px;
+    margin:-25px auto;
     position:relative;
     z-index:10;
     max-width:95%;

@@ -104,7 +104,7 @@
               windowContent = infoWindow_base.clone()
                                 .find('.title').text(markers[i].name).end()
                                 .find('.address').text(markers[i].address).end()
-                                .find('a').attr('href', '/venues/' + markers[i].pk).end()
+                                .find('a').attr('href', '/venues/' + markers[i].id).end()
                                 .find('img').attr('src', image).end()
 
 
