@@ -26,15 +26,15 @@ def profile(request):
         venues = Venue.objects.filter(owner=request.user)[:1]
         if len(venues) >= 1:
             params['venue'] = venues[0]
-            params['manage_event'] = True
         else:
             params['prompt_new_venue'] = True
 
-    bands = Band.objects.filter(owner=request.user)[:1]
+    if request.user.has_perm('bands.manage_band'):
+        params['manage_band'] = True
+        params['bands'] = Band.objects.filter(owner=request.user)
+
     if can_manage_events(request.user):
         params['manage_event'] = True
-
-    print params
 
     return render(request, 'profile/index.html', params)
 

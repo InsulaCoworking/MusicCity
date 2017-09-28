@@ -108,11 +108,17 @@ def event_detail(request, pk):
 def event_add(request):
 
     params = { 'new_event': True }
-    if request.user.has_perm('bands.manage_events'):
+
+    if ('band' in request.GET) and request.GET['band'].strip():
+        band_pk = request.GET['band']
+        band = Band.objects.get(pk=band_pk)
+        if request.user.is_superuser or request.user == band.owner:
+            params['preselect_band'] = band
+
+    if request.user.has_perm('bands.manage_events') or 'preselect_band' in params:
         # can create events in any venue or with any band
         params['venues'] = Venue.objects.all()
     else:
-
         if request.user.has_perm('bands.manage_venue'):
             # if user owns a venue, can create events in that venue
             params['manage_venue'] = True
@@ -121,6 +127,13 @@ def event_add(request):
                 params['venue'] = venues[0]
             else:
                 params['prompt_new_venue'] = True
+
+        elif request.user.has_perm('bands.manage_band'):
+            bands = Band.objects.filter(owner=request.user)
+            if bands.count() == 1:
+                params['preselect_band'] = bands[0]
+            elif bands.count() > 1:
+                params['choose_band'] = bands
 
 
     if request.method == "POST":

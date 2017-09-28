@@ -116,6 +116,13 @@
                     <h4>Artistas</h4>
                 {{form.event_bands}}
                 <ul class="profile-list" id="bands-selected">
+                    {% if preselect_band %}
+                        <li data-id="{{preselect_band.pk}}">
+                            <div class="profile-circle small">
+                            <img src="{%if preselect_band.profile_image %}{{preselect_band.profile_thumbnail.url}}{%endif%}" alt="">
+                            </div>{{preselect_band.name}}<br><span class="sub">{{preselect_band.genre}}</span>
+                        </li>
+                    {% endif %}
 
                     {% if event and event.bands %}
                         {% for band in event.bands.all %}

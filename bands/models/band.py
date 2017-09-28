@@ -44,6 +44,9 @@ class Band(models.Model):
         verbose_name = 'Banda'
         verbose_name_plural = 'Bandas'
         ordering = ['name']
+        permissions = (
+            ("manage_band", "Puede gestionar bandas"),
+        )
 
     def __unicode__(self):
         return self.name
