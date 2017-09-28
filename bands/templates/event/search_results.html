@@ -1,14 +1,23 @@
 
-<div class="row">
-    {% for event in events %}
+<div class="row auto-clear">
+    {% if events %}
+        {% for event in events %}
 
-            <div class="col-sm-6 col-md-6 col-lg-4 event-result">
-                <a class="hover" href="{% url 'event_detail' pk=event.pk %}"></a>
-            {% include 'event/_resume_card.html' with event=event display="venue" hide_btn=True %}
+                <div class="col-sm-6 col-md-6 col-lg-4 event-result">
+                    <a class="hover" href="{% url 'event_detail' pk=event.pk %}"></a>
+                {% include 'event/_resume_card.html' with event=event display="venue" hide_btn=True %}
 
-            </div>
-        </a>
-    {% endfor %}
+                </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-sm-12 large-padding top-padding margin-top text-center">
+            <i class="fa fa-warning fa-2x" aria-hidden="true"></i><br><br>
+            No hay conciertos programados para los criterios de búsqueda elegidos...
+        </div>
+
+    {% endif %}
+
+
 
     <div class="clearfix col-xs-12">
         {% include 'common/pagination.html' with page=events %}
