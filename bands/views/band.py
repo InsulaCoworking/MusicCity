@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from bands.forms.band import BandForm
+from bands.helpers import get_query
 from bands.models import Event, Tag, Band, BandToken
 
 
@@ -19,6 +20,13 @@ def bands_list(request):
     tag_filter = request.GET.get('tag', None)
     if tag_filter:
         bands = bands.filter(tag__pk=tag_filter)
+
+    query_string = ''
+    if ('q' in request.GET) and request.GET['q'].strip():
+        query_string = request.GET['q']
+        entry_query = get_query(query_string, ['name', 'genre', 'city'])
+        if entry_query:
+            bands = bands.filter(entry_query)
 
     paginator = Paginator(bands, 6)
     page = request.GET.get('page')
@@ -41,7 +49,7 @@ def bands_list(request):
     else:
         tags = Tag.objects.filter(band_tag__isnull=False).distinct()
         return render(request, 'band/list.html', {
-            'bands': bands, 'tags': tags, 'page': page
+            'ajax_url': reverse('bands_list'), 'bands': bands, 'tags': tags, 'page': page
         })
 
 def band_detail(request, pk):
