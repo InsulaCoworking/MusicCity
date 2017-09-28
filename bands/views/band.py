@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import random
-
 import datetime
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, InvalidPage
 from django.shortcuts import get_object_or_404, render
@@ -39,25 +37,29 @@ def bands_list(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         bands = paginator.page(paginator.num_pages)
 
+    params = {
+            'ajax_url': reverse('bands_list'),
+            'query_string':query_string,
+            'bands': bands,
+            'page': page
+    }
+
     if request.is_ajax():
-        response = render(request, 'band/search_results.html', {
-            'ajax_url': reverse('bands_list'), 'bands': bands, 'page': page
-        })
+        response = render(request, 'band/search_results.html', params)
         response['Cache-Control'] = 'no-cache'
         response['Vary'] = 'Accept'
         return response
     else:
-        tags = Tag.objects.filter(band_tag__isnull=False).distinct()
-        return render(request, 'band/list.html', {
-            'ajax_url': reverse('bands_list'), 'bands': bands, 'tags': tags, 'page': page
-        })
+        params['tags'] = Tag.objects.filter(band_tag__isnull=False).distinct()
+        return render(request, 'band/list.html', params)
+
 
 def band_detail(request, pk):
     band = get_object_or_404(Band, pk=pk)
     today = datetime.date.today()
     events = Event.objects.filter(bands__id=band.id, day__gte=today)
 
-    can_edit = request.user.is_authenticated() and  (request.user.is_superuser or (
+    can_edit = request.user.is_authenticated() and (request.user.is_superuser or (
                     request.user == band.owner ))
 
     return render(request, 'band/detail.html', {
@@ -66,6 +68,7 @@ def band_detail(request, pk):
         'can_edit': can_edit,
         'view': request.GET.get('view', None)
     })
+
 
 def edit_band(request, token):
     token = BandToken.objects.filter(token=token)

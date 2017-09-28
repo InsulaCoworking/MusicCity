@@ -174,7 +174,18 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Elige banda a añadir</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="modal-title" id="myModalLabel">Elige banda a añadir</h3>
+            </div>
+            <div class="col-md-5">
+                <div class="filter">
+                    <input class="form-control" id="search" type="text" name="q" placeholder="Buscar...">
+                </div>
+            </div>
+        </div>
+
+
       </div>
       <div class="modal-body large-padding">
               <div id="bands-list" data-initial="{% url 'bands_list' %}" data-preservehistory="true">
@@ -253,6 +264,15 @@ var venueInput = $('input[name="venue"]');
 selected.on('click', '.remove', function(){
     var band = $(this).parent();
     band.remove();
+});
+
+var search = $('#search');
+search.on('change', function(){
+    var q = search.val();
+     if (q && q !== ''){
+        loadResults(list, '{% url 'bands_list' %}?q=' + q);
+     }
+
 });
 
 loadPaginationAjax(list);
