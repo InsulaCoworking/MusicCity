@@ -102,7 +102,9 @@ def venue_add(request):
     if request.method == "POST":
         form = VenueForm(request.POST, request.FILES)
         if form.is_valid():
-            venue = form.save()
+            venue = form.save(commit=False)
+            venue.owner = request.user
+            venue.save()
             return redirect('venue_detail', pk=venue.pk)
         else:
             print form.errors.as_data()
