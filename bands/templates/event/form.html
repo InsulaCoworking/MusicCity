@@ -235,6 +235,25 @@
   </div>
 </div>
 
+
+<!-- Modal -->
+{% if choose_band %}
+<div class="modal fade show-on-load" data-keyboard="false" data-backdrop="static" id="choose-band-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+            <h4 class="modal-title">Elige banda a añadir</h4>
+      </div>
+      <div class="modal-body large-padding">
+          <p>Gestionas más de una banda, por favor selecciona de cuál quieres crear el evento:</p>
+            {% include 'band/search_results.html' with bands=choose_band bigger=True %}
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
 {% endblock %}
 
 
@@ -286,14 +305,7 @@ loadPaginationAjax(list);
 list.find('.results').on('click', '.resume-card-container > a', function(e){
     e.preventDefault();
     var band = $(this);
-    var elem = $('<li></li>')
-                    .attr('data-id', band.attr('data-id'))
-                    .append(band.find('.profile-circle').clone())
-                    .append(band.find('.profile-title').text())
-                    .append('<br>')
-                    .append('<span class="sub">' + band.find('.profile-desc').text() + '</span>')
-                    .append('<i class="fa fa-close remove" data-toggle="tooltip" data-placement="left" title="Quitar banda" aria-hidden="true"></i>')
-    selected.prepend(elem);
+    addBand(band, true);
     bandModal.modal('hide');
 });
 
@@ -315,6 +327,27 @@ venueModal.find('.select-venue').on('click', function(){
     venueModal.modal('hide');
     venueInput.val(venueId);
 });
+
+var chooseBand = $('#choose-band-modal');
+chooseBand.on('click', '.resume-card-container > a', function(e){
+    e.preventDefault();
+    var band = $(this);
+    addBand(band, false);
+    chooseBand.modal('hide');
+});
+
+function addBand(band, removable){
+    var elem = $('<li></li>')
+                .attr('data-id', band.attr('data-id'))
+                .append(band.find('.profile-circle').clone())
+                .append(band.find('.profile-title').text())
+                .append('<br>')
+                .append('<span class="sub">' + band.find('.profile-desc').text() + '</span>');
+
+    if (removable)
+        elem.append('<i class="fa fa-close remove" data-toggle="tooltip" data-placement="left" title="Quitar banda" aria-hidden="true"></i>');
+    selected.prepend(elem);
+}
 
 </script>
 {% endblock scripts %}

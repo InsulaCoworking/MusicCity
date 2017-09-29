@@ -107,6 +107,8 @@ $(document).ready(function() {
         interval: 10000
     });
 
+  $('.modal.show-on-load').modal();
+
   var panelMaps = $('.panel .map:not(.no-resize)');
   function resizeMaps(){
     panelMaps.each(function(){

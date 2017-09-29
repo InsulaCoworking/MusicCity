@@ -3,7 +3,7 @@
 {% load settings_value %}
 {% load l10n %}
 
-{% block title %}Conciertos en {{venue.name}}{% endblock%}
+{% block title %}{% if is_new %}Nuevo espacio{% else %}Conciertos en {{venue.name}}{% endif %}{% endblock%}
 
 {% block social_meta %}
         <meta name="twitter:card" content="summary_large_image">
@@ -137,7 +137,6 @@
         </div>
 
     </div>
-
 
 
 
