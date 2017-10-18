@@ -58,7 +58,7 @@
                         {{band.genre}}
                     </div>
                     <div class="menu">
-                       <a class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                       <a class="fab smoothscroll" href="{% url 'band_edit' pk=band.pk %}" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </div>
                     <a class="list-group-item" href="{% url 'band_detail' pk=band.pk %}"><i class="fa fa-eye right-margin" aria-hidden="true"></i> Ver perfil público</a>
                     <a class="list-group-item" href="{% url 'event_add' %}?band={{band.pk}}"><i class="fa fa-plus right-margin" aria-hidden="true"></i> Crear concierto</a>

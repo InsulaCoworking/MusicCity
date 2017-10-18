@@ -1,51 +1,177 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+{% load settings_value %}
+{% load l10n %}
 
-{% block title %}{{band.name}}{% endblock%}
+{% block title %}{% if is_new %}Nueva banda{% else %}{{band.name}}{% endif %}{% endblock%}
+
+{% block social_meta %}
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{band.name}}">
+        <meta name="twitter:description" content="Todos los conciertos en {{venue.name}} durante Alcalá Suena: Fiesta de la Música 2017">
+        <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{%if venue.image %}{{venue.image.url}}{% else %}{% static "img/logo_banner.jpg" %}{% endif %}">
+
+        <meta property="og:url" content="{{request.build_absolute_uri}}" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="{{band.name}}" />
+        <meta property="og:description" content="{{band.name}}" />
+{% endblock %}
+
+{% block bodyattrs %}class="venue"{% endblock%}
 
 {% block content %}
-<div class="jumbo-header jumbo-band" {% if band.band_image %} style="background-image:url('{{band.band_image.url}}')" {% endif %}>
+<form method="POST" class="post-form" enctype="multipart/form-data">
+    {% csrf_token %}
+<div class="jumbo-header jumbo-band" id="band-image" {% if band.band_image %} style="background-image:url('{{band.band_image.url}}')" {% endif %}>
     <div class="jumbotron">
-      <div class="container text-center">
-        <h1>{{band.name}}</h1>
-        <p class="description">{{band.tag.name}}</p>
-      </div>
+        <div class="file-field image-field absolute-pos" data-ref="#band-image" data-ref-type="background" style="left:50%;top:50%;">
+        <div class="btn fab">
+            <span><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
+            {{form.band_image}}
+        </div>
     </div>
-</div>
-<div class="header-bar text-center ">
-    <h2>Editar</h2>
-</div>
-
-<div class="container card main">
-
-    <blockquote>
-        Por favor, para no recargar al servidor, intenta subir archivos de un peso inferior a 1MB.
-    </blockquote>
-
-    <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Ficha de la banda</a></li>
-    <li role="presentation"><a href="#billing" aria-controls="profile" role="tab" data-toggle="tab">Datos de facturación</a></li>
-  </ul>
-
-  <!-- Tab panes -->
-  <div class="tab-content double-sep">
-    <div role="tabpanel" class="tab-pane active" id="profile">
-        <form method="post"  enctype="multipart/form-data" class="edit-form">
-            {% csrf_token %}
-            <table>
-              {{form.as_table}}
-                <tr><td colspan="2"><button type="submit" class="save btn btn-primary pull-right btn-lg red double-sep">Guardar</button></td> </tr>
-                </table>
-        </form>
     </div>
-    <div role="tabpanel" class="tab-pane" id="billing">
-        <form class="edit-form">
-        Próximamente...
-        </form>
-        <br><br><br>
-    </div>
-  </div>
-
-
 
 </div>
+<div class="header-bar profile header-band">
+    <div class="container">
+        <div class="file-field image-field absolute-pos" data-ref="#profile-image" data-ref-type="image" style="left:10px;top:10px;">
+            <div class="btn fab">
+                <span><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
+                {{form.profile_image}}
+            </div>
+        </div>
+        <div class="profile-circle"><img id="profile-image" src="{%if band.profile_image %} {{band.profile_image.url}}{% endif %}"></div>
+        <h1 id="venue-name">{{band.name}}{% if is_new %} Nuevo espacio {%endif%}</h1>
+        <p class="description">{{band.address}}</p>
+
+        <div class="menu">
+            <button type="submit" class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Guardar"><i class="fa fa-save" aria-hidden="true"></i></button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <hr>
+    {{form.form_errors}}
+    <div class="panel">
+        <i class="fa fa-info panel-icon" aria-hidden="true"></i>
+        <div class="size-check visible-md-block visible-lg-block"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="description">
+                    <div class="form-group" data-links="#venue-name">
+                        <label>Nombre</label>
+                        {{ form.name }}
+                    </div>
+
+                    <div class="form-group" data-links="#venue-address">
+                        <label>Estilo</label>
+                        {{ form.genre}}
+                    </div>
+
+                    <div class="form-group" data-links="#venue-address">
+                        <label>Etiqueta</label>
+                        {{ form.tag}}
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        {{ form.description }}
+                    </div>
+
+
+                    <div class="social-links">
+                        <h4>Enlaces</h4>
+                        <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="Página de Facebook"><i class="fa fa-facebook " aria-hidden="true"></i></span>
+                          {{form.facebook_link}}
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="Perfil de Twitter"><i class="fa fa-twitter " aria-hidden="true"></i></span>
+                          {{form.twitter_link}}
+                        </div></div>
+
+                        <div class="form-group">
+                        <div class="input-group">
+                          <span data-toggle="tooltip" data-placement="bottom" title="Página web" class="input-group-addon" ><i class="fa fa-globe " aria-hidden="true"></i></span>
+                          {{form.webpage_link}}
+                        </div></div>
+
+                        <div class="form-group">
+                        <div class="input-group">
+                          <span data-toggle="tooltip" data-placement="bottom" title="Página de Bandcamp" class="input-group-addon" ><i class="fa fa-bandcamp " aria-hidden="true"></i></span>
+                          {{form.bandcamp_link}}
+                        </div></div>
+
+                        <div class="form-group">
+                        <div class="input-group">
+                          <span data-toggle="tooltip" data-placement="bottom" title="Canal de Youtube" class="input-group-addon" ><i class="fa fa-youtube " aria-hidden="true"></i></span>
+                          {{form.youtube_link}}
+                        </div></div>
+
+                        <div class="form-group">
+                        <div class="input-group">
+                          <span data-toggle="tooltip" data-placement="bottom" title="Perfil de Spotify" class="input-group-addon" ><i class="fa fa-spotify " aria-hidden="true"></i></span>
+                          {{form.spotify_link}}
+                        </div></div>
+
+                        <div class="form-group">
+                        <div class="input-group">
+                          <span data-toggle="tooltip" data-placement="bottom" title="Presskit" class="input-group-addon" ><i class="fa fa-newspaper-o " aria-hidden="true"></i></span>
+                          {{form.presskit_link}}
+                        </div></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <div class="description">
+                        <h4 class="text-center"><i class="fa fa-code fa-2x" aria-hidden="true"></i> Multimedia (incrustar)</h4>
+
+                        <div class="form-group">
+                            <label>Escucha</label>
+                            <p class="">
+                                Códido embed para escucha (Bandcamp, Soundcloud, Spotify...)
+                            </p>
+                            {{ form.embed_code }}
+                            {% if form.embed_code.errors %} <div class="alert alert-danger"> {{form.embed_code.errors}}</div> {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Vídeo</label>
+                            <p class="">
+                                Códido embed de vídeo (Youtube, Vimeo...)
+                            </p>
+                            {{ form.embed_media }}
+                            {% if form.embed_media.errors %} <div class="alert alert-danger"> {{form.embed_media.errors}}</div> {% endif %}
+                        </div>
+                </div>
+                <div class="description text-center">
+                    <button type="submit" class="right-margin left-margin btn btn-primary btn-lg">{% if is_new %} Crear espacio {% else %} Guardar {% endif %}</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+
+</script>
+
 {% endblock %}

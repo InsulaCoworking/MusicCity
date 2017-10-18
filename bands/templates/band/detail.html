@@ -33,7 +33,7 @@
             {% if events %}
                 <a class="fab smoothscroll" href="#events" data-toggle="tooltip" data-placement="bottom" title="Ver conciertos"><i class="fa fa-music" aria-hidden="true" ></i></a>
             {% endif %}
-            {% if can_edit %} <a class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a> {% endif %}
+            {% if can_edit %} <a class="fab smoothscroll" href="{% url 'band_edit' pk=band.pk %}" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a> {% endif %}
         </div>
     </div>
 </div>

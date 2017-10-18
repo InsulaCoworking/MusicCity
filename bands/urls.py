@@ -18,7 +18,8 @@ urlpatterns = [
 
     url(r'^bands/$', views.bands_list, name='bands_list'),
     url(r'^bands/(?P<pk>\d+)/$', views.band_detail, name='band_detail'),
-    url(r'^band/edit/(?P<token>\w+)/$', views.edit_band, name='edit_band'),
+    url(r'^bands/(?P<pk>\d+)/edit/$', views.band_edit, name='band_edit'),
+    url(r'^band/edit/(?P<token>\w+)/$', views.edit_band_token, name='edit_band_token'),
 
     url(r'^agenda/$', views.events_schedule, name='events_schedule'),
     url(r'^events/$', views.events_schedule, name='events'),
