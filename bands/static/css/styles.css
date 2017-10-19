@@ -1293,3 +1293,26 @@ form#event-filter .filter{
 span.secondary-color{
     color:#bbb;
 }
+
+.user-type-item{
+    cursor:pointer;
+    -webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	text-align:center;
+	display:inline-block;
+	padding:20px;
+}
+.user-type-item.active{
+    background-color:#bbb;
+}
+.user-type-item:hover{
+	cursor:pointer;
+	background-color:#ddd;
+}
+
+
+.user-type-item input{
+	position:absolute;
+	left:-100em;
+}

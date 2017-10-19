@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+
+<div class="jumbo-header jumbo-band minimal" >
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h1>Registro</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container card main" style="max-width:720px;">
+  <form method="post" class="edit-form" >
+    {% csrf_token %}
+
+      <div class="row">
+          <div class="col-sm-6">
+              <div class="form-group">
+                    <label>{{ form.username.label_tag }}</label>
+                    {{ form.username }}
+                    {% if form.username.help_text %}
+                      <small style="color: grey">{{ form.username.help_text }}</small>
+                    {% endif %}
+                    {% for error in form.username.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+              </div>
+          </div>
+
+          <div class="col-sm-6">
+              <div class="form-group">
+                    <label>{{ form.email.label_tag }}</label>
+                    {{ form.email }}
+                    {% if form.email.help_text %}
+                      <small style="color: grey">{{ form.email.help_text }}</small>
+                    {% endif %}
+                    {% for error in form.email.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+              </div>
+          </div>
+
+          <div class="col-sm-9">
+              <div class="form-group">
+                    <label>{{ form.first_name.label_tag }}</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.help_text %}
+                      <small style="color: grey">{{ form.first_name.help_text }}</small>
+                    {% endif %}
+                    {% for error in form.first_name.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+              </div>
+          </div>
+
+          <div class="col-sm-12">
+              <div class="form-group">
+                    <label>{{ form.last_name.label_tag }}</label>
+                    {{ form.last_name }}
+                    {% if form.last_name.help_text %}
+                      <small style="color: grey">{{ form.last_name.help_text }}</small>
+                    {% endif %}
+                    {% for error in form.last_name.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+              </div>
+          </div>
+
+          <div class="col-sm-6">
+              <div class="form-group">
+                    <label>{{ form.password1.label_tag }}</label>
+                    {{ form.password1 }}
+                    {% if form.password1.help_text %}
+                      <small style="color: grey">{{ form.password1.help_text }}</small>
+                    {% endif %}
+                    {% for error in form.password1.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+              </div>
+          </div>
+
+          <div class="col-sm-6">
+              <div class="form-group">
+                    <label>{{ form.password2.label_tag }}</label>
+                    {{ form.password2 }}
+                    {% if form.password2.help_text %}
+                      <small style="color: grey">{{ form.password2.help_text }}</small>
+                    {% endif %}
+                    {% for error in form.password2.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+              </div>
+          </div>
+
+
+            <div class="col-sm-12">
+              <div class="form-group">
+                    <div class="text-center"> <label>¿Qué tipo de usuario eres?</label></div><br>
+                    <div class="row">
+                        <div class="col-xs-6 text-center">
+                        <div class="user-type-item"><label>
+                            <input  name="user_type" type="radio" value="band" required="">
+                            <span class="user-type-label"><i class="fa fa-music fa-5x" aria-hidden="true"></i><br> Tengo una banda</span></label>
+                        </div>
+                        </div>
+
+                        <div class="col-xs-6 text-center">
+                        <div class="user-type-item"><label>
+                            <input  name="user_type" type="radio" value="venue" required="">
+                            <span class="user-type-label"><i class="fa fa-volume-up fa-5x" aria-hidden="true"></i><br> Tengo un espacio</span></label>
+                        </div>
+                        </div>
+                    </div>
+
+                    {% for error in form.user_type.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+              </div>
+          </div>
+
+      </div>
+
+
+      <p class="text-center">
+          <button type="submit" class="btn btn-primary btn-lg">Entrar</button>
+      </p>
+      <!--
+      <hr>
+      <p class="text-center">
+          Todavía no tienes un usuario?
+          <a href="#" class="btn btn-primary btn-lg">Regístrate</a>
+      </p>
+        -->
+
+
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+$('.user-type-item').click(function(){
+    $('.user-type-item').removeClass('active');
+    $(this).addClass('active');
+});
+
+</script>
+
+{% endblock %}
+

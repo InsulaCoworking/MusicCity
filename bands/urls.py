@@ -15,7 +15,6 @@ urlpatterns = [
     url(r'^venues/(?P<pk>\d+)/history/$', views.venue_history, name='venue_history'),
     url(r'^venues/(?P<pk>\d+)/edit/', views.venue_edit, name='venue_edit'),
 
-
     url(r'^bands/$', views.bands_list, name='bands_list'),
     url(r'^bands/(?P<pk>\d+)/$', views.band_detail, name='band_detail'),
     url(r'^bands/(?P<pk>\d+)/edit/$', views.band_edit, name='band_edit'),
@@ -36,6 +35,7 @@ urlpatterns = [
     # url(r'^billing/download/$', views.download_csv, name='download_csv'),
     url(r'^login/$', auth_views.login, {'redirect_authenticated_user': True }, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^register/$', views.register, name='register'),
 
     url(r'^dashboard/$', views.profile, name='dashboard'),
     url(r'^profile/events$', views.user_events, name='user_events'),
