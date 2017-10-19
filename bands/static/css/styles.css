@@ -1302,6 +1302,7 @@ span.secondary-color{
 	text-align:center;
 	display:inline-block;
 	padding:20px;
+	transition: all .4s;
 }
 .user-type-item.active{
     background-color:#bbb;
@@ -1310,8 +1311,6 @@ span.secondary-color{
 	cursor:pointer;
 	background-color:#ddd;
 }
-
-
 .user-type-item input{
 	position:absolute;
 	left:-100em;
