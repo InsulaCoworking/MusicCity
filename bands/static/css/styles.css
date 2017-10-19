@@ -1315,3 +1315,11 @@ span.secondary-color{
 	position:absolute;
 	left:-100em;
 }
+
+.embed-container{
+    width: 100%;
+    position: relative;
+    z-index: 100;
+    border-radius: 8px;
+    box-shadow: 0 30px 40px 0 rgba(0, 0, 0, 0.15);
+    }
