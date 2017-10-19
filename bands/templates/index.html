@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load settings_value %}
+{% load l10n %}
+
 {% block title %}{% endblock%}
 
 {% block home_header %}
@@ -138,11 +141,24 @@ Esta asociación a día de hoy es una pizarra en blanco, con algunas lineas pint
 
             }
 
-            //now fit the map to the newly inclusive bounds
-            map.fitBounds(bounds);
+            if (markers.length == 0){
+                var centerPosition = new google.maps.LatLng({% settings_value "INITIAL_LATITUDE"|unlocalize %}, {% settings_value "INITIAL_LONGITUDE"|unlocalize %});
+                map.setCenter(centerPosition);
+                map.setZoom(16);
+            }
+            else{
+                //now fit the map to the newly inclusive bounds
+                map.fitBounds(bounds);
+            }
+
 
         });
 
       }
+        setTimeout(function(){
+        console.log("AAA");
+        $(window).trigger('resize');
+        window.dispatchEvent(new Event('resize'));
+      }, 500);
 </script>
 {% endblock scripts %}
