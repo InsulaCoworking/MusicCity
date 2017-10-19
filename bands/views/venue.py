@@ -114,9 +114,7 @@ def venue_add(request):
     return render(request, 'venue/edit.html', { 'is_new': True, 'form': form, 'venue': None })
 
 
-@login_required
 def venue_history(request, pk):
-
     venue = get_object_or_404(Venue, pk=pk)
     events = Event.objects.filter(venue=venue).order_by('-day')
 
