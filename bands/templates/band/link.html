@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+
+<div class="jumbo-header jumbo-band minimal" >
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h1>Enlazar banda</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container card main" style="max-width:720px;">
+
+
+      {% if badtoken %}
+
+
+      {% else %}
+        <div class="large-padding">
+          <p style="font-size:1.2em;"> El token que has introducido se corresponde con esta banda: </p>
+          {% include 'band/resume_card.html' with band=band %}
+
+            {% if has_owner %}
+                <div class="alert alert-warning" role="alert">
+                <div class="text-center"> <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i></div>
+                {% if user_owns %}
+                    Ya enlazaste esta banda con tu perfil en el pasado. No hay nada nuevo que hacer aquí :)
+                {% else %}
+                    Otro usuario ha enlazado ya esta banda con su perfil. Si crees que se trata de un error, ponte en contacto con nosotros!<br>
+                {% endif %}
+                </div>
+
+                <p class="text-center"> <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg">Aceptar</a></p>
+            {% else %}
+                <form method="post" class="edit-form" >
+                {% csrf_token %}
+                  <p class="text-center">
+                      <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg">Cancelar</a>
+                      <button type="submit" class="btn btn-primary btn-lg red">Sí, voy a gestionar esta banda!</button>
+                  </p>
+                </form>
+            {% endif %}
+
+
+
+        </div>
+      {% endif %}
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+$('.user-type-item').click(function(){
+    $('.user-type-item').removeClass('active');
+    $(this).addClass('active');
+});
+
+</script>
+
+{% endblock %}
+

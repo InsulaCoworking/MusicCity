@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^bands/(?P<pk>\d+)/$', views.band_detail, name='band_detail'),
     url(r'^bands/(?P<pk>\d+)/edit/$', views.band_edit, name='band_edit'),
     url(r'^band/edit/(?P<token>\w+)/$', views.edit_band_token, name='edit_band_token'),
+    url(r'^bands/link/(?P<token>\w+)/$', views.link_band, name='link_band'),
 
     url(r'^agenda/$', views.events_schedule, name='events_schedule'),
     url(r'^events/$', views.events_schedule, name='events'),

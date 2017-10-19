@@ -121,6 +121,33 @@ def band_add(request):
 
     return render(request, 'band/edit.html', { 'is_new': True, 'form': form, 'band': None })
 
+@login_required
+def link_band(request, token):
+
+    params = {
+        'token': token
+    }
+    token = BandToken.objects.filter(token=token)
+    if not token or not token[0].band or (token[0].expiration_date and token[0].expiration_date <= timezone.now()):
+        params['badtoken'] = True
+    else:
+        band = token[0].band
+        params['band'] = band
+
+        if band.owner:
+            params['has_owner'] = True
+            if band.owner == request.user:
+                params['user_owns'] = True
+
+        if request.method == "POST":
+            band.owner = request.user
+            band.save()
+            return  redirect('dashboard')
+
+    return render(request, 'band/link.html', params)
+
+
+
 def edit_band_token(request, token):
     token = BandToken.objects.filter(token=token)
     if not token or not token[0].band or (token[0].expiration_date and token[0].expiration_date >= timezone.now()):

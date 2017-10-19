@@ -95,7 +95,6 @@
               </div>
           </div>
 
-
             <div class="col-sm-12">
               <div class="form-group">
                     <div class="text-center"> <label>¿Qué tipo de usuario eres?</label></div>
@@ -118,6 +117,21 @@
                     {% for error in form.user_type.errors %}
                       <div class="alert alert-danger">{{ error }}</div>
                     {% endfor %}
+              </div>
+          </div>
+
+          <div class="col-sm-12">
+              <div class="large-padding margin-bottom">
+                  <div class="form-group">
+                        <label>{{ form.token.label_tag }}</label>
+                        {{ form.token }}
+                        {% if form.token.help_text %}
+                          <small style="color: grey">{{ form.token.help_text }}</small>
+                        {% endif %}
+                        {% for error in form.token.errors %}
+                          <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                  </div>
               </div>
           </div>
 

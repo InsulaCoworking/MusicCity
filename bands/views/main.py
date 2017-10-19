@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect
 from bands import helpers
 from bands.forms.billing_info import BillingForm
 from bands.forms.signup import SignUpForm
-from bands.models import Event, Venue, Tag
+from bands.models import Event, Venue, Tag, BandToken
 
 
 def index(request):
@@ -53,17 +53,21 @@ def register(request):
             user = authenticate(username=username, password=raw_password)
 
             user_type = form.cleaned_data.get('user_type')
-            print user_type
             if user_type == 'venue':
-                print "aaaa"
                 permission = Permission.objects.get(codename='manage_venue',)
-                print permission
                 user.user_permissions.add(permission)
             elif user_type == 'band':
                 permission = Permission.objects.get( codename='manage_band',)
                 user.user_permissions.add(permission)
 
             login(request, user)
+
+            token = form.cleaned_data.get('token')
+            if token:
+                bandtoken = BandToken.objects.filter(token=token)
+                if bandtoken and bandtoken[0].band:
+                    return redirect('link_band', token=token)
+
             return redirect('dashboard')
     else:
         form = SignUpForm()
