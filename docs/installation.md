@@ -106,3 +106,6 @@ Una vez guardado, actualizamos el servicio de Apache:
 ```
 sudo service apache2 restart
 ```
+
+## Nginx
+

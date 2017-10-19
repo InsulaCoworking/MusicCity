@@ -833,7 +833,7 @@ body.snapshot .navbar-brand-text
     display: block;
     text-align: center;
 }
-body.snapshot .navbar-brand-text:before{ content:'#AlcalaSuena: '; color:#aaa;}
+body.snapshot .navbar-brand-text:before{ content:'#AlcalaEsMusica: '; color:#aaa;}
 body.snapshot .band-venue p{
         padding-left: 20px;
     text-align: left;
