@@ -28,7 +28,7 @@ def index(request):
 
     tags = Tag.objects.all()
     days = Event.objects.order_by('day').values_list('day', flat=True).distinct()
-    events = Event.objects.all().order_by('day')[:9]
+    events = Event.objects.filter(day__gte=today).order_by('day')[:9]
 
     venues = Venue.objects.all().annotate(count=Count('venue')).filter(count__gt=0)
 
