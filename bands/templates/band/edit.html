@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="profile-circle"><img id="profile-image" src="{%if band.profile_image %} {{band.profile_image.url}}{% endif %}"></div>
-        <h1 id="venue-name">{{band.name}}{% if is_new %} Nuevo espacio {%endif%}</h1>
+        <h1 id="venue-name">{{band.name}}{% if is_new %} Nueva banda {%endif%}</h1>
         <p class="description">{{band.address}}</p>
 
         <div class="menu">
@@ -153,7 +153,7 @@
                         </div>
                 </div>
                 <div class="description text-center">
-                    <button type="submit" class="right-margin left-margin btn btn-primary btn-lg">{% if is_new %} Crear espacio {% else %} Guardar {% endif %}</button>
+                    <button type="submit" class="right-margin left-margin btn btn-primary btn-lg">{% if is_new %} Crear banda {% else %} Guardar {% endif %}</button>
                 </div>
 
             </div>

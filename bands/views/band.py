@@ -97,6 +97,30 @@ def band_edit(request, pk):
     return render(request, 'band/edit.html', { 'form': form, 'band':band })
 
 
+@login_required
+def band_add(request):
+
+    can_edit = False
+    if request.user.is_superuser or request.user.has_perm('bands.manage_band'):
+        can_edit = True
+
+    if not can_edit:
+        return redirect( reverse('dashboard') + '?permissions=false' )
+
+    if request.method == "POST":
+        form = BandForm(request.POST, request.FILES)
+        if form.is_valid():
+            band = form.save(commit=False)
+            band.owner = request.user
+            band.save()
+            return redirect('band_detail', pk=band.pk)
+        else:
+            print form.errors.as_data()
+    else:
+        form = BandForm()
+
+    return render(request, 'band/edit.html', { 'is_new': True, 'form': form, 'band': None })
+
 def edit_band_token(request, token):
     token = BandToken.objects.filter(token=token)
     if not token or not token[0].band or (token[0].expiration_date and token[0].expiration_date >= timezone.now()):

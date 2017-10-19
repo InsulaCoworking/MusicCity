@@ -22,8 +22,8 @@ class BandForm(forms.ModelForm):
             'twitter_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Perfil de Twitter'}),
             'bandcamp_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Página de BandCamp'}),
             'webpage_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Página web'}),
-            'spotify_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Presskit'}),
-            'presskit_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Perfil de Spotify'}),
+            'spotify_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Perfil de Spotify'}),
+            'presskit_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Presskit'}),
             'profile_image': forms.FileInput(attrs={}),
             'band_image': forms.FileInput(attrs={}),
 
