@@ -16,27 +16,27 @@
 </div>
 
 <div class="container">
-    <!--
-    <div class="row">
-        <div class="col-sm-12">
+    <div class="row margin-bottom">
+        <div class="col-sm-12 text-center">
             Mostrar:
-        <div class="btn-group toggles" data-toggle="buttons">
+        <div class="btn-group toggles selectable" data-toggle="buttons">
           <label class="btn btn-primary active">
-            <input type="radio" name="options" id="option1" autocomplete="off" checked> Todos
+            <input type="radio" name="options" value="all" id="option1" checked>Todos
           </label>
           <label class="btn btn-primary">
-            <input type="radio" name="options" id="option2" autocomplete="off"> Vía pública
+            <input type="radio" name="options" value="outdoor" id="option2">Vía pública
           </label>
           <label class="btn btn-primary">
-            <input type="radio" name="options" id="option3" autocomplete="off"> Salas
+            <input type="radio" name="options" value="indoor" id="option3"> Salas
           </label>
         </div>
     </div>
-    </div>-->
-<div class="row auto-clear">
+    </div>
+
+<div class="row auto-clear" id="venues-list">
     {% for venue in venues %}
     <div class="col-sm-6 col-md-6 col-lg-4">
-        <a class="card venue-card venue-{{venue.pk}}" href="{% url 'venue_detail' pk=venue.pk %}">
+        <a class="card venue-card venue-{{venue.pk}} {%if venue.public_space %}outdoor{%else%}indoor{%endif%}" href="{% url 'venue_detail' pk=venue.pk %}">
             <div class="venue-image" {% if venue.image %} style="background-image:url('{{venue.image.url}}')" {% endif %}></div>
             <div data-href="{% url 'venue_detail' pk=venue.pk %}" class="card fab" style="display:none;"><i class="fa right fa-search" aria-hidden="true"></i></div>
             <span class="title">{{venue.name}}</span>
@@ -80,6 +80,21 @@
 
     var infoWindow_base = $('.infowindow_base');
     var prev_infowindow = false;
+
+    var venues = $('.venue-card').parent();
+    var venuesList = $('#venues-list');
+    $('input[name="options"]').on('change', function(){
+        var filter = $(this).val();
+        if (filter == 'all'){
+            venuesList.empty();
+            venues.appendTo(venuesList);
+        }
+        else{
+            venuesList.empty();
+            console.log(venues.find('.'+filter).parent().clone());
+            venues.clone().find('.'+filter).parent().appendTo(venuesList);
+        }
+    });
 
     function initMap() {
         $.get('{% url "venues_map_info" %}', function(markers){

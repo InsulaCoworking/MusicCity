@@ -1323,3 +1323,19 @@ span.secondary-color{
     border-radius: 8px;
     box-shadow: 0 30px 40px 0 rgba(0, 0, 0, 0.15);
     }
+
+.btn-group.toggles.selectable .btn{
+    border-radius: 15px;
+    border-width:1px;
+    background:transparent;
+    color:#cc0000;
+    font-size:0.95em;
+}
+.btn-group.toggles.selectable > .btn:last-child{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.btn-group.toggles.selectable .btn.active{
+    background-color:#cc0000;
+    color:#fff;
+}
