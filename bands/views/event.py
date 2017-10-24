@@ -115,26 +115,26 @@ def event_add(request):
         if request.user.is_superuser or request.user == band.owner:
             params['preselect_band'] = band
 
+    if request.user.has_perm('bands.manage_venue') and not request.user.has_perm('bands.manage_events'):
+        # if user owns a venue, can create events in that venue
+        params['manage_venue'] = True
+        venues = Venue.objects.filter(owner=request.user)[:1]
+        if len(venues) >= 1:
+            params['venue'] = venues[0]
+        else:
+            params['prompt_new_venue'] = True
+
+    if request.user.has_perm('bands.manage_band'):
+        bands = Band.objects.filter(owner=request.user)
+        if bands.count() == 1:
+            params['preselect_band'] = bands[0]
+        elif bands.count() > 1:
+            params['choose_band'] = bands
+
     if request.user.has_perm('bands.manage_events') or 'preselect_band' in params:
         # can create events in any venue or with any band
         params['venues'] = Venue.objects.all()
-    else:
-        if request.user.has_perm('bands.manage_venue'):
-            # if user owns a venue, can create events in that venue
-            params['manage_venue'] = True
-            venues = Venue.objects.filter(owner=request.user)[:1]
-            if len(venues) >= 1:
-                params['venue'] = venues[0]
-            else:
-                params['prompt_new_venue'] = True
-
-        elif request.user.has_perm('bands.manage_band'):
-            bands = Band.objects.filter(owner=request.user)
-            if bands.count() == 1:
-                params['preselect_band'] = bands[0]
-            elif bands.count() > 1:
-                params['choose_band'] = bands
-
+        
 
     if request.method == "POST":
         form = EventForm(request.POST, request.FILES)
