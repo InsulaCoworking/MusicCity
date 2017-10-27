@@ -525,7 +525,8 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
     overflow: hidden;
     text-align:center;
     border-radius: 50%;
-    border: 2px solid #fff;
+    border: 2px solid;
+    border-color:inherit;
     background-color:#ddd;
 }
 .profile-circle.small{

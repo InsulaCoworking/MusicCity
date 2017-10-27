@@ -5,7 +5,7 @@
     <div class="header"></div>
 
     <div class="profile-body">
-        <div class="profile-circle small">
+        <div class="profile-circle small" style="color:{{pro.tag.color}}">
             <img src="{%if pro.profile_image %}{{pro.profile_thumbnail.url}}{% else %}{% static "img/pro-icon.png" %}{% endif %}" alt="{{pro.name}}">
         </div>
 
