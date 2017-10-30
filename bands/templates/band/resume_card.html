@@ -2,7 +2,9 @@
 <div class="card profile-resume" {% if band.band_image %}
                 style="background-image:url('{{band.band_image.url}}')"
             {% endif %}>
-    <div class="header"></div>
+    <div class="header">
+        <div class="tag" {%if band.tag.color %}style="background-color:{{band.tag.color}}"{% endif %}>{{band.tag.name}}</div>
+    </div>
 
     <div class="profile-body">
         <div class="profile-circle small">
