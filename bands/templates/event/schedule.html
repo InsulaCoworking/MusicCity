@@ -139,6 +139,7 @@
         daterange.data('daterangepicker').setEndDate(selected.attr('data-enddate'));
         startDate.val(selected.attr('data-startdate'));
         endDate.val(selected.attr('data-enddate'));
+        refreshResults();
     });
 
     var daterange = $('#dateRange').daterangepicker({
@@ -150,17 +151,22 @@
         preselectDate.prop("checked", false).parent().removeClass('active');
         startDate.val(start.format('DD/MM/YYYY'));
         endDate.val(end.format('DD/MM/YYYY'));
+        refreshResults();
     });
 
     $('#dateRangeBtn').on('click', function(){
         daterange.focus();
     });
 
-    $('form#event-filter').on('submit', function(e){
-        e.preventDefault();
-        var form = $(this);
+    function refreshResults(){
         var url = form.attr('action') + '?' + form.serialize();
         loadResults(selectResults, url);
+    }
+
+    var form = $('form#event-filter');
+    form.on('submit', function(e){
+        e.preventDefault();
+        refreshResults();
     });
     loadPaginationAjax(selectResults);
 
