@@ -5,8 +5,8 @@
   <ul class="pagination">
       {% if page.has_previous %}
           <li>
-          <a href="{{ ajax_url }}{% query_string "" "page" %}&page={{ page.previous_page_number }}" aria-label="Previous">
-            <span aria-hidden="true"><span class="glyphicon glyphicon-chevron-left"></span></span>
+          <a class="card" href="{{ ajax_url }}{% query_string "" "page" %}&page={{ page.previous_page_number }}" aria-label="Previous">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
           </a>
          </li>
       {% endif %}
@@ -30,8 +30,8 @@
 
     {% if page.has_next %}
           <li>
-          <a href="{{ ajax_url }}{% query_string "" "page" %}&page={{ page.next_page_number }}" aria-label="Next">
-            <span aria-hidden="true"><span class="glyphicon glyphicon-chevron-right"></span></span>
+          <a class="card" href="{{ ajax_url }}{% query_string "" "page" %}&page={{ page.next_page_number }}" aria-label="Next">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
           </a>
          </li>
       {% endif %}

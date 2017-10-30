@@ -1359,3 +1359,34 @@ span.secondary-color{
     top:20%;
     margin-right:-3px;s
 }
+
+
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 8px 14px;
+    margin-left: 2px;
+    line-height: 1.42857143;
+    color: #111;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    font-weight:bold;
+}
+
+.pagination a.card{
+    background-color:#fff;
+    color:#cc0000;
+    font-size:23px;
+    padding: 1px 20px;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #cc0000;
+    border-color: #cc0000;
+    border-radius:4px;
+}
+
