@@ -525,8 +525,7 @@ a.venue-card:hover .title, a.venue-card:hover .address{ color:#fff; }
     overflow: hidden;
     text-align:center;
     border-radius: 50%;
-    border: 2px solid;
-    border-color:inherit;
+    border: 2px solid #fdfdfd;
     background-color:#ddd;
 }
 .profile-circle.small{
@@ -1344,4 +1343,17 @@ span.secondary-color{
 .btn-group.toggles.selectable .btn.active{
     background-color:#cc0000;
     color:#fff;
+}
+.profile-resume .header{ position:relative; }
+.tag{
+    position:absolute;
+    right:0;
+    top:20%;
+    padding: 3px 10px 4px 15px;
+    margin-right:-3px;
+    color:#fff;
+    text-shadow: 0 0 4px #000;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+    font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif;
+    font-weight: lighter;
 }

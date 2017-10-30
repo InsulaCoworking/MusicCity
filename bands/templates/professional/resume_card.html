@@ -2,10 +2,12 @@
 <div class="card profile-resume" {% if pro.image %}
                 style="background-image:url('{{pro.image.url}}')"
             {% endif %}>
-    <div class="header"></div>
+    <div class="header">
+        <div class="tag" {%if pro.tag.color %}style="background-color:{{pro.tag.color}}"{% endif %}>{{pro.tag.name}}</div>
+    </div>
 
     <div class="profile-body">
-        <div class="profile-circle small" style="color:{{pro.tag.color}}">
+        <div class="profile-circle small">
             <img src="{%if pro.profile_image %}{{pro.profile_thumbnail.url}}{% else %}{% static "img/pro-icon.png" %}{% endif %}" alt="{{pro.name}}">
         </div>
 
