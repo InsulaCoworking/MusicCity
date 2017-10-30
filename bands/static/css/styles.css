@@ -27,7 +27,7 @@
     .auto-clear .col-xs-6:nth-child(odd){clear:left;}
 }
 
-body{ font-family: 'Raleway', sans-serif; padding-right: 0 !important }
+body{ font-family: 'Raleway', sans-serif; padding-right: 0 !important; }
 
 header .logo {
     padding: 60px;

@@ -1,6 +1,34 @@
 
-function popUp(url) {
+calendarLocale = {
+    "format": "DD/MM/YYYY",
+    "weekLabel": "W",
+    "daysOfWeek": [
+        "Dom",
+        "Lun",
+        "Mar",
+        "Mié",
+        "Jue",
+        "Vie",
+        "Sáb"
+    ],
+    "monthNames": [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre"
+    ],
+     "firstDay": 1
+  };
 
+function popUp(url) {
     if (url == null) return;
     console.log(url);
     var w = 490;

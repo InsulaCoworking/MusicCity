@@ -19,7 +19,7 @@
 {% block bodyattrs %}class="event schedule"{% endblock%}
 
 {% block extra_styles %}
-    <link rel="stylesheet" type="text/css" href="{% static "css/daterangepicker.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/daterangepicker.css"?v=2 %}"/>
 {% endblock extra_styles %}
 
 {% block content %}
@@ -126,7 +126,7 @@
 
 {% block scripts %}
 <script type="text/javascript" src="{% static "js/moment.min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/daterangepicker.js" %}"></script>
+<script type="text/javascript" src="{% static "js/daterangepicker.js" %}?v=2"></script>
 <script type="text/javascript">
     var startDate = $('input[name="start_date"]');
     var endDate = $('input[name="end_date"]');
@@ -145,9 +145,7 @@
         startDate: startDate.val(),
         endDate: endDate.val(),
         cancelClass: 'hidden',
-        locale: {
-            format: 'DD/MM/YYYY'
-        }
+        "locale": calendarLocale
     }, function(start, end, label){
         preselectDate.prop("checked", false).parent().removeClass('active');
         startDate.val(start.format('DD/MM/YYYY'));
