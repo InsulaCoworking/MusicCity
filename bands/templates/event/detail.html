@@ -8,13 +8,29 @@
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="{{event}}, en {{event.venue_title}} | {% settings_value "MAIN_PAGE_TITLE" %}">
         <meta name="twitter:description" content="{{event.description}}">
-        <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{%if venue.image %}{{venue.image.url}}{% else %}{% static "img/logo_banner.jpg" %}{% endif %}">
 
         <meta property="og:url" content="{{request.build_absolute_uri}}" />
         <meta property="og:type" content="article" />
         <meta property="og:title" content="{{event}}, en {{event.venue_title}} | {% settings_value "MAIN_PAGE_TITLE" %}" />
         <meta property="og:description" content="{{event.description}}" />
-        <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{%if venue.image %}{{venue.image.url}}{% else %}{% static "img/logo_banner.jpg" %}{% endif %}" />
+        {% if event.poster %}
+            <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{event.poster.url}}">
+            <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{event.poster.url}}" />
+         {% else%}
+            {% if band.band_image %}
+                <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{band.band_image.url}}">
+                <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{band.band_image.url}}" />
+            {% else %}
+                {% if event.venue.image %}
+                    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{event.venue.image.url}}">
+                    <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{event.venue.image.url}}" />
+                {% else %}
+                    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static "img/logo_banner.jpg" %}">
+                    <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static "img/logo_banner.jpg" %}" />
+                {% endif %}
+            {% endif %}
+         {% endif %}
+
 {% endblock %}
 
 {% block bodyattrs %}class="event"{% endblock%}
