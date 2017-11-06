@@ -125,7 +125,8 @@
                         <div class="form-group">
                             <label>Escucha</label>
                             <p class="">
-                                Códido embed para escucha (Bandcamp, Soundcloud, Spotify...)
+                                Código embed para escucha (Bandcamp, Soundcloud, Spotify...)
+                                
                             </p>
                             {{ form.embed_code }}
                             {% if form.embed_code.errors %} <div class="alert alert-danger"> {{form.embed_code.errors}}</div> {% endif %}
@@ -134,7 +135,7 @@
                         <div class="form-group">
                             <label>Vídeo</label>
                             <p class="">
-                                Códido embed de vídeo (Youtube, Vimeo...)
+                                Código embed de vídeo (Youtube, Vimeo...)
                             </p>
                             {{ form.embed_media }}
                             {% if form.embed_media.errors %} <div class="alert alert-danger"> {{form.embed_media.errors}}</div> {% endif %}
