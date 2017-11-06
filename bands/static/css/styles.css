@@ -382,9 +382,11 @@ footer .img-responsive{ max-width:80%; margin:auto; }
     margin-bottom:1em;
     text-align:center;
     padding-bottom:16px;
+    color:#000;
 }
 a.venue-card:hover{
     background-color:#c00812;
+    color:#fff;
 }
 .venue-image{
     height:180px;
@@ -679,9 +681,11 @@ a:hover .profile-resume, a:hover .profile-resume span{
   left: 0;
   right:0;
   bottom:0;
+  color:#fff;
   background-color: rgba(89,122,149,0.8);
   opacity: 0;
   transition:all 400ms;
+  text-decoration:none;
   overflow: hidden;
   margin-left:15px;
   margin-right:15px;
@@ -695,6 +699,7 @@ a:hover .profile-resume, a:hover .profile-resume span{
   margin-top: -40px;
    margin-left: -25px;
   font: normal normal normal 50px/1 FontAwesome;
+   text-decoration:none;
   content: "\f05a";
   color:#fff;
   transition:all 400ms;
