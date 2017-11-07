@@ -20,6 +20,7 @@ def venues_list(request):
 
     venues = list(Venue.objects.all())
     random.shuffle(venues)
+    venues.sort(key=lambda v: 1 if v.public_space else 0)
     return render(request, 'venue/list.html', {'venues': venues})
 
 
