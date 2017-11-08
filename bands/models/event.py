@@ -32,7 +32,7 @@ class Event(models.Model):
     ticket_link = models.TextField(null=True, blank=True, verbose_name='Enlace compra de entradas')
 
     venue_name = models.TextField(null=True, blank=True, verbose_name='Nombre del espacio')
-    vanue_address = models.TextField(null=True, blank=True, verbose_name='Dirección del espacio')
+    venue_address = models.TextField(null=True, blank=True, verbose_name='Dirección del espacio')
 
     @property
     def venue_title(self):
@@ -46,7 +46,7 @@ class Event(models.Model):
         if self.venue:
             return self.venue.address
         else:
-            return self.vanue_address
+            return self.venue_address
 
     class Meta:
         verbose_name = 'Concierto'
