@@ -108,6 +108,29 @@
                                 </li>
                             {% endif %}
                         </a>
+                        {% if not venue %}
+                            <a role="button" data-toggle="collapse" href="#customVenue" aria-expanded="false" aria-controls="customVenue" id="customVenueBtn">
+                                <li class="default-add">
+                                    <div class="profile-circle"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                                    ¿No es en Alcalá?
+                                    <div class="sub">Rellena unos datos básicos de la sala</div>
+                                </li>
+                            </a>
+                            <div class="text-left collapse {% if form.venue_name.value %}in{% endif %}" id="customVenue" style="padding:15px 0 0 70px;">
+                                <div class="form-group">
+                                    <div class="row autoclear">
+                                        <div class="col-sm-4"><label>Nombre de la sala</label></div>
+                                        <div class="col-sm-8 col-md-7">{{ form.venue_name }}</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row autoclear">
+                                        <div class="col-sm-4"><label>Dirección</label></div>
+                                        <div class="col-sm-8 col-md-7">{{ form.venue_address }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
                     </ul>
                 {% endif %}
                 </div>
@@ -286,6 +309,7 @@ var bandModal = $('#band-modal');
 var venueModal = $('#venue-modal');
 var bandsInput = $('input[name="event_bands"]');
 var venueInput = $('input[name="venue"]');
+var customVenue = $('#customVenueBtn,#customVenue');
 
 selected.on('click', '.remove', function(){
     var band = $(this).parent();
@@ -326,6 +350,7 @@ venueModal.find('.select-venue').on('click', function(){
             .append(venue.clone())
     venueModal.modal('hide');
     venueInput.val(venueId);
+    customVenue.hide();
 });
 
 var chooseBand = $('#choose-band-modal');
