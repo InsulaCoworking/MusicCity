@@ -50,6 +50,8 @@
                     <div class="form-group" data-links="#venue-name">
                         <label>Título</label>
                         {{ form.title }}
+                        <small style="color: grey">Añade un título sólo si el evento tiene un título especial, o interviene
+                        alguna banda de fuera de Alcalá. No incluyas el nombre de la sala, ya se muestra en otro sitio!</small>
                     </div>
                 </div>
 
@@ -63,6 +65,7 @@
                     <div class="form-group" data-links="#venue-address">
                         <label>Hora</label>
                         {{ form.time }}
+                        <small style="color: grey">Formato: "HH:MM"</small>
                     </div>
                 </div>
 
