@@ -13,13 +13,13 @@
         {% block social_meta %}
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="| {% settings_value "MAIN_PAGE_TITLE" %}">
-        <meta name="twitter:description" content="Alcalá se convierte durante 3 días en un enorme festival de música: conciertos al aire libre, de cualquier género musical y en diversos escenarios distribuidos por todo el Casco Histórico de Alcalá, Patrimonio de la Humanidad">
+        <meta name="twitter:description" content="Alcalá Es Música es una asociación que tiene las puertas abiertas a todos los músicos, grupos, profesionales y empresas del sector, artistas amateur, locales, espacios, hosteleros, instituciones públicas, formadores en el ámbito musical, amantes de las música, radios, productoras...  para  generar en nuestra ciudad un eco-sistema idóneo para todos los trabajadores y aficionados a la música">
         <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static "img/logo_banner.jpg" %}">
 
         <meta property="og:url" content="{{request.build_absolute_uri}}" />
         <meta property="og:type" content="article" />
         <meta property="og:title" content="| {% settings_value "MAIN_PAGE_TITLE" %}" />
-        <meta property="og:description" content="Alcalá se convierte durante 3 días en un enorme festival de música: conciertos al aire libre, de cualquier género musical y en diversos escenarios distribuidos por todo el Casco Histórico de Alcalá, Patrimonio de la Humanidad" />
+        <meta property="og:description" content="Alcalá Es Música es una asociación que tiene las puertas abiertas a todos los músicos, grupos, profesionales y empresas del sector, artistas amateur, locales, espacios, hosteleros, instituciones públicas, formadores en el ámbito musical, amantes de las música, radios, productoras...  para  generar en nuestra ciudad un ecosistema idóneo para todos los trabajadores y aficionados a la música" />
         <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static "img/logo_banner.jpg" %}" />
         {% endblock %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
