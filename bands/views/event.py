@@ -196,8 +196,6 @@ def event_edit(request, pk):
         if form.is_valid():
 
             event = form.save(commit=False)
-            event.created_by = request.user
-            event.save()
 
             event.bands.clear()
             event_bands = form.cleaned_data.get('event_bands')
