@@ -98,7 +98,7 @@
                     <div class="col-md-6 desc-title text-right"><strong><span class="right-margin">{{event.day|date:"d/m/Y"}} </span>{% if event.time %}<i class="fa fa-clock-o"></i> {{event.time}}{%endif%}</strong></div>
                 </div>
                 <p class="lead text-left">{{event.venue_title}}<br><span class="sub">{{event.venue_direction}}</span></p>
-                <p class="text-left margin-top">{{event.description|linebreaks}}</p>
+                <div class="text-left margin-top">{{event.description|linebreaks}}</div>
 
                 <div class="row">
 
