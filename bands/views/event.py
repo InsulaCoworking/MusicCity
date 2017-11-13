@@ -39,7 +39,7 @@ def events_schedule(request):
 
     venue_filter = request.GET.get('venue', None)
     tag_filter = request.GET.get('tag', None)
-    events = Event.objects.filter(day__lte=end_date, day__gte=start_date, venue__isnull=False)
+    events = Event.objects.filter(day__lte=end_date, day__gte=start_date)
 
     query_string = ''
     if ('q' in request.GET) and request.GET['q'].strip():
@@ -47,6 +47,12 @@ def events_schedule(request):
         entry_query = get_query(query_string, ['title', 'venue_name', 'venue__name', 'bands__name'])
         if entry_query:
             events = events.filter(entry_query)
+
+    external = False
+    if ('external' in request.GET) and request.GET['external'].strip():
+        external = True
+    else:
+        events = events.filter(venue__isnull = False)
 
     if venue_filter:
         events = events.filter(venue__pk=venue_filter)
@@ -82,6 +88,7 @@ def events_schedule(request):
             'venue_filter': venue_filter,
             'date_filter': date_filter,
             'query_string': query_string,
+            'external': external,
             'dates': {
                 'start_date': start_date,
                 'end_date': end_date,

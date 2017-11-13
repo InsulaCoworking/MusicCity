@@ -86,11 +86,11 @@ header h1 {
     border-radius: 18px;
 }
 
-label input[type="radio"] ~ i.fa{
+label input[type="radio"] ~ i.fa, label input[type="checkbox"] ~ i.fa{
     display: inline-block;
     vertical-align:middle;
 }
-input[type="radio"], input[type="radio"]:focus{
+input[type="radio"], input[type="radio"]:focus, input[type="checkbox"], input[type="checkbox"]:focus{
     outline:none !important;
     outline-color: transparent;
 }
@@ -121,7 +121,7 @@ label input[type="checkbox"]:checked ~ i.fa.fa-square-o{
     display: none;
 }
 label input[type="checkbox"]:checked ~ i.fa.fa-check-square-o{
-    color: #cc0000;    display: inline;
+    color: #cc0000;    display: inline-block;
 }
 label:hover input[type="checkbox"] ~ i.fa {
     color: #cc0000;

@@ -77,9 +77,14 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-sm-12"><div class="secondary header-bar"> <h5><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Por espacio</h5> </div></div>
+
+                </div>
+                <div class="row">
+                    <div class="filter">
                     <div class="col-sm-6 col-md-12">
-                        <div class="filter">
-                            <div class="secondary header-bar"> <h5><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Por espacio</h5> </div>
+
+
                             <select class="form-control"  id="venue_select" name="venue">
                                 <option value="" {% if not venue_filter %} selected {% endif %}>----</option>
                                 {% for venue in venues %}
@@ -88,24 +93,25 @@
                                 {% endwith %}
                                 {% endfor %}
                             </select>
-                        </div>
+
                     </div>
 
                     <div class="col-sm-6 col-md-12">
-                        <div class="filter">
-                            <div class="secondary header-bar"> <h5><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Por etiqueta</h5> </div>
-                            <select class="form-control" id="tag_select" name="tag">
-                                <option value="" {% if not tag_filter %} selected {% endif %}>----</option>
-                                {% for tag in tags %}
-                                <option value="{{venue.pk}}" {%if tag_filter == tag.pk %} selected {%endif%}>{{tag.name}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+
+                            <div class="btn-group btn-group-vertical" data-toggle="buttons">
+                        <label class="btn {%if external %}active{%endif%}">
+                          <input class="form-control" id="external" value="true" type="checkbox" name="external" {% if external %}checked{%endif%}>
+                            <i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i> <span>Incluir externos</span>
+                        </label>
+                      </div>
+
                     </div>
+                    </div>
+
 
                 </div>
 
-                <div class="text-center">
+                <div class="text-center filter">
                     <input type="submit" id="searchButton" class="btn btn-block btn-large btn-primary" value="Buscar">
                     <br>
                 </div>
@@ -164,6 +170,8 @@
         var url = form.attr('action') + '?' + form.serialize();
         loadResults(selectResults, url);
     }
+
+    $('input[name="external"]').on('change', refreshResults);
 
     var form = $('form#event-filter');
     form.on('submit', function(e){
