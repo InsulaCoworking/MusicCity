@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 
-from bands.rss.event import NextEventsFeed
+from bands.rss.events import NextEventsFeed
 from . import views
 
 urlpatterns = [

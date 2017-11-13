@@ -4,14 +4,21 @@ from django.contrib.syndication.views import Feed
 from django.urls import reverse
 
 from bands.models import Event
-
+from bands.rss.event_feed import ExtendedEventRSSFeed
 
 
 class NextEventsFeed(Feed):
+    feed_type = ExtendedEventRSSFeed
     title = "Alcalá es Música: próximos conciertos"
     link = '/events/'
     description = "Consulta los próximos conciertos de grupos alcalaínos o en espacios de Alcalá, recopilados por Alcalá es Música"
     title_template = "event/feed.html"
+
+    def item_extra_kwargs(self, item):
+        extra = super(NextEventsFeed, self).item_extra_kwargs(item)
+        extra.update({'ev_startdate': self.item_startdate(item)})
+        extra.update({'ev_location': self.item_location(item)})
+        return extra
 
     def items(self):
         today = datetime.date.today()
@@ -23,3 +30,9 @@ class NextEventsFeed(Feed):
     # item_link is only needed if NewsItem has no get_absolute_url method.
     def item_link(self, item):
         return reverse('event_detail', kwargs={'pk':item.pk})
+
+    def item_startdate(self, item):
+        return item.day.strftime("%d/%m/%Y")
+
+    def item_location(self, item):
+        return item.venue_title
