@@ -48,6 +48,21 @@ class Event(models.Model):
         else:
             return self.venue_address
 
+    @property
+    def image_url(self):
+        if self.poster:
+            return self.poster.url
+        else:
+            if self.bands:
+                for band in self.bands.all():
+                    if band.band_image:
+                        return band.band_image.url
+            else:
+                if self.venue.image:
+                    return self.venue.image.url
+                else:
+                    return ''
+
     class Meta:
         verbose_name = 'Concierto'
         verbose_name_plural = 'Conciertos'

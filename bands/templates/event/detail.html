@@ -13,23 +13,9 @@
         <meta property="og:type" content="article" />
         <meta property="og:title" content="{{event}}, en {{event.venue_title}} | {% settings_value "MAIN_PAGE_TITLE" %}" />
         <meta property="og:description" content="{{event.description}}" />
-        {% if event.poster %}
-            <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{event.poster.url}}">
-            <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{event.poster.url}}" />
-         {% else%}
-            {% if band.band_image %}
-                <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{band.band_image.url}}">
-                <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{band.band_image.url}}" />
-            {% else %}
-                {% if event.venue.image %}
-                    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{event.venue.image.url}}">
-                    <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{event.venue.image.url}}" />
-                {% else %}
-                    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static "img/logo_banner.jpg" %}">
-                    <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static "img/logo_banner.jpg" %}" />
-                {% endif %}
-            {% endif %}
-         {% endif %}
+
+        <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{event.image_url}}">
+        <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{event.image_url}}" />
 
 {% endblock %}
 
@@ -53,17 +39,7 @@
                 {% if can_edit %} <a href="{% url 'event_edit' pk=event.pk %}" class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>{% endif %}
             </div>
             {% with event.bands.all|first as band %}
-            <div class="panel-header"
-                {% if event.poster %}
-                    style="background-image:url('{{event.poster.url}}')"
-                 {% else%}
-                    {% if band.band_image %}
-                        style="background-image:url('{{band.band_image.url}}')"
-                    {% else %}
-                        {% if event.venue.image %} style="background-image:url('{{event.venue.image.url}}')" {% endif %}
-                    {% endif %}
-                 {% endif %}
-            >
+            <div class="panel-header" style="background-image:url('{{event.image_url}}')">
             </div>
 
             <div class="profile-circle">

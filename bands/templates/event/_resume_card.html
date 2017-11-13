@@ -3,15 +3,7 @@
 <div class="card event-resume">
     {% with event.bands.all|first as band %}
     <div class="header"
-         {% if event.poster %}
-            style="background-image:url('{{event.poster.url}}')"
-         {% else%}
-            {% if band.band_image %}
-                style="background-image:url('{{band.band_image.url}}')"
-            {% else %}
-                {% if event.venue.image %} style="background-image:url('{{event.venue.image.url}}')" {% endif %}
-            {% endif %}
-         {% endif %}
+         style="background-image:url('{{event.image_url}}')"
     >
     </div>
 
