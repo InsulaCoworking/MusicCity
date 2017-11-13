@@ -18,6 +18,7 @@ class NextEventsFeed(Feed):
         extra = super(NextEventsFeed, self).item_extra_kwargs(item)
         extra.update({'ev_startdate': self.item_startdate(item)})
         extra.update({'ev_location': self.item_location(item)})
+        extra.update({'dc_subject': self.item_subject(item)})
         return extra
 
     def items(self):
@@ -27,7 +28,6 @@ class NextEventsFeed(Feed):
     def item_description(self, item):
         return item.description
 
-    # item_link is only needed if NewsItem has no get_absolute_url method.
     def item_link(self, item):
         return reverse('event_detail', kwargs={'pk':item.pk})
 
@@ -36,3 +36,6 @@ class NextEventsFeed(Feed):
 
     def item_location(self, item):
         return item.venue_title
+
+    def item_subject(self, item):
+        return str(item)

@@ -20,4 +20,6 @@ class ExtendedEventRSSFeed(Rss201rev2Feed):
             handler.addQuickElement(u'ev:startdate', item['ev_startdate'])
         if item['ev_location'] is not None:
             handler.addQuickElement(u'ev:location', item['ev_location'])
+        if item['dc_subject'] is not None:
+            handler.addQuickElement(u'dc:subject', item['dc_subject'])
 
