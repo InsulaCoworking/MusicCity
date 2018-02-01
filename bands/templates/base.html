@@ -29,6 +29,15 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
         <link href="{% static "css/styles.css" %}?v=20" rel="stylesheet"/>
         {% block extra_styles %}{% endblock extra_styles %}
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49882615-2"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-49882615-2');
+        </script>
     </head>
 
     <body {% block bodyattrs %}{% endblock%}>
