@@ -41,6 +41,9 @@ class Professional(models.Model):
         verbose_name = 'Profesional'
         verbose_name_plural = 'Profesionales'
         ordering = ['name']
+        permissions = (
+            ("manage_pro", "Puede gestionar un perfil profesional"),
+        )
 
     def __unicode__(self):
         return self.name

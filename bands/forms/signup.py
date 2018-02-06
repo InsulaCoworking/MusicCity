@@ -11,7 +11,7 @@ class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=254, help_text='')
     username = forms.CharField(max_length=254, help_text='', label='Nombre de usuario')
 
-    user_type = forms.ChoiceField(widget=RadioSelect(), choices=(('band','Banda'), ('venue', 'Espacio')))
+    user_type = forms.ChoiceField(widget=RadioSelect(), choices=(('band','Banda'), ('venue', 'Espacio'), ('pro', 'Profesional')))
     token = forms.CharField(max_length=30, required=False, help_text='Si tenías una banda registrada en AlcaláSuena, '
                                                                      'puedes usar ese token para que los datos que ya '
                                                                      'tenemos de la banda se enlacen a tu cuenta',

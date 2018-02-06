@@ -3,15 +3,11 @@ from __future__ import unicode_literals
 
 import datetime
 
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import Permission
 from django.db.models import Count
 from django.shortcuts import render, redirect
 
 from bands import helpers
 from bands.forms.billing_info import BillingForm
-from bands.forms.signup import SignUpForm
 from bands.models import Event, Venue, Tag, BandToken
 
 
@@ -42,36 +38,6 @@ def app_info(request):
 def survey(request):
     return render(request, 'survey.html', {})
 
-
-def register(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-
-            user_type = form.cleaned_data.get('user_type')
-            if user_type == 'venue':
-                permission = Permission.objects.get(codename='manage_venue',)
-                user.user_permissions.add(permission)
-            elif user_type == 'band':
-                permission = Permission.objects.get( codename='manage_band',)
-                user.user_permissions.add(permission)
-
-            login(request, user)
-
-            token = form.cleaned_data.get('token')
-            if token:
-                bandtoken = BandToken.objects.filter(token=token)
-                if bandtoken and bandtoken[0].band:
-                    return redirect('link_band', token=token)
-
-            return redirect('dashboard')
-    else:
-        form = SignUpForm()
-    return render(request, 'registration/signup.html', {'form': form})
 
 def search(request):
 

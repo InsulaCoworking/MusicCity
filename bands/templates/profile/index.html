@@ -15,7 +15,7 @@
         <p class="description">{{request.user.first_name}} {{request.user.last_name}}</p>
 
         <div class="menu">
-           <a class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Editar perfil"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+           <a class="fab smoothscroll" href="{% url 'edit_profile' %}" data-toggle="tooltip" data-placement="bottom" title="Editar perfil"><i class="fa fa-pencil" aria-hidden="true"></i></a>
         </div>
     </div>
 </div>
@@ -61,13 +61,37 @@
                        <a class="fab smoothscroll" href="{% url 'band_edit' pk=band.pk %}" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </div>
                     <a class="list-group-item" href="{% url 'band_detail' pk=band.pk %}"><i class="fa fa-eye right-margin" aria-hidden="true"></i> Ver perfil público</a>
-                    <a class="list-group-item" href="{% url 'event_add' %}?band={{band.pk}}"><i class="fa fa-plus right-margin" aria-hidden="true"></i> Crear concierto</a>
+                    <a class="list-group-item" href="{% url 'event_add' %}?band={{band.pk}}"><i class="fa fa-calendar-plus-o right-margin" aria-hidden="true"></i> Crear concierto</a>
                     <a class="list-group-item" href="#"><i class="fa fa-music right-margin" aria-hidden="true"></i> Historial de conciertos de la banda</a>
                 </div>
                 {% endfor %}
             {% else %}
                 <p> Tienes permisos de usuario para gestionar bandas, pero aún no tienes una. Créala!</p>
                 <div class="margin-top"><a href="{% url 'band_add' %}" class="btn btn-primary btn-lg"><i class="fa fa-plus right-margin" aria-hidden="true"></i>Crear banda</a></div>
+
+            {% endif %}
+        {% endif %}
+
+        {% if manage_pro %}
+            <h1>{% if not pros or pros|length == 1 %} Mi perfil profesional {% else %} Mis perfiles profesionales {% endif %}</h1>
+            {% if bands %}
+                {% for pro in pros %}
+                <div class="list-group margin-bottom">
+                    <div class="list-group-header" {% if band.band_image %} style="background-image:url('{{band.band_image.url}}')" {% endif %}>
+                        <h3>{{pro.name}}</h3>
+                        {{pro.genre}}
+                    </div>
+                    <div class="menu">
+                       <a class="fab smoothscroll" href="{% url 'band_edit' pk=band.pk %}" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    </div>
+                    <a class="list-group-item" href="{% url 'band_detail' pk=band.pk %}"><i class="fa fa-eye right-margin" aria-hidden="true"></i> Ver perfil público</a>
+                    <a class="list-group-item" href="{% url 'event_add' %}?band={{band.pk}}"><i class="fa fa-calendar-plus-o right-margin" aria-hidden="true"></i> Crear concierto</a>
+                    <a class="list-group-item" href="#"><i class="fa fa-music right-margin" aria-hidden="true"></i> Historial de conciertos de la banda</a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p> Puedes gestionar un perfil profesional, pero aún no tienes uno. Créalo!</p>
+                <div class="margin-top"><a href="{% url 'band_add' %}" class="btn btn-primary btn-lg"><i class="fa fa-plus right-margin" aria-hidden="true"></i>Crear perfil profesional</a></div>
 
             {% endif %}
         {% endif %}
