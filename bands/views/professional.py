@@ -1,9 +1,12 @@
 import random
 
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, InvalidPage
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 
+from bands.forms.professional import ProfessionalForm
 from bands.models import Professional, ProfessionalTag
 
 
@@ -47,7 +50,39 @@ def pros_map_info(request):
 
 def pro_detail(request, pk):
     pro = get_object_or_404(Professional, pk=pk)
+    can_edit = False
+    if request.user.is_authenticated():
+        if request.user.is_superuser or (
+                    request.user.has_perm('bands.manage_pro') and request.user == pro.user):
+            can_edit = True
+
     return render(request, 'professional/detail.html', {
         'pro': pro,
+        'can_edit':can_edit,
         'view': request.GET.get('view', None)
     })
+
+
+@login_required
+def pro_edit(request, pk):
+
+    pro = get_object_or_404(Professional, pk=pk)
+
+    can_edit = False
+    if request.user.is_superuser or (
+                request.user.has_perm('bands.manage_pro') and request.user == pro.user):
+        can_edit = True
+
+    if not can_edit:
+        return redirect(reverse('pro_detail', kwargs={'pk':pro.pk} ) + '?permissions=false')
+
+    if request.method == "POST":
+        form = ProfessionalForm(request.POST, request.FILES, instance=pro)
+        if form.is_valid():
+            pro = form.save()
+            return redirect('pro_detail', pk=pro.pk)
+        else:
+            print form.errors.as_data()
+    else:
+        form = ProfessionalForm(instance=pro)
+    return render(request, 'professional/edit.html', { 'form': form, 'pro':pro })

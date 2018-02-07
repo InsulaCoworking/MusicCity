@@ -35,6 +35,8 @@ urlpatterns = [
     url(r'^pros/$', views.pro_list, name='pros_list'),
     url(r'^pros/map/$', views.pros_map_info, name='pros_map_info'),
     url(r'^pros/(?P<pk>\d+)/$', views.pro_detail, name='pro_detail'),
+    url(r'^pros/(?P<pk>\d+)/$', views.pro_detail, name='pro_detail'),
+    url(r'^pros/(?P<pk>\d+)/edit/$', views.pro_edit, name='pro_edit'),
 
     # url(r'^billing/$', views.billing_form, name='billing'),
     # url(r'^billing/list/$', views.billing_list, name='billing'),
@@ -44,6 +46,7 @@ urlpatterns = [
     url(r'^register/$', views.register, name='register'),
 
     url(r'^dashboard/$', views.profile, name='dashboard'),
+    url(r'^profile/edit$', views.edit_profile, name='edit_profile'),
     url(r'^profile/events$', views.user_events, name='user_events'),
     url(r'^profile/history', views.user_history, name='user_history'),
 ]

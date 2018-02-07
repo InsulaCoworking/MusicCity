@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load settings_value %}
+{% load l10n %}
+
+{% block title %}{% if is_new %}Nuevo perfil profesional{% else %}{{pro.name}}{% endif %}{% endblock%}
+
+{% block bodyattrs %}class="venue"{% endblock%}
+
+{% block content %}
+<form method="POST" class="post-form" enctype="multipart/form-data">
+    {% csrf_token %}
+<div class="jumbo-header jumbo-venue" id="venue-image" {% if pro.image %} style="background-image:url('{{pro.image.url}}')" {% endif %}>
+    <div class="jumbotron">
+        <div class="file-field image-field absolute-pos" data-ref="#venue-image" data-ref-type="background" style="left:50%;top:50%;">
+        <div class="btn fab">
+            <span><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
+            {{form.image}}
+        </div>
+    </div>
+    </div>
+
+</div>
+<div class="header-bar profile header-venue">
+    <div class="container">
+        <div class="file-field image-field absolute-pos" data-ref="#profile-image" data-ref-type="image" style="left:10px;top:10px;">
+            <div class="btn fab">
+                <span><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
+                {{form.profile_image}}
+            </div>
+        </div>
+        <div class="profile-circle"><img id="profile-image" src="{%if pro.profile_image %} {{pro.profile_image.url}}{% endif %}"></div>
+        <h1 id="venue-name">{{pro.name}}{% if is_new %} Nuevo perfil profesional {%endif%}</h1>
+        <p class="description">{%if pro.tag %}{{pro.tag.name}}{% endif %}</p>
+
+        <div class="menu">
+            <button type="submit" class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Guardar"><i class="fa fa-save" aria-hidden="true"></i></button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <hr>
+    {{form.form_errors}}
+    <div class="panel">
+        <i class="fa fa-info panel-icon" aria-hidden="true"></i>
+        <div class="size-check visible-md-block visible-lg-block"></div>
+        <div class="row">
+            <div class="col-md-7">
+                <div class="description">
+                    <div class="form-group" data-links="#venue-name">
+                        <label>Nombre</label>
+                        {{ form.name }}
+                    </div>
+
+                    <div class="form-group" data-links="#venue-address">
+                        <label>Dirección</label>
+                        {{ form.address }}
+                        <small style="color: grey">Introduce únicamente la dirección y número de la calle (ej.: "C/ Libreros, 1"), sin incluir el código postal o que es en Alcalá (sólo aparecerán espacios de Alcalá, no es necesario)</small>
+                    </div>
+
+                    <div class="form-group" data-links="#venue-address">
+                        <label>Categoría</label>
+                        {{ form.tag}}
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        {{ form.description }}
+                    </div>
+
+
+                    <div class="social-links">
+                        <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="Página de Facebook"><i class="fa fa-facebook " aria-hidden="true"></i></span>
+                          {{form.facebook_link}}
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="Perfil de Twitter"><i class="fa fa-twitter " aria-hidden="true"></i></span>
+                          {{form.twitter_link}}
+                        </div></div>
+
+                        <div class="form-group">
+                        <div class="input-group">
+                          <span data-toggle="tooltip" data-placement="bottom" title="Página web" class="input-group-addon" ><i class="fa fa-globe " aria-hidden="true"></i></span>
+                          {{form.webpage_link}}
+                        </div></div>
+
+                        <div class="form-group">
+                        <div class="input-group">
+                          <span data-toggle="tooltip" data-placement="bottom" title="Canal de Youtube" class="input-group-addon" ><i class="fa fa-youtube " aria-hidden="true"></i></span>
+                          {{form.youtube_link}}
+                        </div></div>
+
+                         <div class="form-group">
+                        <div class="input-group">
+                          <span data-toggle="tooltip" data-placement="bottom" title="Presskit" class="input-group-addon" ><i class="fa fa-newspaper-o " aria-hidden="true"></i></span>
+                          {{form.presskit_link}}
+                        </div></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div id="map" class="map no-resize loading-container">
+                    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw loading-spinner"></i>
+                    <span class="sr-only">Loading...</span>
+                </div>
+
+                <div class="description">
+                        <h4 class="text-center"><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i> Geolocalización</h4>
+                        <p class="text-center">Mueve el pin por el mapa hasta posicionarlo en la localización correcta. Puedes hacer zoom con los controles</p>
+                        <div class="form-group">
+                            <label>Latitud</label>
+                            {{ form.latitude }}
+                            {% if form.latitude.errors %} <div class="alert alert-danger"> {{form.latitude.errors}}</div> {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label>Longitud</label>
+                            {{ form.longitude }}
+                            {% if form.longitude.errors %} <div class="alert alert-danger"> {{form.longitude.errors}}</div> {% endif %}
+                        </div>
+                </div>
+                <div class="description text-center">
+                    <button type="submit" class="right-margin left-margin btn btn-primary btn-lg">{% if is_new %} Crear espacio {% else %} Guardar {% endif %}</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+{% include 'common/include_gmaps.html' %}
+<script>
+  function initMap() {
+{% if pro %}
+    var venuePosition = new google.maps.LatLng({{ pro.latitude|unlocalize }}, {{ pro.longitude|unlocalize }});
+{% else %}
+    var venuePosition = new google.maps.LatLng({% settings_value "INITIAL_LATITUDE"|unlocalize %}, {% settings_value "INITIAL_LONGITUDE"|unlocalize %});
+{% endif %}
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: venuePosition,
+        zoomControl: true,
+        scaleControl: true,
+        streetViewControl: false,
+        mapTypeControl:false
+    });
+
+    $('#map').removeClass('loading-container');
+
+    var marker = new RichMarker({
+      position: venuePosition,
+      map: map,
+      draggable:true,
+      content: '<div class="marker-wrapper"><div class="marker"><img src="' + '{%if pro.profile_image %}{{pro.profile_thumbnail.url}}{%else%}{% static "img/venue-icon.png" %}{%endif%}' + '"></div></div>'
+    });
+
+    var latInput = $('[name="latitude"]');
+    var lngInput = $('[name="longitude"]');
+
+    google.maps.event.addListener(
+        marker,
+        'drag',
+        function() {
+            latInput.val( marker.position.lat() );
+            lngInput.val( marker.position.lng() );
+        }
+    );
+  }
+
+</script>
+
+{% endblock %}

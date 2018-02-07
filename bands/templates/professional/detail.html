@@ -29,7 +29,11 @@
     <div class="container">
         <div class="profile-circle">{%if pro.profile_image %} <img src="{{pro.profile_thumbnail.url}}">{% endif %}</div>
         <h1>{{pro.name}}</h1>
-        <p class="description">{{pro.tag.name}}</p>
+        <p class="description">{%if pro.tag %}{{pro.tag.name}}{% endif %}</p>
+
+        <div class="menu">
+            {% if can_edit %} <a class="fab smoothscroll" href="{% url 'pro_edit' pk=pro.pk %}" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a> {% endif %}
+        </div>
     </div>
 </div>
 
