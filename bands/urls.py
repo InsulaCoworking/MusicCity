@@ -33,8 +33,8 @@ urlpatterns = [
     url(r'^events/feed/$', NextEventsFeed(), name='event_feed'),
 
     url(r'^pros/$', views.pro_list, name='pros_list'),
+    url(r'^pros/add/$', views.pro_add, name='pro_add'),
     url(r'^pros/map/$', views.pros_map_info, name='pros_map_info'),
-    url(r'^pros/(?P<pk>\d+)/$', views.pro_detail, name='pro_detail'),
     url(r'^pros/(?P<pk>\d+)/$', views.pro_detail, name='pro_detail'),
     url(r'^pros/(?P<pk>\d+)/edit/$', views.pro_edit, name='pro_edit'),
 

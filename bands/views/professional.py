@@ -86,3 +86,28 @@ def pro_edit(request, pk):
     else:
         form = ProfessionalForm(instance=pro)
     return render(request, 'professional/edit.html', { 'form': form, 'pro':pro })
+
+
+
+@login_required
+def pro_add(request):
+
+    can_edit = False
+    if request.user.is_superuser or request.user.has_perm('bands.manage_pro'):
+        can_edit = True
+
+    if not can_edit:
+        return redirect( reverse('dashboard') + '?permissions=false' )
+
+    if request.method == "POST":
+        form = ProfessionalForm(request.POST, request.FILES)
+        if form.is_valid():
+            pro = form.save(commit=False)
+            pro.user = request.user
+            pro.save()
+            return redirect('pro_detail', pk=pro.pk)
+        else:
+            print form.errors.as_data()
+    else:
+        form = ProfessionalForm()
+    return render(request, 'professional/edit.html', { 'is_new': True, 'form': form, 'pro':None })
