@@ -71,6 +71,9 @@
                               <ul class="dropdown-menu">
                                 <!--<li><a href="#"><i class="fa fa-user-circle right-margin" aria-hidden="true" ></i> Mi perfil</a></li>-->
                                 <li><a href="{% url 'dashboard' %}"><i class="fa fa-home right-margin" aria-hidden="true" ></i> Dashboard</a></li>
+                                  {% if user.is_superuser %}
+                                    <li><a href="{% url 'admin:index' %}"><i class="fa fa-cog right-margin" aria-hidden="true" ></i> Django Admin</a></li>
+                                  {% endif %}
                                 <li role="separator" class="divider"></li>
                                 <li><a href="{% url 'logout' %}?next=/"><i class="fa fa-power-off right-margin" aria-hidden="true" ></i> Salir</a></li>
                               </ul>
