@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load settings_value %}
+{% load l10n %}
 
 {% block title %}{{pro.name}}{% endblock%}
 {% block bodyattrs %}{%if view %} class="{{view}}"{%endif%}{% endblock%}
@@ -39,22 +40,54 @@
 
 <div class="container">
 
+    <div class="panel">
     <div class="row">
         <div class="col-md-7">
-            {% if band.embed_code %} <div class="embed">{{pro.embed_media|safe}} </div> {% endif %}
-            <p>{{pro.description|linebreaks}}</p>
-            {% include 'common/social_links.html' with obj=pro %}
+            <div class="description">
+                {% if pro.embed_code %} <div class="embed">{{pro.embed_media|safe}} </div> {% endif %}
+                <p>{{pro.description|linebreaks}}</p>
+                {% include 'common/social_links.html' with obj=pro %}
+            </div>
         </div>
         <div class="col-md-5">
-            {% if band.embed_code %} <div class="embed">{{band.embed_code|safe}} </div>{% endif %}
-            {% if events %}
-                <div class="secondary header-bar margin-top"> <h4><i class="fa fa-music right-margin" aria-hidden="true"></i> Próximos conciertos</h4> </div>
-                {% include 'event/_event_list.html' with events=events list_type='list' display='venue' %}
-            {% endif %}
 
+            <div id="map" class="map loading-container">
+                <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw loading-spinner"></i>
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="description">
+                {% if pro.embed_code %} <div class="embed">{{pro.embed_code|safe}} </div>{% endif %}
+            </div>
         </div>
 
     </div>
-
 </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% include 'common/include_gmaps.html' %}
+<script>
+  function initMap() {
+    var markerPosition = new google.maps.LatLng({{ pro.latitude|unlocalize }}, {{ pro.longitude|unlocalize }});
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: markerPosition,
+        zoomControl: false,
+        scaleControl: true,
+        streetViewControl: false,
+        scaleControl:false,
+        mapTypeControl:false
+    });
+
+    $('#map').removeClass('loading-container');
+
+    var marker = new RichMarker({
+      position: markerPosition,
+      map: map,
+      content: '<div class="marker-wrapper"><div class="marker"><img src="' + '{%if pro.profile_image %}{{pro.profile_thumbnail.url}}{%else%}{% static "img/venue-icon.png" %}{%endif%}' + '"></div></div>'
+    });
+  }
+</script>
+
 {% endblock %}
