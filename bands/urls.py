@@ -47,6 +47,7 @@ urlpatterns = [
 
     url(r'^dashboard/$', views.profile, name='dashboard'),
     url(r'^profile/edit$', views.edit_profile, name='edit_profile'),
+    url(r'^profile/edit/password$', views.profile_save_password, name='profile_save_password'),
     url(r'^profile/events$', views.user_events, name='user_events'),
     url(r'^profile/history', views.user_history, name='user_history'),
 ]

@@ -1,3 +1,4 @@
+# coding=utf-8
 import datetime
 
 from django.contrib import messages
@@ -87,21 +88,35 @@ def profile(request):
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
-        profile_form = ProfileForm(request.POST, instance=request.user, prefix='profile')
+        profile_form = ProfileForm(request.POST, instance=request.user)
         if profile_form.is_valid():
             profile_form.save()
 
-        password_form = PasswordChangeForm(request.user, request.POST, prefix='password')
-        if password_form.is_valid():
-            user = password_form.save()
-            update_session_auth_hash(request, user)  # Important!
-            messages.success(request, 'Your password was successfully updated!')
-
-    profile_form = ProfileForm(instance=request.user, prefix='profile')
-    password_form = PasswordChangeForm(request.user, prefix='password')
+    profile_form = ProfileForm(instance=request.user)
+    password_form = PasswordChangeForm(user=request.user)
 
     return render(request, 'profile/edit.html', {'profile_form': profile_form, 'password_form':password_form })
 
+
+def profile_save_password(request):
+    if request.method == 'POST':
+        password_form = PasswordChangeForm(data=request.POST, user=request.user)
+
+        if password_form.is_valid():
+            user = password_form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Contraseña actualizada correctamente')
+            print 'aaaaa'
+            return redirect('edit_profile')
+        else:
+            print 'oooo'
+            print password_form.errors
+    else:
+        password_form = PasswordChangeForm(user=request.user)
+
+    profile_form = ProfileForm(instance=request.user)
+
+    return render(request, 'profile/edit.html', {'profile_form': profile_form, 'password_form':password_form })
 
 @login_required
 def user_events(request):

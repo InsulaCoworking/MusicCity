@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar perfil{% endblock %}
+
+{% block content %}
+
+<div class="jumbo-header jumbo-band minimal" >
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h1>Editar perfil</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container card main" style="max-width:720px;">
+  <form method="post" action="{%url 'edit_profile' %}" class="edit-form" >
+    {% csrf_token %}
+
+      <div class="row">
+          <div class="col-sm-6">
+              <div class="form-group">
+                    <label>{{ profile_form.username.label_tag }}</label>
+                    <input type="hidden" name="{{profile_form.prefix}}-{{profile_form.username.name}}" value="{{profile_form.username.value}}">
+                    <input type="text" disabled value="{{profile_form.username.value}}">
+                    {% if profile_form.username.help_text %}
+                      <small style="color: grey">{{ profile_form.username.help_text }}</small>
+                    {% endif %}
+                    {% for error in profile_form.username.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+              </div>
+          </div>
+
+          <div class="col-sm-6">
+              <div class="form-group">
+                    <label>{{ profile_form.email.label_tag }}</label>
+                    {{ profile_form.email }}
+                    {% if profile_form.email.help_text %}
+                      <small style="color: grey">{{ profile_form.email.help_text }}</small>
+                    {% endif %}
+                    {% for error in profile_form.email.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+              </div>
+          </div>
+
+          <div class="col-sm-9">
+              <div class="form-group">
+                    <label>{{ profile_form.first_name.label_tag }}</label>
+                    {{ profile_form.first_name }}
+                    {% if profile_form.first_name.help_text %}
+                      <small style="color: grey">{{ profile_form.first_name.help_text }}</small>
+                    {% endif %}
+                    {% for error in profile_form.first_name.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+              </div>
+          </div>
+
+          <div class="col-sm-12">
+              <div class="form-group">
+                    <label>{{ form.last_name.label }}</label>
+                    {{ profile_form.last_name }}
+                    {% if profile_form.last_name.help_text %}
+                      <small style="color: grey">{{ profile_form.last_name.help_text }}</small>
+                    {% endif %}
+                    {% for error in profile_form.last_name.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+              </div>
+          </div>
+
+      </div>
+
+
+      <p class="text-center">
+          <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+      </p>
+  </form>
+
+    <form method="post" class="edit-form" action="{% url 'profile_save_password' %}">
+    <div class="row">
+        <div class="col-sm-12">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>{{password_form.old_password.label}}:</label>
+                {{password_form.old_password}}
+                {% for error in password_form.old_password.errors %}
+                  <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                <label>{{password_form.new_password1.label}}:</label>
+                {{password_form.new_password1}}
+                {% for error in password_form.new_password1.errors %}
+                  <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+                {% if password_form.new_password1.help_text %}
+                  <small class="helptext" style="color: grey">{{ password_form.new_password1.help_text | safe }}</small>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label>{{password_form.new_password2.label}}:</label>
+                {{password_form.new_password2}}
+                {% for error in password_form.new_password2.errors %}
+                  <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+                {% if password_form.new_password2.help_text %}
+                  <small class="helptext" style="color: grey">{{ password_form.new_password2.help_text | safe }}</small>
+                {% endif %}
+            </div>
+
+          </div>
+        <p class="text-center">
+          <button type="submit" class="btn btn-primary btn-lg">Cambiar contraseña</button>
+      </p>
+    </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+$('.user-type-item').click(function(){
+    $('.user-type-item').removeClass('active');
+    $(this).addClass('active');
+});
+
+</script>
+
+{% endblock %}
+

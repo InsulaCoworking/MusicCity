@@ -27,7 +27,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,600" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-        <link href="{% static "css/styles.css" %}?v=20" rel="stylesheet"/>
+        <link href="{% static "css/styles.css" %}?v=21" rel="stylesheet"/>
         {% block extra_styles %}{% endblock extra_styles %}
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -69,7 +69,7 @@
                         <li class="dropdown">
                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}} <span class="caret"></span></a>
                               <ul class="dropdown-menu">
-                                <!--<li><a href="#"><i class="fa fa-user-circle right-margin" aria-hidden="true" ></i> Mi perfil</a></li>-->
+                                <li><a href="{% url 'edit_profile' %}"><i class="fa fa-user-circle right-margin" aria-hidden="true" ></i> Editar mi perfil</a></li>
                                 <li><a href="{% url 'dashboard' %}"><i class="fa fa-home right-margin" aria-hidden="true" ></i> Dashboard</a></li>
                                   {% if user.is_superuser %}
                                     <li><a href="{% url 'admin:index' %}"><i class="fa fa-cog right-margin" aria-hidden="true" ></i> Django Admin</a></li>
@@ -120,6 +120,17 @@
 
     </div>
 </footer>
+
+    {% if messages %}
+   <div class="toast-messages">
+       {% for message in messages %}
+        <div class="toast {% if message.tags %}{{ message.tags }}{% endif %}">
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}<strong>Ouch!</strong> {% endif %}
+            {{ message }}
+        </div>
+        {% endfor %}
+   </div>
+   {% endif %}
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
