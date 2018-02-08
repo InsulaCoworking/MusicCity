@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load settings_value %}
+{% load l10n %}
+
+{% block title %}{% endblock%}
+
+{% block social_meta %}
+
+{% endblock %}
+
+{% block meta %}{% endblock meta %}
+{% block link %}{% endblock link %}
+{% block script %}{% endblock script %}
+{% block extra_styles %}<link href="{% static "css/blog.css" %}?v=21" rel="stylesheet"/>{% endblock extra_styles %}
+
+{% block home_header %}
+    <div class="jumbo-header home" style="background-image:url('{% static "img/band-bg.jpg" %}')">
+        <div class="jumbotron">
+          <div class="container text-center">
+              <h1>Noticias</h1>
+
+          </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block slider %}{% endblock %}
+
+{% block main_content %}
+ <div class="container">
+      <div class="row">
+        <div id="content" class="panel stacked hfeed col-xs-12 col-sm-8 col-md-8 col-lg-9">
+            <div class="description">
+          {% block breadcrumbs %}{% endblock %}
+            {% block content %}
+          <div class="links">
+            <h3>"Useful links" </h3>
+            <ul>
+              <li>
+                <a href="{% url 'zinnia:entry_archive_index' %}" >
+                  Weblog index"
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'zinnia:sitemap' %}" >
+                   "Sitemap"
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="search">
+            <h3> "Search" </h3>
+            {% include "zinnia/tags/search_form.html" %}
+          </div>
+
+        {% endblock content %}
+                </div>
+        </div>
+        <div id="sidebar" class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+          {% block sidebar %}
+          {% endblock sidebar %}
+        </div>
+
+      </div>
+    </div>
+{% endblock %}

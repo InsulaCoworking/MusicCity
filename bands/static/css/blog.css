@@ -1,0 +1,13 @@
+.entry-image img{
+    max-width:100%;
+    margin-bottom:1em;
+ }
+
+.entry-info, .entry-last-update{
+    font-size:0.9em;
+    color:#555;
+}
+.entry-info{    margin-bottom:0; }
+.entry-header{ margin-bottom:0; }
+.entry-content{ margin-top:1.5em; }
+.entry-footer i, .entry-footer span.glyphicon{ color:#888; }
