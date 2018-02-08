@@ -11,3 +11,8 @@
 .entry-header{ margin-bottom:0; }
 .entry-content{ margin-top:1.5em; }
 .entry-footer i, .entry-footer span.glyphicon{ color:#888; }
+.entry-prev-next .pager a { padding: 15px 20px; }
+.entry-prev-next .pager i.fa{ vertical-align:middle; margin:0 10px;  color: #cc0000; }
+.entry-prev-next .pager li>a, .entry-prev-next.pager li>span{
+    border:none;
+}
