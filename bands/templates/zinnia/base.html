@@ -40,12 +40,14 @@
   </div>
   {% get_random_entries %}
 </aside>
+{% comment %}
 <aside id="widget-populars" class="widget panel panel-default">
   <div class="panel-heading">
     {% trans "Popular entries" %}
   </div>
   {% get_popular_entries %}
 </aside>
+{% endcomment %}
 
 {% if user.is_authenticated %}
 <aside id="widget-tools" class="widget panel panel-danger">

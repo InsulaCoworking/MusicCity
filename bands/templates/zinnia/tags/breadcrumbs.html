@@ -1,4 +1,7 @@
-<ul class="breadcrumb">
+{% if breadcrumbs|length == 1 %}
+
+{% else %}
+<ul class="blog breadcrumb">
   {% for crumb in breadcrumbs %}
   <li {% if forloop.last %}class="active"{% endif%}>
     {% if crumb.url %}
@@ -9,3 +12,4 @@
   </li>
   {% endfor %}
 </ul>
+{% endif %}

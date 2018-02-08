@@ -56,6 +56,7 @@
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
                     <li {% if request.resolver_match.url_name == "index" %}class="active"{% endif %}><a href="{% url 'index' %}">Inicio</a></li>
+                    <li {% if request.resolver_match.url_name == "zinnia:entry_archive_index" %}class="active"{% endif %} {% if request.path == "/blog/" %}class="active"{% endif %}><a href="{% url 'zinnia:entry_archive_index' %}">Noticias</a></li>
                     <li {% if request.resolver_match.url_name == "venues_list" %}class="active"{% endif %}><a href="{% url 'venues_list' %}">Espacios</a></li>
                     <li {% if request.resolver_match.url_name == "bands_list" %}class="active"{% endif %}><a href="{% url 'bands_list' %}">Bandas</a></li>
                     <li {% if request.resolver_match.url_name == "events_schedule" %}class="active"{% endif %}><a href="{% url 'events_schedule' %}">Agenda</a></li>
@@ -85,7 +86,6 @@
                   </ul>
           </div>
         </nav>
-
         {% block home_header %}{% endblock home_header %}
 
 

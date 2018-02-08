@@ -22,12 +22,14 @@
   {% endwith %}
   {% endblock entry-related-entries %}
   {% block entry-similar-entries %}
+    {%comment%}
   <div class="entry-similar panel panel-default">
     <div class="panel-heading">
       {% trans "Similar entries" %}
     </div>
     {% get_similar_entries %}
   </div>
+    {%endcomment%}
   {% endblock entry-similar-entries %}
   {% block entry-previous-next-entries %}
   <div class="entry-prev-next">

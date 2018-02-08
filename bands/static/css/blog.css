@@ -16,3 +16,21 @@
 .entry-prev-next .pager li>a, .entry-prev-next.pager li>span{
     border:none;
 }
+.entry-title, .entry-title a{
+    font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif;
+    color: #1f282d;
+    text-transform: uppercase;
+    margin-bottom:0;
+}
+.blog.breadcrumb{
+    background:none;
+    padding:0;
+}
+
+.blog.breadcrumb>li+li:before {
+    padding: 0 5px;
+    color: #ccc;
+    content: "\f054";
+    color: #cc0000;
+    font: normal normal normal 14px/1 FontAwesome;
+}
