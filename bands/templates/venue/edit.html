@@ -7,7 +7,7 @@
 
 {% block bodyattrs %}class="venue"{% endblock%}
 
-{% block content %}
+{% block main_content %}
 <form method="POST" class="post-form" enctype="multipart/form-data">
     {% csrf_token %}
 <div class="jumbo-header jumbo-venue" id="venue-image" {% if venue.image %} style="background-image:url('{{venue.image.url}}')" {% endif %}>
