@@ -77,7 +77,19 @@
                     {% if event.venue %} <a href="{% url 'venue_detail' event.venue.pk %}"> {{event.venue_title}} </a> {% else %} {{event.venue_title}} {% endif %}
                     <br><span class="sub">{{event.venue_direction}}</span>
                 </p>
-                <div class="text-left margin-top">{{event.description|linebreaks}}</div>
+                <div class="text-left margin-top">
+                    {{event.description|linebreaks}}
+                    {% if not event.description %}
+                        {% for band in event.bands.all %}
+                    <h5><strong>{{band.name}}</strong></h5>
+                        <p>
+                            {{band.description|linebreaks}}
+                            </p>
+                    <br>
+                        {% endfor %}
+                    {% endif %}
+
+                </div>
 
                 <div class="row">
 
