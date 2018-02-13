@@ -73,13 +73,14 @@
                     <div class="form-group">
                         <label>Descripción</label>
                         {{ form.description }}
+                        <small style="color: grey">Si no añades una descripción específica del evento, se mostrará la descripción de las bandas participantes</small>
                     </div>
                 </div>
 
                 <div class="col-sm-4 col-md-3">
                     <div class="form-group">
                         <label>Imagen de cabecera</label>
-                        <div class="poster-image" id="poster-image" style="height:150px;width:100%;">
+                        <div class="poster-image" id="poster-image" style="height:150px;width:100%;{% if event and event.poster %}background-image:url('{{event.poster.url}}'){% endif %}">
                             <div class="file-field image-field absolute-pos" data-ref="#poster-image" data-ref-type="background"  style="left:50%;top:50%;margin-top:-30px;margin-left:-40px;">
                                 <div class="btn fab">
                                     <span><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
