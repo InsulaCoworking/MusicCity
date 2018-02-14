@@ -111,4 +111,6 @@ def pro_add(request):
             print form.errors.as_data()
     else:
         form = ProfessionalForm()
-    return render(request, 'professional/edit.html', { 'is_new': True, 'form': form, 'pro':None })
+
+    tags = ProfessionalTag.objects.all()
+    return render(request, 'professional/edit.html', { 'is_new': True, 'tags':tags, 'form': form, 'pro':None })
