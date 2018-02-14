@@ -66,7 +66,7 @@ class Event(models.Model):
 
     @property
     def slug(self):
-        return slugify( str(self) + ' ' + self.venue_title )
+        return slugify( str(self) ) + '-' + slugify(self.venue_title)
 
     class Meta:
         verbose_name = 'Concierto'
