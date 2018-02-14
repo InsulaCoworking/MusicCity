@@ -366,6 +366,10 @@ chooseBand.on('click', '.resume-card-container > a', function(e){
 });
 
 function addBand(band, removable){
+    var current = selected.find('[data-id="'+band.attr('data-id')+'"]');
+    if (current.length > 0){
+        return false;
+    }
     var elem = $('<li></li>')
                 .attr('data-id', band.attr('data-id'))
                 .append(band.find('.profile-circle').clone())
