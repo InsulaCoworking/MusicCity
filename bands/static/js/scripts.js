@@ -185,15 +185,26 @@ $(document).ready(function() {
         })
 
         select.select2({
+            dropdownAutoWidth: true,
             templateResult: function formatSelect(tag){
-                var color = select.find('option[value="' + tag.id + '"]').attr('data-color');
-                return $('<span class="tag-bulleted"></span>').text(tag.text).prepend($('<span></span>').css('background-color', color));
+                var selected = select.find('option[value="' + tag.id + '"]')
+                var color = selected.attr('data-color');
+                if (color){
+                    return $('<span class="tag-bulleted"></span>').text(tag.text).prepend($('<span></span>').css('background-color', color));
+                }
+
+                var image = selected.attr('data-image');
+                if (image){
+                    return $('<span class="tag-image"></span>').text(tag.text).prepend($('<div class="profile-circle"><img src="'+image+'"></div>').css('background-color', color));
+                }
             },
             templateSelection: function formatTag(tag){
                 var color = select.find('option[value="' + tag.id + '"]').attr('data-color');
-                return $('<span class="tag-selected"></span>').text(tag.text).css('background-color', color);
+                if (color)
+                    return $('<span class="tag-selected"></span>').text(tag.text).css('background-color', color);
+                else return tag.text;
             }
-        });
+        }).css('width', '100%;');
    })
 
 });
