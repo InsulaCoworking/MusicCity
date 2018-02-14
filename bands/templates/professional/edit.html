@@ -56,6 +56,7 @@
                     <div class="form-group" data-links="#venue-address">
                         <label>Categorías</label>
                         <div class="tag-select">
+                            {% include 'common/tags_declaration.html' with tags=tags %}
                         {{ form.tags}}
                             </div>
                     </div>

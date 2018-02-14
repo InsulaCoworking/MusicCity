@@ -67,6 +67,7 @@ def pro_detail(request, pk):
 def pro_edit(request, pk):
 
     pro = get_object_or_404(Professional, pk=pk)
+    tags = ProfessionalTag.objects.all()
 
     can_edit = False
     if request.user.is_superuser or (
@@ -85,7 +86,7 @@ def pro_edit(request, pk):
             print form.errors.as_data()
     else:
         form = ProfessionalForm(instance=pro)
-    return render(request, 'professional/edit.html', { 'form': form, 'pro':pro })
+    return render(request, 'professional/edit.html', { 'form': form, 'pro':pro, 'tags':tags })
 
 
 

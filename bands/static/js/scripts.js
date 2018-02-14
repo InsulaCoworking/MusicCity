@@ -159,7 +159,6 @@ $(document).ready(function() {
         var field = $(this);
         var target = field.attr('data-ref');
         var type = field.attr('data-ref-type');
-        console.log(type);
         field.find('input').on('change', function(){
             var input = this;
             if (input.files && input.files[0]) {
@@ -178,7 +177,24 @@ $(document).ready(function() {
     });
 
 
-   $('.tag-select select').addClass('form-control').select2();
+   $('.tag-select').each(function(){
+        var select = $(this).find('select').addClass('form-control');
+        $(this).find('.tags_declaration > li').each(function(){
+            var tag = $(this);
+            select.find('option[value="' + tag.attr('data-pk') + '"]').attr('data-color', tag.attr('data-color'));
+        })
+
+        select.select2({
+            templateResult: function formatSelect(tag){
+                var color = select.find('option[value="' + tag.id + '"]').attr('data-color');
+                return $('<span class="tag-bulleted"></span>').text(tag.text).prepend($('<span></span>').css('background-color', color));
+            },
+            templateSelection: function formatTag(tag){
+                var color = select.find('option[value="' + tag.id + '"]').attr('data-color');
+                return $('<span class="tag-selected"></span>').text(tag.text).css('background-color', color);
+            }
+        });
+   })
 
 });
 
