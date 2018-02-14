@@ -3,7 +3,9 @@
                 style="background-image:url('{{pro.image.url}}')"
             {% endif %}>
     <div class="header">
-        <div class="tag" {%if pro.tag.color %}style="background-color:{{pro.tag.color}}"{% endif %}>{{pro.tag.name}}</div>
+        {% for tag in pro.tags.all %}
+            <div class="tag" {%if tag.color %}style="background-color:{{tag.color}}"{% endif %}>{{tag.name}}</div>
+        {% endfor %}
     </div>
 
     <div class="profile-body">

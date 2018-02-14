@@ -37,14 +37,14 @@ def pro_list(request):
         response['Vary'] = 'Accept'
         return response
     else:
-        tags = ProfessionalTag.objects.filter(pro_tag__isnull=False).distinct()
+        tags = ProfessionalTag.objects.filter(pros__isnull=False).distinct()
         return render(request, 'professional/list.html', {
             'pros': pros, 'tags':tags, 'filtered_tags':None, 'page':page
         })
 
 def pros_map_info(request):
 
-    venues = Professional.objects.all().order_by('-latitude').select_related('tag').values('pk', 'name', 'latitude', 'longitude', 'profile_image', 'tag__name', 'tag__color')
+    venues = Professional.objects.all().order_by('-latitude').select_related('tags').values('pk', 'name', 'latitude', 'longitude', 'profile_image', 'tags__name', 'tags__color')
     data = list(venues)
     return JsonResponse(data, safe=False, content_type="application/json")
 

@@ -1380,10 +1380,18 @@ span.secondary-color{
 .header .tag{
     position:absolute;
     right:0;
-    top:20%;
+    top:15%;
     margin-right:-3px;s
 }
-
+.header .tag:nth-child(2){
+    margin-top:32px;
+}
+.header .tag:nth-child(3){
+    margin-top:64px;
+}
+.header .tag:nth-child(4){
+    margin-top:96px;
+}
 
 .pagination>li>a, .pagination>li>span {
     position: relative;
