@@ -100,9 +100,14 @@ def events_schedule(request):
         })
 
 
-def event_detail(request, pk):
+def event_detail(request, pk, slug=None):
 
     event = get_object_or_404(Event, pk=pk)
+    if not slug:
+        print 'aaaaa'
+        return redirect('event_detail_slug', pk=pk, slug=event.slug)
+
+    print event.slug
     can_edit = can_edit_event(request.user, event)
 
     return render(request, 'event/detail.html', {

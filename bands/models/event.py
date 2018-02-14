@@ -4,6 +4,7 @@ import uuid
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils.text import slugify
 from imagekit.models import ProcessedImageField
 from pilkit.processors import ResizeToCover, ResizeToFit
 
@@ -62,6 +63,10 @@ class Event(models.Model):
                     return self.venue.image.url
                 else:
                     return ''
+
+    @property
+    def slug(self):
+        return slugify(str(self))
 
     class Meta:
         verbose_name = 'Concierto'

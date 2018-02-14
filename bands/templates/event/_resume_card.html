@@ -42,7 +42,7 @@
     <div class="desc-emphasis visible-md-block visible-lg-block">{{event.day|date:"d/m/Y"}}</div>
     <p><hr>
     {% if not hide_btn %}
-        <a class="btn btn-primary btn-lg" href="{% url 'event_detail' pk=event.pk %}" role="button">Ver concierto</a>
+        <a class="btn btn-primary btn-lg" href="{% url 'event_detail_slug' pk=event.pk slug=event.slug %}" role="button">Ver concierto</a>
     {% endif %}
     </p>
 </div>

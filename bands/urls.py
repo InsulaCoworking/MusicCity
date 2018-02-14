@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^events/add/$', views.event_add, name='event_add'),
     url(r'^events/(?P<pk>\d+)/$', views.event_detail, name='event_detail'),
     url(r'^events/(?P<pk>\d+)/edit/$', views.event_edit, name='event_edit'),
+    url(r'^events/(?P<pk>\d+)/(?P<slug>[-\w\d]+)/$', views.event_detail, name='event_detail_slug'),
 
     url(r'^events/feed/$', NextEventsFeed(), name='event_feed'),
 

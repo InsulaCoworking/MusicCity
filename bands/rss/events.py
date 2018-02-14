@@ -29,7 +29,7 @@ class NextEventsFeed(Feed):
         return item.description
 
     def item_link(self, item):
-        return reverse('event_detail', kwargs={'pk':item.pk})
+        return reverse('event_detail_slug', kwargs={'pk':item.pk, 'slug':item.slug})
 
     def item_startdate(self, item):
         return item.day.strftime("%d/%m/%Y")
