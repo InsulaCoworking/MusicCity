@@ -178,6 +178,8 @@ $(document).ready(function() {
     });
 
 
+   $('.tag-select select').addClass('form-control').select2();
+
 });
 
 

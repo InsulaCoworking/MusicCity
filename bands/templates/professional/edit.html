@@ -31,7 +31,7 @@
         </div>
         <div class="profile-circle"><img id="profile-image" src="{%if pro.profile_image %} {{pro.profile_image.url}}{% endif %}"></div>
         <h1 id="venue-name">{{pro.name}}{% if is_new %} Nuevo perfil profesional {%endif%}</h1>
-        <p class="description">{%if pro.tag %}{{pro.tag.name}}{% endif %}</p>
+        <p class="description">{% for tag in pro.tags.all %}{{tag.name}}{% if not forloop.last %} · {%endif%} {% endfor %}</p>
 
         <div class="menu">
             <button type="submit" class="fab smoothscroll" href="#" data-toggle="tooltip" data-placement="bottom" title="Guardar"><i class="fa fa-save" aria-hidden="true"></i></button>
@@ -54,8 +54,10 @@
                     </div>
 
                     <div class="form-group" data-links="#venue-address">
-                        <label>Categoría</label>
+                        <label>Categorías</label>
+                        <div class="tag-select">
                         {{ form.tags}}
+                            </div>
                     </div>
 
                     <div class="form-group">

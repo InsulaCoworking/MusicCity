@@ -26,7 +26,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,600" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-        <link href="{% static "css/styles.css" %}?v=21" rel="stylesheet"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+        <link href="{% static "css/styles.css" %}?v=22" rel="stylesheet"/>
         {% block extra_styles %}{% endblock extra_styles %}
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -133,8 +134,9 @@
    {% endif %}
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{% static "js/scripts.js" %}?v=18"></script>
+    <script type="text/javascript" src="{% static "js/scripts.js" %}?v=19"></script>
     {% block scripts %}{% endblock scripts %}
 
     <script>

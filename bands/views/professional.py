@@ -16,7 +16,7 @@ def pro_list(request):
 
     tag_filter = request.GET.get('tag', None)
     if tag_filter:
-        pro_list = pro_list.filter(tag__pk=tag_filter)
+        pro_list = pro_list.filter(tags__pk=tag_filter)
 
     paginator = Paginator(pro_list, 6)
     page = request.GET.get('page')

@@ -30,7 +30,7 @@
     <div class="container">
         <div class="profile-circle">{%if pro.profile_image %} <img src="{{pro.profile_thumbnail.url}}">{% endif %}</div>
         <h1>{{pro.name}}</h1>
-        <p class="description">{%if pro.tag %}{{pro.tag.name}}{% endif %}</p>
+        <p class="description">{% for tag in pro.tags.all %}{{tag.name}}{% if not forloop.last %} · {%endif%} {% endfor %}</p>
 
         <div class="menu">
             {% if can_edit %} <a class="fab smoothscroll" href="{% url 'pro_edit' pk=pro.pk %}" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a> {% endif %}
@@ -85,7 +85,7 @@
     var marker = new RichMarker({
       position: markerPosition,
       map: map,
-      content: '<div class="marker-wrapper"><div class="marker"><img src="' + '{%if pro.profile_image %}{{pro.profile_thumbnail.url}}{%else%}{% static "img/venue-icon.png" %}{%endif%}' + '"></div></div>'
+      content: '<div class="marker-wrapper" style="color:{{pro.tags.last.color}};"><div class="marker"><img src="' + '{%if pro.profile_image %}{{pro.profile_thumbnail.url}}{%else%}{% static "img/venue-icon.png" %}{%endif%}' + '"></div></div>'
     });
   }
 </script>
