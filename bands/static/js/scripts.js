@@ -52,35 +52,46 @@ function popUp(url) {
 	return false;
 }
 
-function loadResults(resultsContainer, url){
-    if (url == null || url == '' || url.startsWith('#')){
-        return;
-    }
-    resultsContainer.addClass('loading-container');
-    $.get(url, {}, function(data){
-        resultsContainer.find('.results').html(data);
-        resultsContainer.removeClass('loading-container');
-        var preserveHistory = resultsContainer.attr('data-preservehistory');
-        console.log(preserveHistory);
-        if (!preserveHistory || preserveHistory != 'true')
-            window.history.replaceState({}, '', url);
-    });
-}
+(function( $ ) {
 
-function loadPaginationAjax(list){
-    var initialUrl = list.attr('data-initial');
-    if ((initialUrl != null) && (initialUrl!='')){
-        loadResults(list, initialUrl);
-    }
-
-    list.on('click', '.pagination a', function(e){
-        e.preventDefault();
-        if ($(this).parent().hasClass('active'))
+    function loadResults(resultsContainer, url){
+        if (url == null || url == '' || url.startsWith('#')){
             return;
-        var url = $(this).attr('href')
-        loadResults(list, url);
-    });
-}
+        }
+        resultsContainer.addClass('loading-container');
+        $.get(url, {}, function(data){
+            resultsContainer.find('.results').html(data);
+            resultsContainer.removeClass('loading-container');
+            var preserveHistory = resultsContainer.attr('data-preservehistory');
+            if (!preserveHistory || preserveHistory != 'true')
+                window.history.replaceState({}, '', url);
+        });
+    }
+
+    $.fn.ajaxLoader = function( url ) {
+
+        if ( url != null) {
+            loadResults(this, url);
+            return this;
+        }
+        var initialUrl = this.attr('data-initial');
+        if ((initialUrl != null) && (initialUrl!='')){
+            loadResults(this, initialUrl);
+        }
+
+        var self = this;
+        self.on('click', '.pagination a', function(e){
+            e.preventDefault();
+            if ($(this).parent().hasClass('active'))
+                return;
+            var url = $(this).attr('href')
+            loadResults(self, url);
+        });
+
+        return this;
+
+    };
+}( jQuery ));
 
 $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
@@ -94,11 +105,7 @@ $(document).ready(function() {
         popUp(this.href);
     });
 
- /* $(".select2").on('change',function() {
-    data = searchForm.serialize();
-    results.load(url + '?' + data);
-  });
-*/
+
   $('#filter').on('click', function(e){
     e.preventDefault();
     data = searchForm.serialize();

@@ -128,17 +128,17 @@ tags.on('click', '.tag-filter', function(){
     if (tag.hasClass('active')){
         tag.removeClass('active');
         tags.removeClass('filtered');
-        loadResults(list, '?');
+        list.ajaxLoader('?');
     }
     else{
         tags.addClass('filtered').find('.tag-filter').removeClass('active');
         tag.addClass('active');
         var filter = tag.attr('data-tag');
-        loadResults(list, '?tag=' + filter);
+        list.ajaxLoader('?tag=' + filter);
     }
 });
 
-loadPaginationAjax(list);
+list.ajaxLoader();
 
 
 </script>

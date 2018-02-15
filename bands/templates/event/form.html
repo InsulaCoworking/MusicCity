@@ -324,12 +324,13 @@ var search = $('#search');
 search.on('change', function(){
     var q = search.val();
      if (q && q !== ''){
-        loadResults(list, '{% url 'bands_list' %}?q=' + q);
+        console.log("AAAA");
+        list.ajaxLoader('{% url 'bands_list' %}?q=' + q);
      }
 
 });
 
-loadPaginationAjax(list);
+list.ajaxLoader();
 list.find('.results').on('click', '.resume-card-container > a', function(e){
     e.preventDefault();
     var band = $(this);

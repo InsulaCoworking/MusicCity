@@ -69,7 +69,7 @@ function reloadResults(){
     if (q && q !== ''){
         filters['q'] = q;
     }
-    loadResults(list, '?' + $.param(filters));
+    list.ajaxLoader('?' + $.param(filters));
 }
 
 tags.on('click', '.tag-filter', function(){
@@ -86,8 +86,7 @@ tags.on('click', '.tag-filter', function(){
 });
 
 search.on('change', reloadResults);
-loadPaginationAjax(list);
-
+list.ajaxLoader();
 
 </script>
 {% endblock %}
