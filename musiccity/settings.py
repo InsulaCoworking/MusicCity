@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['localhost', '10.0.0.52']
 INSTALLED_APPS = [
     'bands.apps.BandsConfig',
     'tastypie',
+    'import_export',
     'imagekit',
     'mptt',
     'tagging',
