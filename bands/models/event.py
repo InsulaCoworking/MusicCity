@@ -18,7 +18,7 @@ def poster_path(instance, filename):
 
 
 class Event(models.Model):
-    bands = models.ManyToManyField(Band, blank=True, verbose_name='Bandas')
+    bands = models.ManyToManyField(Band, blank=True, verbose_name='Bandas', related_name='events')
     venue = models.ForeignKey(Venue, null=True, blank=True, related_name='venue')
     day = models.DateField(null=True, blank=True)
     time = models.TimeField(null=True, blank=True)
