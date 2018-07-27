@@ -32,7 +32,8 @@ ALLOWED_HOSTS = ['localhost', '10.0.0.52']
 # Application definition
 
 INSTALLED_APPS = [
-    'bands.apps.BandsConfig',
+    'bands',
+    'microsite',
     'tastypie',
     'import_export',
     'imagekit',

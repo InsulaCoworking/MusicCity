@@ -22,6 +22,7 @@ from api.urls import get_api
 
 urlpatterns = [
     url(r'^', include('bands.urls')),
+    url(r'^', include('microsite.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(get_api('v1').urls)),
     url(r'^blog/', include('zinnia.urls')),
