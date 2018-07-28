@@ -17,7 +17,7 @@ class Microsite(models.Model):
     news_tag = models.CharField(null=True, blank=True, max_length=100, verbose_name='Tag de noticias')
 
     profile_image = ProcessedImageField(null=True, blank=True, upload_to=RandomFileName('special/'),
-                                 processors=[ResizeToFit(512, 512, upscale=False)], format='JPEG', verbose_name='Imagen principal')
+                                 processors=[ResizeToFit(1200, 512, upscale=False)], format='PNG', verbose_name='Imagen principal')
     top_image = ProcessedImageField(null=True, blank=True, upload_to=RandomFileName('special/'),
                                         processors=[ResizeToFit(1200, 600, upscale=False)], format='JPEG',
                                         verbose_name='Imagen de cabecera')

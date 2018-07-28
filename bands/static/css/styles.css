@@ -1405,7 +1405,15 @@ span.secondary-color{
     border: none;
     font-weight:bold;
 }
-
+.embed iframe{
+    border: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width:100%;
+  max-width: 100%;
+}
+}
 .pagination a.card{
     background-color:#fff;
     color:#cc0000;

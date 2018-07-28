@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load settings_value %}
+{% load l10n %}
+
+{% block title %}{{microsite.title}}{% endblock%}
+
+{% block home_header %}
+    <div class="jumbo-header jumbo-band home" {% if microsite.top_image %} style="background-image:url('{{microsite.top_image.url}}')" {% endif %}>
+        <div class="jumbotron">
+          <div class="container text-center">
+              {% if microsite.profile_image %}
+                 <img class="img-responsive" src="{{microsite.profile_image.url}}">
+              {%else %}
+                 <h1>{{microsite.title}}</h1>
+              {% endif %}
+
+          </div>
+        </div>
+    </div>
+
+<a name="more" id="more"></a>
+<section class="header-bar no-margin">
+</section>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    {% if microsite.primary_bg %}
+        .header-bar { background-color: {{microsite.primary_bg}}; }
+        .jumbo-header .jumbotron {
+        background: -moz-linear-gradient(top, rgba(31,40,45,0) 0%,{{microsite.primary_bg}} 100%);
+        background: -webkit-linear-gradient(top, rgba(31,40,45,0) 0%, {{microsite.primary_bg}} 100%);
+        background: linear-gradient(to bottom, rgba(31,40,45,0) 0%, {{microsite.primary_bg}} 100%); }
+    {% endif %}
+    {% if microsite.primary_text %} .header-bar { color: {{microsite.primary_text}}; }{% endif %}
+    {% if microsite.secondary_bg %} .header-bar.secondary { background-color: {{microsite.secondary_bg}}; }{% endif %}
+    {% if microsite.secondary_text %} .header-bar.secondary { color: {{microsite.secondary_text}}; }{% endif %}
+</style>
+{% endblock %}
+
+{% block main_content %}
+<section class="home-content">
+
+    <div class=" main card">
+        <div class="row">
+            <div class="col-md-7 large-padding">
+                {% autoescape off %}
+            {{microsite.description|linebreaks}}
+        {% endautoescape %}
+
+            </div>
+            <div class="col-md-5">
+                {% if microsite.embed_code %} <div class="embed">{{microsite.embed_code|safe}} </div> {% endif %}
+
+                {% if bands %}
+                <div class="secondary header-bar margin-top margin-bottom"> <h4><i class="fa fa-music right-margin" aria-hidden="true"></i> Bandas</h4> </div>
+                <div class="row auto-clear">
+
+
+                {% for band in bands %}
+                    <div class="col-lg-6">
+
+
+                    <a href="{% url 'band_detail' pk=band.pk%}" class="resume_link" data-id="{{band.pk}}"  title="{{band.name}}" style="border-color:{{band.tag.color}}">
+                          {% include 'band/resume_card.html' with band=band %}
+                      </a>
+                        </div>
+                {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+
+
+<div class="header-bar text-center top-padding">
+    <div class="container">
+        <h1 class="margin-top">Conciertos</h1>
+    </div>
+</div>
+
+    <div class="container large-padding" style="font-size:1.1em;">
+       <div class="row auto-clear">
+    {% if microsite.events %}
+        {% for event in microsite.events.all %}
+
+                <div class="col-sm-6 col-md-6 col-lg-4 event-result">
+                    <a class="hover" href="{% url 'event_detail_slug' pk=event.pk slug=event.slug %}"></a>
+                {% include 'event/_resume_card.html' with event=event display="venue" hide_btn=True %}
+
+                </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-sm-12 large-padding top-padding margin-top text-center">
+            <i class="fa fa-warning fa-2x" aria-hidden="true"></i><br><br>
+            No hay conciertos programados para los criterios de búsqueda elegidos...
+        </div>
+
+    {% endif %}
+
+</div>
+    </div>
+
+
+
+</section>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock scripts %}
