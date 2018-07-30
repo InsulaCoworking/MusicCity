@@ -5,6 +5,19 @@
 
 {% block title %}{{microsite.title}}{% endblock%}
 
+{% block social_meta %}
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{microsite.title}} | {% settings_value "MAIN_PAGE_TITLE" %}">
+        <meta name="twitter:description" content="{{ microsite.events.first.day|date:"l d F" }}, {{microsite.events.first.time}} - {{microsite.events.first.venue.name}}">
+        <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{%if microsite.profile_image %}{{microsite.profile_image.url}}{% else %}{% static "img/logo_banner.jpg" %}{% endif %}">
+
+        <meta property="og:url" content="{{request.build_absolute_uri}}" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="{{microsite.title}} | {% settings_value "MAIN_PAGE_TITLE" %}" />
+        <meta property="og:description" content="{{ microsite.events.first.day|date:"l d F" }}, {{microsite.events.first.time}} - {{microsite.events.first.venue.name}}" />
+        <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{%if microsite.profile_image %}{{microsite.profile_image.url}}{% else %}{% static "img/logo_banner.jpg" %}{% endif %}" />
+{% endblock %}
+
 {% block home_header %}
     <div class="jumbo-header jumbo-band home" {% if microsite.top_image %} style="background-image:url('{{microsite.top_image.url}}')" {% endif %}>
         <div class="jumbotron">
