@@ -99,7 +99,7 @@
     {% if microsite.events %}
         {% for event in microsite.events.all %}
 
-                <div class="col-sm-6 col-md-6 col-lg-4 event-result">
+                <div class="col-sm-6 col-md-6 event-result">
                     <a class="hover" href="{% url 'event_detail_slug' pk=event.pk slug=event.slug %}"></a>
                 {% include 'event/_resume_card.html' with event=event display="venue" hide_btn=True %}
 
