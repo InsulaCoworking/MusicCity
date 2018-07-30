@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load settings_value %}
 {% load l10n %}
+{% load zinnia %}
 
 {% block title %}{{microsite.title}}{% endblock%}
 
@@ -38,6 +39,7 @@
 {% endblock %}
 
 {% block extra_styles %}
+<link href="{% static "css/blog.css" %}?v=21" rel="stylesheet"/>
 <style>
     {% if microsite.primary_bg %}
         .header-bar { background-color: {{microsite.primary_bg}}; }
@@ -113,8 +115,35 @@
 
     {% endif %}
 
-</div>
+
+
+
     </div>
+</div>
+
+    <div class="header-bar secondary text-center top-padding">
+    <div class="container">
+        <h1 class="margin-top">Noticias</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+{% for object in entries %}
+    <div class="col-md-6">
+        <div class="panel ">
+            <div class="description">
+              {% zinnia_loop_template object.content_template as template %}
+              {% include template with object_content=object.html_preview continue_reading=1 %}
+            </div>
+        </div>
+    </div>
+{% empty %}
+  <p class="info text-center">
+    <a href="{% url 'admin:zinnia_entry_add' %}">"No entries yet."</a>
+  </p>
+{% endfor %}
+    </div>
+</div>
 
 
 
