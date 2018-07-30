@@ -152,6 +152,7 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 
 MAIN_PAGE_TITLE = 'AlcaláEsMúsica'
+BANDS_PER_PAGE = 6
 
 # Import secret settings (see settings_secret.py.template for reference)
 

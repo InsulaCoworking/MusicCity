@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import datetime
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, InvalidPage
 from django.shortcuts import get_object_or_404, render, redirect
@@ -28,7 +29,7 @@ def bands_list(request):
         if entry_query:
             bands = bands.filter(entry_query)
 
-    paginator = Paginator(bands, 6)
+    paginator = Paginator(bands, settings.BANDS_PER_PAGE)
     page = request.GET.get('page')
     try:
         bands = paginator.page(page)
