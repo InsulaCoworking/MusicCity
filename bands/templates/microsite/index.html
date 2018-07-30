@@ -138,8 +138,8 @@
         </div>
     </div>
 {% empty %}
-  <p class="info text-center">
-    <a href="{% url 'admin:zinnia_entry_add' %}">"No entries yet."</a>
+  <p class="info text-center padding-top">
+    Todavía no hay ninguna entrada con el tag "{{microsite.news_tag}}".
   </p>
 {% endfor %}
     </div>
