@@ -43,13 +43,14 @@ INSTALLED_APPS = [
     'zinnia_ckeditor',
     'ckeditor',
     'django_comments',
+    'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
@@ -67,7 +68,7 @@ ROOT_URLCONF = 'musiccity.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ os.path.join(BASE_DIR, 'templates') ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -156,4 +157,4 @@ BANDS_PER_PAGE = 6
 
 # Import secret settings (see settings_secret.py.template for reference)
 
-from settings_secret import *
+from musiccity.settings_secret import *
