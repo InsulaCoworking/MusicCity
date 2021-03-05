@@ -53,7 +53,7 @@ def venue_detail(request, pk):
     events = Event.objects.filter(venue=venue, day__gte=today)
 
     can_edit = False
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         if request.user.is_superuser or (
                     request.user.has_perm('bands.manage_venue') and request.user == venue.owner ):
             can_edit = True
@@ -83,8 +83,7 @@ def venue_edit(request, pk):
         if form.is_valid():
             venue = form.save()
             return redirect('venue_detail', pk=venue.pk)
-        else:
-            print form.errors.as_data()
+
     else:
         form = VenueForm(instance=venue)
     return render(request, 'venue/edit.html', { 'form': form, 'venue':venue })
@@ -107,8 +106,7 @@ def venue_add(request):
             venue.owner = request.user
             venue.save()
             return redirect('venue_detail', pk=venue.pk)
-        else:
-            print form.errors.as_data()
+
     else:
         form = VenueForm()
 
@@ -122,7 +120,6 @@ def venue_history(request, pk):
     eventsbyyear = []
     for event in events:
         year = None
-        print event.day
 
         for eventsyear in eventsbyyear:
             if event.day != None and eventsyear['year'] == event.day.year:

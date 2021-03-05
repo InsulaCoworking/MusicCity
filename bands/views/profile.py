@@ -97,7 +97,7 @@ def edit_profile(request):
 
     return render(request, 'profile/edit.html', {'profile_form': profile_form, 'password_form':password_form })
 
-
+@login_required
 def profile_save_password(request):
     if request.method == 'POST':
         password_form = PasswordChangeForm(data=request.POST, user=request.user)
@@ -106,11 +106,7 @@ def profile_save_password(request):
             user = password_form.save()
             update_session_auth_hash(request, user)  # Important!
             messages.success(request, 'Contraseña actualizada correctamente')
-            print 'aaaaa'
             return redirect('edit_profile')
-        else:
-            print 'oooo'
-            print password_form.errors
     else:
         password_form = PasswordChangeForm(user=request.user)
 

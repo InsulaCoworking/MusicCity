@@ -12,7 +12,7 @@ from bands.models import Tag
 
 class Band(models.Model):
     name = models.CharField(null=False, verbose_name='Nombre', max_length=240)
-    tag = models.ForeignKey(Tag, related_name="band_tag")
+    tag = models.ForeignKey(Tag, null=True, related_name="band_tag", on_delete=models.SET_NULL)
     genre = models.CharField(null=True, blank=True, verbose_name='etiqueta', max_length=240)
     profile_image = ProcessedImageField(null=True, blank=True, upload_to=RandomFileName('band/'),
                                  processors=[ResizeToFit(512, 512, upscale=False)], format='JPEG', verbose_name='Imagen principal')
@@ -38,7 +38,7 @@ class Band(models.Model):
     presskit_link = models.CharField(null=True, blank=True, verbose_name='Presskit', max_length=250)
     spotify_link = models.CharField(null=True, blank=True, verbose_name='Perfil de Spotify', max_length=250)
 
-    owner = models.ForeignKey(User, null=True, blank=True, verbose_name="Responsable")
+    owner = models.ForeignKey(User, null=True, blank=True, verbose_name="Responsable", on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name = 'Banda'
@@ -48,13 +48,16 @@ class Band(models.Model):
             ("manage_band", "Puede gestionar bandas"),
         )
 
+    def __str__(self):
+        return self.name
+
     def __unicode__(self):
         return self.name
 
 
 class BandToken(models.Model):
     token = models.CharField(null=False, verbose_name='Nombre', max_length=40, unique=True)
-    band = models.ForeignKey(Band)
+    band = models.ForeignKey(Band, on_delete=models.CASCADE)
     expiration_date = models.DateTimeField(null=True, blank=True)
 
     class Meta:

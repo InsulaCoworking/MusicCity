@@ -51,7 +51,7 @@ def pros_map_info(request):
 def pro_detail(request, pk):
     pro = get_object_or_404(Professional, pk=pk)
     can_edit = False
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         if request.user.is_superuser or (
                     request.user.has_perm('bands.manage_pro') and request.user == pro.user):
             can_edit = True
@@ -82,8 +82,6 @@ def pro_edit(request, pk):
         if form.is_valid():
             pro = form.save()
             return redirect('pro_detail', pk=pro.pk)
-        else:
-            print form.errors.as_data()
     else:
         form = ProfessionalForm(instance=pro)
     return render(request, 'professional/edit.html', { 'form': form, 'pro':pro, 'tags':tags })
@@ -107,8 +105,7 @@ def pro_add(request):
             pro.user = request.user
             pro.save()
             return redirect('pro_detail', pk=pro.pk)
-        else:
-            print form.errors.as_data()
+
     else:
         form = ProfessionalForm()
 

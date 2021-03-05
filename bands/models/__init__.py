@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from tag import Tag
-from venue import Venue
-from band import Band
-from event import Event
-from band import BandToken
-from settings import Settings
-from professional_tag import ProfessionalTag
-from professional import Professional
+from bands.models.tag import Tag
+from bands.models.venue import Venue
+from bands.models.band import Band
+from bands.models.event import Event
+from bands.models.band import BandToken
+from bands.models.settings import Settings
+from bands.models.professional_tag import ProfessionalTag
+from bands.models.professional import Professional

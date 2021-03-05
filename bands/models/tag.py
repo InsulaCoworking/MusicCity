@@ -13,5 +13,8 @@ class Tag(models.Model):
         verbose_name_plural = 'Etiquetas'
         ordering = ['name']
 
+    def __str__(self):
+        return self.name
+
     def __unicode__(self):
         return self.name

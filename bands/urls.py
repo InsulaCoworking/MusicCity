@@ -42,8 +42,8 @@ urlpatterns = [
     # url(r'^billing/$', views.billing_form, name='billing'),
     # url(r'^billing/list/$', views.billing_list, name='billing'),
     # url(r'^billing/download/$', views.download_csv, name='download_csv'),
-    url(r'^login/$', auth_views.login, {'redirect_authenticated_user': True }, name='login'),
-    url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^login/$', auth_views.LoginView.as_view(), {'redirect_authenticated_user': True }, name='login'),
+    url(r'^logout/$',  auth_views.LogoutView.as_view(), name='logout'),
     url(r'^register/$', views.register, name='register'),
 
     url(r'^dashboard/$', views.profile, name='dashboard'),

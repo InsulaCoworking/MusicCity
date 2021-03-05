@@ -62,7 +62,7 @@ def band_detail(request, pk):
     today = datetime.date.today()
     events = Event.objects.filter(bands__id=band.id, day__gte=today)
 
-    can_edit = request.user.is_authenticated() and (request.user.is_superuser or (
+    can_edit = request.user.is_authenticated and (request.user.is_superuser or (
                     request.user == band.owner ))
 
     return render(request, 'band/detail.html', {
@@ -92,7 +92,7 @@ def band_edit(request, pk):
             band = form.save()
             return redirect('band_detail', pk=band.pk)
         else:
-            print form.errors.as_data()
+            print(form.errors.as_data())
     else:
         form = BandForm(instance=band)
     return render(request, 'band/edit.html', { 'form': form, 'band':band })
@@ -116,7 +116,7 @@ def band_add(request):
             band.save()
             return redirect('band_detail', pk=band.pk)
         else:
-            print form.errors.as_data()
+            print (form.errors.as_data())
     else:
         form = BandForm()
 
@@ -158,10 +158,8 @@ def edit_band_token(request, token):
     save_success = False
     if request.method == "POST":
         form = BandForm(request.POST, request.FILES, instance=band)
-        print form.is_valid()
         if form.is_valid():
             band = form.save()
-            print band.band_image
             save_success = True
     else:
         form = BandForm(instance=band)

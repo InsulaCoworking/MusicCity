@@ -11,7 +11,15 @@ from bands.models import Event, Tag, Venue, Band
 
 
 def can_edit_event(user, event):
-    return user.is_authenticated() and (
+    return user.is_authenticated and (
+                user.is_superuser
+            or (
+                user == event.created_by and event.day > datetime.date.today()
+            ))
+
+
+def timetable(user, event):
+    return user.is_authenticated and (
                 user.is_superuser
             or (
                 user == event.created_by and event.day > datetime.date.today()
@@ -104,10 +112,8 @@ def event_detail(request, pk, slug=None):
 
     event = get_object_or_404(Event, pk=pk)
     if not slug:
-        print 'aaaaa'
         return redirect('event_detail_slug', pk=pk, slug=event.slug)
 
-    print event.slug
     can_edit = can_edit_event(request.user, event)
 
     return render(request, 'event/detail.html', {
@@ -170,7 +176,7 @@ def event_add(request):
 
             return redirect('event_detail', pk=event.pk)
         else:
-            print form.errors.as_data()
+            print(form.errors.as_data())
     else:
         if 'venue' in params:
             form = EventForm(initial={'venue':params['venue'].pk})
@@ -220,14 +226,11 @@ def event_edit(request, pk):
                 except:
                     pass
             event.save()
-
             return redirect('event_detail', pk=event.pk)
-        else:
-            print form.errors.as_data()
+
     else:
         form = EventForm(instance=event)
 
     params['form'] = form
-    print params
 
     return render(request, 'event/form.html', params)

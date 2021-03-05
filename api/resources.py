@@ -75,7 +75,7 @@ class EventResource(ModelResource):
         collection_name = 'events'
 
     def dehydrate(self, bundle):
-        print bundle.data
+        print(bundle.data)
         cleaned_bands = []
         for band in bundle.data['bands']:
             try:

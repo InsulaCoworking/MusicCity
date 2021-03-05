@@ -19,13 +19,13 @@ def poster_path(instance, filename):
 
 class Event(models.Model):
     bands = models.ManyToManyField(Band, blank=True, verbose_name='Bandas', related_name='events')
-    venue = models.ForeignKey(Venue, null=True, blank=True, related_name='venue')
+    venue = models.ForeignKey(Venue, null=True, blank=True, related_name='venue', on_delete=models.SET_NULL)
     day = models.DateField(null=True, blank=True)
     time = models.TimeField(null=True, blank=True)
     duration = models.IntegerField(null=True, blank=True, default=60)
     title = models.TextField(null=True, blank=True, verbose_name='Título del evento')
     description = models.TextField(null=True, blank=True, verbose_name='Descripción')
-    created_by = models.ForeignKey(User, null=True, blank=True, verbose_name='Creado por')
+    created_by = models.ForeignKey(User, null=True, blank=True, verbose_name='Creado por', on_delete=models.SET_NULL)
     event_uid = models.UUIDField(default=uuid.uuid4, editable=False)
     poster = ProcessedImageField(null=True, blank=True, upload_to=poster_path, processors=[ResizeToFit(900,900, upscale=False)], format='JPEG', verbose_name='Imagen del evento')
     price = models.FloatField(null=True, blank=True, verbose_name='Precio')
@@ -75,6 +75,12 @@ class Event(models.Model):
         permissions = (
             ("manage_events", "Puede crear eventos"),
         )
+
+    def __str__(self):
+        if self.title:
+            return self.title
+        else:
+            return ' + '.join(band.name for band in self.bands.all())
 
     def __unicode__(self):
         if self.title:

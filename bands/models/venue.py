@@ -10,7 +10,7 @@ from bands.helpers import RandomFileName
 
 
 class Venue(models.Model):
-    owner = models.ForeignKey(User, null=True, blank=True, verbose_name='Responsable')
+    owner = models.ForeignKey(User, null=True, blank=True, verbose_name='Responsable', on_delete=models.SET_NULL)
     name = models.CharField(null=False, verbose_name='Nombre', max_length=240)
     description = models.TextField(null=False, blank=True)
     latitude = models.FloatField(null=False, verbose_name='Latitud')
@@ -38,6 +38,9 @@ class Venue(models.Model):
         permissions = (
             ("manage_venue", "Puede gestionar un espacio"),
         )
+
+    def __str__(self):
+        return self.name
 
     def __unicode__(self):
         return self.name

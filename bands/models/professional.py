@@ -11,7 +11,7 @@ from bands.models import ProfessionalTag
 
 
 class Professional(models.Model):
-    user = models.ForeignKey(User, null=True, blank=True, verbose_name='Responsable')
+    user = models.ForeignKey(User, null=True, blank=True, verbose_name='Responsable', on_delete=models.CASCADE)
     name = models.CharField(null=False, verbose_name='Nombre', max_length=240)
     tags = models.ManyToManyField(ProfessionalTag, default=None, verbose_name='Categorías', related_name="pros")
     description = models.TextField(null=False, blank=True)
