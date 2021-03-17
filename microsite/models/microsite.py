@@ -42,6 +42,8 @@ class Microsite(models.Model):
         verbose_name_plural = 'Microsites especiales'
         ordering = ['day']
 
+    def __str__(self):
+        return self.title
 
     def __unicode__(self):
         return self.title
