@@ -1,5 +1,5 @@
 beautifulsoup4==4.6.0
-Django==2.2.13
+Django==2.2.21
 django-appconf==1.0.2
 django-blog-zinnia==0.20
 django-ckeditor==5.8.0
