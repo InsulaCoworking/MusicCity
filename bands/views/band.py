@@ -5,10 +5,12 @@ import datetime
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, InvalidPage
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils import timezone
+from django.views.generic import DetailView, UpdateView, CreateView
 
 from bands.forms.band import BandForm
 from bands.helpers import get_query
@@ -57,70 +59,53 @@ def bands_list(request):
         return render(request, 'band/list.html', params)
 
 
-def band_detail(request, pk):
-    band = get_object_or_404(Band, pk=pk)
-    today = datetime.date.today()
-    events = Event.objects.filter(bands__id=band.id, day__gte=today)
+class BandDetail(DetailView):
+    model = Band
+    context_object_name = 'band'
+    template_name = 'band/detail.html'
 
-    can_edit = request.user.is_authenticated and (request.user.is_superuser or (
-                    request.user == band.owner ))
-
-    return render(request, 'band/detail.html', {
-        'band': band,
-        'events': events,
-        'can_edit': can_edit,
-        'view': request.GET.get('view', None)
-    })
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['events'] = Event.objects.filter(bands__id=self.object.id, day__gte=datetime.date.today())
+        context['can_edit'] = self.request.user.is_superuser or self.request.user == self.object.owner
+        context['view'] = self.request.GET.get('view', None)
+        return context
 
 
-@login_required
-def band_edit(request, pk):
+class BandEdit(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'bands.manage_band'
+    model = Band
+    context_object_name = 'band'
+    template_name = 'band/edit.html'
+    form_class = BandForm
 
-    band = get_object_or_404(Band, pk=pk)
+    def dispatch(self, request, *args, **kwargs):
+        band = get_object_or_404(Band, pk=kwargs[self.pk_url_kwarg])
+        if not (request.user.is_superuser or request.user == band.owner):
+            return redirect(reverse('band_detail', kwargs={'pk': band.pk}) + '?permissions=false')
+        return super().dispatch(request, *args, **kwargs)
 
-    can_edit = False
-    if request.user.is_superuser or (
-                request.user.has_perm('bands.manage_band') and request.user == band.owner):
-        can_edit = True
-
-    if not can_edit:
-        return redirect(reverse('band_detail', kwargs={'pk':band.pk} ) + '?permissions=false')
-
-    if request.method == "POST":
-        form = BandForm(request.POST, request.FILES, instance=band)
-        if form.is_valid():
-            band = form.save()
-            return redirect('band_detail', pk=band.pk)
-        else:
-            print(form.errors.as_data())
-    else:
-        form = BandForm(instance=band)
-    return render(request, 'band/edit.html', { 'form': form, 'band':band })
+    def get_success_url(self):
+        return reverse('band_detail', kwargs={'pk':self.object.pk})
 
 
-@login_required
-def band_add(request):
+class AddBand(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'bands.manage_band'
+    model = Band
+    context_object_name = 'band'
+    template_name = 'band/edit.html'
+    form_class = BandForm
+    extra_context = {'is_new':True}
 
-    can_edit = False
-    if request.user.is_superuser or request.user.has_perm('bands.manage_band'):
-        can_edit = True
+    def handle_no_permission(self):
+        return redirect(reverse('dashboard') + '?permissions=false')
 
-    if not can_edit:
-        return redirect( reverse('dashboard') + '?permissions=false' )
+    def get_success_url(self):
+        band = self.object
+        band.owner = self.request.user
+        band.save()
+        return reverse('band_detail', kwargs={'pk':band.pk})
 
-    if request.method == "POST":
-        form = BandForm(request.POST, request.FILES)
-        if form.is_valid():
-            band = form.save(commit=False)
-            band.owner = request.user
-            band.save()
-            return redirect('band_detail', pk=band.pk)
-        else:
-            print (form.errors.as_data())
-    else:
-        form = BandForm()
-
-    return render(request, 'band/edit.html', { 'is_new': True, 'form': form, 'band': None })
 
 @login_required
 def link_band(request, token):
