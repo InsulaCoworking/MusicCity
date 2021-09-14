@@ -19,6 +19,7 @@ class BandForm(forms.ModelForm):
             'num_members': forms.NumberInput(attrs={'class': 'form-control'}),
             'facebook_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Página de Facebook'}),
             'youtube_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Canal de Youtube'}),
+            'instagram_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Perfil de Instagram'}),
             'twitter_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Perfil de Twitter'}),
             'bandcamp_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Página de BandCamp'}),
             'webpage_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Página web'}),

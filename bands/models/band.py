@@ -30,13 +30,14 @@ class Band(models.Model):
     embed_code = models.TextField(null=True, blank=True, verbose_name='Códido embed para escucha (Bandcamp, Soundcloud, Spotify...')
     embed_media = models.TextField(null=True, blank=True, verbose_name='Códido embed de vídeo (Youtube, Vimeo...')
 
-    facebook_link = models.CharField(null=True, blank=True, verbose_name='Página de Facebook', max_length=250)
-    youtube_link = models.CharField(null=True, blank=True, verbose_name='Canal de Youtube', max_length=250)
-    twitter_link = models.CharField(null=True, blank=True, verbose_name='Perfil de Twitter', max_length=250)
-    bandcamp_link = models.CharField(null=True, blank=True, verbose_name='Página de BandCamp', max_length=250)
-    webpage_link = models.CharField(null=True, blank=True, verbose_name='Página web', max_length=250)
-    presskit_link = models.CharField(null=True, blank=True, verbose_name='Presskit', max_length=250)
-    spotify_link = models.CharField(null=True, blank=True, verbose_name='Perfil de Spotify', max_length=250)
+    facebook_link  = models.CharField(null=True, blank=True, max_length=250, verbose_name='Página de Facebook')
+    youtube_link   = models.CharField(null=True, blank=True, max_length=250, verbose_name='Canal de Youtube')
+    twitter_link   = models.CharField(null=True, blank=True, max_length=250, verbose_name='Perfil de Twitter')
+    instagram_link = models.CharField(null=True, blank=True, max_length=250, verbose_name='Perfil de Instagram')
+    bandcamp_link  = models.CharField(null=True, blank=True, max_length=250, verbose_name='Página de BandCamp')
+    webpage_link   = models.CharField(null=True, blank=True, max_length=250, verbose_name='Página web')
+    presskit_link  = models.CharField(null=True, blank=True, max_length=250, verbose_name='Presskit')
+    spotify_link   = models.CharField(null=True, blank=True, max_length=250, verbose_name='Perfil de Spotify')
 
     owner = models.ForeignKey(User, null=True, blank=True, verbose_name="Responsable", on_delete=models.SET_NULL)
 
