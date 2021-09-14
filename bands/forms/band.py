@@ -2,6 +2,7 @@
 from django import forms
 from django.db.models import BLANK_CHOICE_DASH
 
+from bands.helpers import get_url_for_social_network
 from bands.models import Band
 
 
@@ -31,6 +32,15 @@ class BandForm(forms.ModelForm):
             'embed_code': forms.Textarea(attrs={'class': 'form-control'}),
             'embed_media': forms.Textarea(attrs={'class': 'form-control'}),
 
-
         }
 
+    def clean(self):
+        cleaned_data = super().clean()
+        networks = ['instagram', 'facebook', 'twitter', 'bandcamp']
+
+        for page in networks:
+            field_name = '{}_link'.format(page)
+            if cleaned_data[field_name]:
+                cleaned_data[field_name] = get_url_for_social_network(cleaned_data[field_name], page)
+
+        return cleaned_data

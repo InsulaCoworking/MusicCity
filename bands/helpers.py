@@ -73,3 +73,22 @@ def get_query(query_string, search_fields):
             query = query & or_query
 
     return query
+
+
+socialnetwork_urls = {
+    'instagram': 'https://www.instagram.com/{}/',
+    'twitter': 'https://twitter.com/{}/',
+    'facebook': 'https://www.facebook.com/{}',
+    'bandcamp': 'https://{}.bandcamp.com/',
+
+}
+
+def get_url_for_social_network(url_or_username, page):
+    if url_or_username and url_or_username.startswith('http'):
+        return url_or_username
+
+    if page in socialnetwork_urls:
+        username = url_or_username[1:] if url_or_username.startswith('@') else url_or_username
+        return socialnetwork_urls[page].format(username)
+    else:
+        return url_or_username
