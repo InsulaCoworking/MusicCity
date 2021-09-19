@@ -20,11 +20,14 @@ class Microsite(models.Model):
                                  processors=[ResizeToFit(1200, 512, upscale=False)], format='PNG', verbose_name='Imagen principal')
     top_image = ProcessedImageField(null=True, blank=True, upload_to=RandomFileName('special/'),
                                         processors=[ResizeToFit(1200, 600, upscale=False)], format='JPEG',
-                                        verbose_name='Imagen de cabecera')
+                                        verbose_name='Imagen fondo de cabecera')
     profile_thumbnail = ImageSpecField(source='profile_image',
                                       processors=[ResizeToFill(150, 150, upscale=False)],
                                       format='JPEG',
                                       options={'quality': 70})
+
+    start_date = models.DateField(null=True, blank=True, verbose_name='Fecha de inicio')
+    end_date = models.DateField(null=True, blank=True, verbose_name='Fecha de fin')
 
     primary_bg  = models.CharField(null=False, verbose_name='Color de fondo principal', max_length=10)
     primary_text = models.CharField(null=False, verbose_name='Color de texto principal', max_length=10)

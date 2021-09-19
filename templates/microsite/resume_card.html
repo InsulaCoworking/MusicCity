@@ -1,0 +1,21 @@
+{% load staticfiles %}
+
+<div class="card profile-resume" style="background-color: {{microsite.primary_bg}}; {% if microsite.top_image %}background-image:url('{{microsite.top_image.url}}');{% endif %}">
+    <div class="microsite-image">
+        {% if microsite.profile_image %}<img src="{{microsite.profile_image.url}}" class="img-responsive">{% endif %}
+    </div>
+
+    <div class="profile-body" style="background:{{microsite.primary_bg}};color:{{microsite.primary_text}};">
+        <span class="profile-title"><h2>{{microsite.title}}</h2></span>
+        <span class="profile-desc">
+            {% if microsite.start_date and microsite.end_date %}
+            del <strong>{{microsite.start_date|date:"d/m/Y"}}</strong> al <strong>{{microsite.end_date|date:"d/m/Y"}}</strong>
+            {% else%}
+                {% if microsite.start_date %}
+                    <strong>{{microsite.start_date|date:"d/m/Y"}}</strong>
+                {% endif %}
+            {% endif %}
+        </span>
+    </div>
+
+</div>

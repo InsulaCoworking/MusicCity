@@ -1464,3 +1464,11 @@ span.secondary-color{
 .tag-image .profile-circle{ margin-right:10px; display:inline-block; width:40px; height:40px; vertical-align:middle; border-width:1px; }
 
 .select2-container .select2-selection--multiple .select2-selection__rendered{ overflow: visible; }
+
+.microsite{
+    margin:20px 15px;
+}
+.microsite-image{
+    display:flex;
+    min-height:200px;
+}
