@@ -361,6 +361,7 @@ footer .img-responsive{ max-width:80%; margin:auto; }
     font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif; text-transform:uppercase;
     transition: all 600ms;
 }
+.text-secondary{ color:#c00812; }
 .navbar.scrolled, body.visible-bar .navbar{ background-color: #211916; box-shadow: 0 3px 4px rgba(0,0,0,0.4); z-index:4000;}
 .navbar-default .navbar-nav>li>a{ color:#fff; font-size:1.05em; transition: all 600ms; }
 .navbar-default .navbar-nav>li>a:hover{ color:#9fd2eb; }

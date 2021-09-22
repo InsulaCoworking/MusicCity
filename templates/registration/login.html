@@ -23,9 +23,16 @@
       <div class="form-group">
           <label>Contraseña</label>
             {{form.password}}
+
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+          Usuario o contraseña incorrectos.
+        </div>
+      {% endif %}
+
         </div>
         <p class="text-right form-group">
-          ¿Olvidaste tu contraseña?
+          <a href="{% url 'password_reset' %}">¿Olvidaste tu contraseña?</a>
       </p>
       <p class="text-center">
           <button type="submit" class="btn btn-primary btn-lg">Entrar</button>
