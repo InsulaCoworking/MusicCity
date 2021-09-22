@@ -1,12 +1,14 @@
 {% load staticfiles %}
 {% load cropping %}
 
+<img id="{{profile_image_id|default:'profile-image'}}"
 {% if band.profile_image %}
     {% if band.profile_thumb %}
-        <img src="{% cropped_thumbnail band 'profile_thumb' scale=0.5 %}">
+     src="{% cropped_thumbnail band 'profile_thumb' scale=0.5 %}"
     {% else %}
-        <img src="{{band.profile_image.url}}">
+    src="{{band.profile_image.url}}">
     {% endif %}
 {% else %}
-    <img src="{% static 'img/pro-icon.png' %}">
+    src="{% static 'img/pro-icon.png' %}"
 {% endif %}
+     />

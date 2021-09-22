@@ -8,7 +8,7 @@
 
     <div class="profile-body">
         <div class="profile-circle small">
-            <img src="{%if band.profile_image %}{{band.profile_thumbnail.url}}{% else %}{% static "img/pro-icon.png" %}{% endif %}" alt="{{pro.name}}">
+            {% include 'band/profile_image.html' %}
         </div>
 
         <span class="profile-title">{{band.name}}</span>

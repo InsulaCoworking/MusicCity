@@ -2,6 +2,8 @@
 {% load staticfiles %}
 {% load settings_value %}
 {% load create_embed %}
+
+
 {% block title %}{{band.name}}{% endblock%}
 {% block bodyattrs %}{%if view %} class="{{view}}"{%endif%}{% endblock%}
 
@@ -27,7 +29,9 @@
 
 <div class="header-bar profile header-band">
     <div class="container">
-        <div class="profile-circle">{%if band.profile_image %} <img src="{{band.profile_image.url}}">{% endif %}</div>
+        <div class="profile-circle">
+            {% include 'band/profile_image.html' %}
+        </div>
         <h1>{{band.name}}</h1>
         <p class="description">{{band.tag.name}}</p>
 
@@ -44,6 +48,7 @@
 
     <div class="row">
         <div class="col-md-7">
+            {{band.profile_thumb}}
             {% if band.embed_media %} <div class="embed">{% create_embed band.embed_media %} </div>{% endif %}
             <p>{{band.description|linebreaks}}</p>
             {%if band.genre %}<h5><strong>Estilo:</strong> {{band.genre}}</h5>{% endif %}

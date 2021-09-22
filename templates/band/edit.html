@@ -5,7 +5,7 @@
 
 {% block title %}{% if is_new %}Nueva banda{% else %}{{band.name}}{% endif %}{% endblock%}
 
-{% block bodyattrs %}class="venue"{% endblock%}
+{% block bodyattrs %}class="band"{% endblock%}
 
 {% block main_content %}
 <form method="POST" class="post-form" enctype="multipart/form-data">
@@ -23,13 +23,22 @@
 </div>
 <div class="header-bar profile header-band">
     <div class="container">
-        <div class="file-field image-field absolute-pos" data-ref="#profile-image" data-ref-type="image" style="left:10px;top:10px;">
-            <div class="btn fab">
-                <span><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
-                {{form.profile_image}}
+        {% if band.profile_image %}
+            <div class="file-field absolute-pos" style="left:10px;top:10px;">
+                <div class="btn fab" data-toggle="modal" data-target="#image-modal" >
+                    <span><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                </div>
             </div>
-        </div>
-        <div class="profile-circle"><img id="profile-image" src="{%if band.profile_image %} {{band.profile_image.url}}{% endif %}"></div>
+        {% else %}
+            <div class="file-field image-field absolute-pos" data-ref="#profile-image" data-ref-type="image" style="left:10px;top:10px;">
+                <div class="btn fab">
+                    <span><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
+                    {{form.profile_image}}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="profile-circle">{% include 'band/profile_image.html' %}</div>
         <h1 id="venue-name">{{band.name}}{% if is_new %} Nueva banda {%endif%}</h1>
         <p class="description">{{band.address}}</p>
 
@@ -47,6 +56,8 @@
         <div class="size-check visible-md-block visible-lg-block"></div>
         <div class="row">
             <div class="col-md-6">
+
+
                 <div class="description">
                     <div class="form-group" data-links="#venue-name">
                         <label>Nombre</label>
@@ -160,13 +171,65 @@
 
 </div>
 </form>
+
+
+<form method="post" action="{% url 'band_update_image' band.pk %}" enctype="multipart/form-data">
+<div class="modal fade" id="image-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">Modificar imagen</h4>
+      </div>
+      <div class="modal-body large-padding">
+            {% csrf_token %}
+
+          <div class="row">
+              <div class="col-xs-5 col-sm-4 col-md-3">
+                  <div class="file-field image-field absolute-pos" data-ref="#temp-profile" data-ref-type="image" style="left:10px;top:10px;">
+                        <div class="btn fab">
+                            <span><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
+                            <div class="file_container">{{image_form.profile_image}}</div>
+                        </div>
+                    </div>
+                  <div class="profile-circle">{% include 'band/profile_image.html' with profile_image_id='temp-profile' %}</div>
+              </div>
+
+              <div class="col-xs-7 col-sm-8 col-md-9">
+                  <p class="lead" style="margin-bottom:0;"> Aquí puedes modificar la parte de la imagen que quieres que se muestre en tu perfil.</p>
+                  Utiliza los controles para marcar el recuadro que quieres recortar de la imagen. Si modificas la imagen por una nueva,
+                  tendrás primero que guardarla para luego poder editar el recorte.<br><br>
+              </div>
+          </div>
+
+          <div class="crop-container" style="display:flex;align-items: center;justify-content: center;">
+            {{image_form.profile_thumb}}
+              </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
 {% endblock %}
 
 {% block scripts %}
-
+ {{ image_form.media }}
 <script>
 
-
+$(function(){
+    var input = $('.file_container').find('input[type="file"]').siblings().hide().end();
+    $('.file_container').children().contents().filter(function(){
+                    if( this.nodeType === 3 ){ this.nodeValue = ''; } // hide file input text nodes
+                });
+    input.on('change', function(){
+        $('.crop-container').hide();
+    });
+});
 </script>
 
 {% endblock %}

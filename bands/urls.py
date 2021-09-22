@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^bands/add$', views.AddBand.as_view(), name='band_add'),
     url(r'^bands/(?P<pk>\d+)/$', views.BandDetail.as_view(), name='band_detail'),
     url(r'^bands/(?P<pk>\d+)/edit/$', views.BandEdit.as_view(), name='band_edit'),
+    url(r'^bands/(?P<pk>\d+)/update_image/$', views.BandImageEdit.as_view(), name='band_update_image'),
     url(r'^band/edit/(?P<token>\w+)/$', views.edit_band_token, name='edit_band_token'),
     url(r'^bands/link/(?P<token>\w+)/$', views.link_band, name='link_band'),
 

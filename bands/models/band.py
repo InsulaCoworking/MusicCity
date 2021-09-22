@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
 from django.db import models
+from image_cropping import ImageRatioField
 from imagekit.models import ProcessedImageField, ImageSpecField
 from pilkit.processors import ResizeToFit, ResizeToFill
 
@@ -23,6 +24,8 @@ class Band(models.Model):
                                       processors=[ResizeToFill(150, 150, upscale=False)],
                                       format='JPEG',
                                       options={'quality': 70})
+
+    profile_thumb = ImageRatioField('profile_image', '200x200')
 
     city = models.CharField(null=True, blank=True, verbose_name='Ciudad', max_length=140)
     num_members = models.IntegerField(null=True, blank=True, default=1)

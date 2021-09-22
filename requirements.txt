@@ -5,12 +5,14 @@ django-blog-zinnia==0.20
 django-ckeditor==5.8.0
 django-contrib-comments==1.8.0
 django-imagekit==4.0.1
+django-image-cropping==1.6.1
 django-import-export==2.5.0
 django-js-asset==1.2.2
 django-mptt==0.9.0
 django-tagging==0.4.6
 django-tastypie==0.14.2
 django-xmlrpc==0.1.8
+easy_thumbnails==2.7.1
 mots-vides==2015.5.11
 mysqlclient
 olefile==0.45.1

@@ -1,6 +1,7 @@
 # coding=utf-8
 from django import forms
 from django.db.models import BLANK_CHOICE_DASH
+from image_cropping import ImageCropWidget
 
 from bands.helpers import get_url_for_social_network
 from bands.models import Band
@@ -44,3 +45,13 @@ class BandForm(forms.ModelForm):
                 cleaned_data[field_name] = get_url_for_social_network(cleaned_data[field_name], page)
 
         return cleaned_data
+
+
+class BandProfileImageForm(forms.ModelForm):
+    class Meta:
+        model = Band
+        fields = ['profile_image', 'profile_thumb']
+
+        widgets = {
+            'profile_image': ImageCropWidget()
+        }

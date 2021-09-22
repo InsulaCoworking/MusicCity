@@ -12,7 +12,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views.generic import DetailView, UpdateView, CreateView
 
-from bands.forms.band import BandForm
+from bands.forms.band import BandForm, BandProfileImageForm
 from bands.helpers import get_query
 from bands.models import Event, Tag, Band, BandToken
 
@@ -84,6 +84,26 @@ class BandEdit(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         if not (request.user.is_superuser or request.user == band.owner):
             return redirect(reverse('band_detail', kwargs={'pk': band.pk}) + '?permissions=false')
         return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['image_form'] = BandProfileImageForm(instance=self.object)
+        return context
+
+    def get_success_url(self):
+        return reverse('band_detail', kwargs={'pk':self.object.pk})
+
+
+class BandImageEdit(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'bands.manage_band'
+    model = Band
+    context_object_name = 'band'
+    template_name = 'band/edit.html'
+    form_class = BandProfileImageForm
+
+    def form_invalid(self, form):
+        print (form.errors)
+        return super().form_invalid(form)
 
     def get_success_url(self):
         return reverse('band_detail', kwargs={'pk':self.object.pk})
