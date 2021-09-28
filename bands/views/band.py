@@ -6,57 +6,43 @@ import datetime
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, InvalidPage
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils import timezone
-from django.views.generic import DetailView, UpdateView, CreateView
+from django.views.generic import DetailView, UpdateView, CreateView, ListView
 
 from bands.forms.band import BandForm, BandProfileImageForm
 from bands.helpers import get_query
+from bands.mixins.AjaxTemplateResponseMixin import AjaxTemplateResponseMixin
 from bands.models import Event, Tag, Band, BandToken
 
 
-def bands_list(request):
+class BandList(ListView, AjaxTemplateResponseMixin):
+    model = Band
+    paginate_by = settings.BANDS_PER_PAGE
+    queryset = Band.objects.filter(hidden_in_catalog=False)
+    template_name = 'band/list.html'
+    ajax_template_name = 'band/search_results.html'
 
-    bands = Band.objects.all()
-    tag_filter = request.GET.get('tag', None)
-    if tag_filter:
-        bands = bands.filter(tag__pk=tag_filter)
+    def get_queryset(self):
+        bands = super().get_queryset()
+        tag_filter = self.request.GET.get('tag', None)
 
-    query_string = ''
-    if ('q' in request.GET) and request.GET['q'].strip():
-        query_string = request.GET['q']
-        entry_query = get_query(query_string, ['name', 'genre', 'city'])
-        if entry_query:
-            bands = bands.filter(entry_query)
+        if tag_filter:
+            bands = bands.filter(tag__pk=tag_filter)
 
-    paginator = Paginator(bands, settings.BANDS_PER_PAGE)
-    page = request.GET.get('page')
-    try:
-        bands = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        bands = paginator.page(1)
-    except (EmptyPage, InvalidPage):
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        bands = paginator.page(paginator.num_pages)
+        query_string = self.request.GET.get('q', None)
+        if query_string:
+            entry_query = get_query(query_string, ['name', 'genre', 'city'])
+            if entry_query:
+                bands = bands.filter(entry_query)
 
-    params = {
-            'ajax_url': reverse('bands_list'),
-            'query_string':query_string,
-            'bands': bands,
-            'page': page
-    }
+        return bands
 
-    if request.is_ajax():
-        response = render(request, 'band/search_results.html', params)
-        response['Cache-Control'] = 'no-cache'
-        response['Vary'] = 'Accept'
-        return response
-    else:
-        params['tags'] = Tag.objects.filter(band_tag__isnull=False).distinct()
-        return render(request, 'band/list.html', params)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.filter(band_tag__isnull=False).distinct()
+        return context
 
 
 class BandDetail(DetailView):
