@@ -11,7 +11,7 @@ class BandForm(forms.ModelForm):
 
     class Meta:
         model = Band
-        exclude = ['owner']
+        exclude = ['owner', 'hidden_in_catalog']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
