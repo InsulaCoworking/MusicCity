@@ -172,7 +172,7 @@
 </div>
 </form>
 
-
+{% if not is_new %}
 <form method="post" action="{% url 'band_update_image' band.pk %}" enctype="multipart/form-data">
 <div class="modal fade" id="image-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
@@ -214,14 +214,14 @@
   </div>
 </div>
 </form>
+{% endif %}
 
 {% endblock %}
 
 {% block scripts %}
  {{ image_form.media }}
-<script>
+<script type="text/javascript">
 
-$(function(){
     var input = $('.file_container').find('input[type="file"]').siblings().hide().end();
     $('.file_container').children().contents().filter(function(){
                     if( this.nodeType === 3 ){ this.nodeValue = ''; } // hide file input text nodes
@@ -229,7 +229,7 @@ $(function(){
     input.on('change', function(){
         $('.crop-container').hide();
     });
-});
+
 </script>
 
 {% endblock %}

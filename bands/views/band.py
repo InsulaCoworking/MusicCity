@@ -88,7 +88,6 @@ class BandImageEdit(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = BandProfileImageForm
 
     def form_invalid(self, form):
-        print (form.errors)
         return super().form_invalid(form)
 
     def get_success_url(self):
@@ -105,6 +104,11 @@ class AddBand(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     def handle_no_permission(self):
         return redirect(reverse('dashboard') + '?permissions=false')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['image_form'] = BandProfileImageForm(instance=self.object)
+        return context
 
     def get_success_url(self):
         band = self.object

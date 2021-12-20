@@ -1219,10 +1219,11 @@ form#event-filter .filter{
 }
 
 
-.dashboard h1{
+.dashboard h1, .lead-header{
     font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif;
     text-transform: uppercase;
 }
+.lead-header{ color:#c00812; }
 .dashboard .list-group-header{
     min-height:88px;
 }
@@ -1472,4 +1473,15 @@ span.secondary-color{
 .microsite-image{
     display:flex;
     min-height:200px;
+}
+
+.color-container{ position:relative; }
+.color-container > * {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    -webkit-tap-highlight-color: transparent;
+}
+.color-container > .sp-replacer{
+    position:absolute;
+    right:0;
+    top:0;
 }

@@ -116,6 +116,17 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Full',
     },
+    'minimal_editor': {
+        'width':'100%',
+        'toolbar_minimal': [
+            ['Undo', 'Redo'],
+            ['Link', 'Unlink'],
+            ['Source'],
+            ['Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList', '-', 'Blockquote'],
+        ],
+        'toolbar': 'minimal',
+    },
     'zinnia-content': {
         'toolbar_Zinnia': [
             ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],
