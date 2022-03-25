@@ -1,5 +1,33 @@
 {% extends "zinnia/entry_detail_base.html" %}
-{% load i18n zinnia %}
+{% load staticfiles settings_value %}
+{% load comments i18n zinnia %}
+
+{% block social_meta %}
+<meta name="twitter:card" content="summary_large_image">
+{% if object.title %}
+<meta name="twitter:title" content="{{ object.title|widont }} | {% settings_value "MAIN_PAGE_TITLE" %}">
+<meta name="twitter:description" content="{{ object.excerpt|safe }}">
+<meta property="og:title" content="{{ object.title|widont }} | {% settings_value "MAIN_PAGE_TITLE" %}" />
+<meta property="og:description" content="{{ object.excerpt|safe }}" />
+
+{% else %}
+<meta name="twitter:title" content="Noticias | {% settings_value "MAIN_PAGE_TITLE" %}">
+<meta name="twitter:description" content="Alcalá Es Música es una asociación que tiene las puertas abiertas a todos los músicos, grupos, profesionales y empresas del sector, artistas amateur, locales, espacios, hosteleros, instituciones públicas, formadores en el ámbito musical, amantes de las música, radios, productoras...  para  generar en nuestra ciudad un eco-sistema idóneo para todos los trabajadores y aficionados a la música">
+<meta property="og:title" content="Noticias | {% settings_value "MAIN_PAGE_TITLE" %}" />
+<meta property="og:description" content="Alcalá Es Música es una asociación que tiene las puertas abiertas a todos los músicos, grupos, profesionales y empresas del sector, artistas amateur, locales, espacios, hosteleros, instituciones públicas, formadores en el ámbito musical, amantes de las música, radios, productoras...  para  generar en nuestra ciudad un ecosistema idóneo para todos los trabajadores y aficionados a la música" />
+{% endif %}
+
+{% if object.image %}
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{obj.image.url}}">
+<meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{obj.image.url}}" />
+{% else %}
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static "img/logo_banner.jpg" %}">
+<meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static "img/logo_banner.jpg" %}" />
+{% endif %}
+<meta property="og:url" content="{{request.build_absolute_uri}}" />
+<meta property="og:type" content="article" />
+
+{% endblock %}
 
 {% block entry-widgets %}
 <aside class="entry-widgets" role="complementary">
