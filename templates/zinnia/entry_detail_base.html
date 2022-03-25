@@ -18,8 +18,8 @@
 {% endif %}
 
 {% if object.image %}
-<meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{obj.image.url}}">
-<meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{obj.image.url}}" />
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{object.image.url}}">
+<meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{object.image.url}}" />
 {% else %}
 <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static "img/logo_banner.jpg" %}">
 <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static "img/logo_banner.jpg" %}" />
