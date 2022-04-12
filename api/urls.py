@@ -14,5 +14,6 @@ def get_api(version_name):
     api.register(SettingsResource())
     api.register(NewsResource())
     api.register(UpcomingEventResource())
+    api.register(UpcomingVenueResource())
 
     return api
