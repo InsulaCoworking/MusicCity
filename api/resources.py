@@ -116,8 +116,8 @@ class UpcomingVenueResource(ModelResource):
 
 
 class UpcomingEventResource(ModelResource):
-    bands = fields.ManyToManyField('api.resources.BandResource', 'bands', full=False)
-    venues = fields.ForeignKey(UpcomingVenueResource, 'venue', full=False, null=True, blank=True)
+    bands = fields.ManyToManyField('api.resources.BandResource', 'bands', full=True)
+    venues = fields.ForeignKey(UpcomingVenueResource, 'venue', full=True, null=True, blank=True)
 
     class Meta:
         queryset = Event.objects.filter(day__gte=datetime.now())
