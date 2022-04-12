@@ -17,6 +17,7 @@ class TagResource(ModelResource):
         collection_name = 'tag'
         excludes = ['description']
 
+
 class BandResource(ModelResource):
     tag = fields.ForeignKey(TagResource, 'tag', full=True, null=True)
 
@@ -41,6 +42,7 @@ class BandResource(ModelResource):
         else:
             return []
 
+
 class VenueResource(ModelResource):
     events = fields.ToManyField('api.resources.EventResource', 'venue', full=True, null=True)
 
@@ -64,6 +66,7 @@ class VenueResource(ModelResource):
             return data[self.Meta.collection_name]
         else:
             return []
+
 
 class EventResource(ModelResource):
     bands = fields.ManyToManyField('api.resources.BandResource', 'bands', full=False)
@@ -117,14 +120,11 @@ class UpcomingEventResource(ModelResource):
     venues = fields.ForeignKey(UpcomingVenueResource(), 'venue', full=False)
 
     class Meta:
-        queryset = Event.objects.all()
+        queryset = Event.objects.filter(day__gte=datetime.now())
         include_resource_uri = False
         list_allowed_methods = ['get']
         resource_name = 'upcoming_events'
         collection_name = 'events'
-
-    def get_object_list(self, request):
-        return super(UpcomingEventResource, self).get_object_list(request).filter(day__gte=datetime.now())
 
 
 class SettingsResource(ModelResource):
@@ -137,6 +137,7 @@ class SettingsResource(ModelResource):
 
     def dehydrate(self, bundle):
         return bundle.data['value']
+
 
 class NewsResource(ModelResource):
     class Meta:
