@@ -4,6 +4,7 @@ from tastypie.resources import ModelResource
 
 from bands.models import Band, Venue, Event, Tag, Settings
 from bands.models.news import News
+from datetime import datetime
 
 
 class TagResource(ModelResource):
@@ -86,6 +87,45 @@ class EventResource(ModelResource):
         bundle.data['bands'] = cleaned_bands
 
         return bundle
+
+
+class UpcomingVenueResource(ModelResource):
+    class Meta:
+        queryset = Venue.objects.all()
+        list_allowed_methods = ['get']
+        resource_name = 'upcoming_venues'
+        collection_name = 'venues'
+        include_resource_uri = False
+
+    # Add thumbnail field
+    def dehydrate(self, bundle):
+        if bundle.obj.profile_thumbnail:
+            bundle.data['profile_thumbnail'] = bundle.obj.profile_thumbnail.url
+        return bundle
+
+    # Remove the wrapper
+    def alter_list_data_to_serialize(self, request, data):
+        if self.Meta.collection_name in data and len(data[self.Meta.collection_name]) > 0:
+            # only return the first result, avoid the "meta" field
+            return data[self.Meta.collection_name]
+        else:
+            return []
+
+
+class UpcomingEventResource(ModelResource):
+    bands = fields.ManyToManyField('api.resources.BandResource', 'bands', full=False)
+    venues = fields.ForeignKey(UpcomingVenueResource(), 'venue', full=False)
+
+    class Meta:
+        queryset = Event.objects.all()
+        include_resource_uri = False
+        list_allowed_methods = ['get']
+        resource_name = 'upcoming_events'
+        collection_name = 'events'
+
+    def get_object_list(self, request):
+        return super(UpcomingEventResource, self).get_object_list(request).filter(day__gte=datetime.now())
+
 
 class SettingsResource(ModelResource):
     class Meta:
