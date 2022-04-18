@@ -132,7 +132,7 @@ class MicrositeResource(ModelResource):
 class UpcomingEventResource(ModelResource):
     bands = fields.ManyToManyField('api.resources.BandResource', 'bands', full=True)
     venues = fields.ForeignKey(UpcomingVenueResource, 'venue', full=True, null=True, blank=True)
-    microsites = fields.ManyToManyField(MicrositeResource, 'microsites', full=True, null=True, blank=True)
+    microsites = fields.ManyToManyField(MicrositeResource, 'microsites', full=False, null=True, blank=True)
 
     class Meta:
         queryset = Event.objects.filter(day__gte=datetime.now())
@@ -145,7 +145,11 @@ class UpcomingEventResource(ModelResource):
         print(bundle.data)
         cleaned_ids = []
         for microsite in bundle.data['microsites']:
-            cleaned_ids.append(microsite['id'])
+            try:
+                # hopefully /api/v1/<resource_name>/<pk>/
+                cleaned_ids.append(int(microsite.split('/')[-2]))
+            except:
+                pass
         bundle.data['microsites'] = cleaned_ids
         return bundle
 
@@ -181,7 +185,7 @@ class NewsResource(ModelResource):
 
 class BlogResource(ModelResource):
     class Meta:
-        queryset = Entry.objects.filter(publication_date__gte=(datetime.now()-timedelta(days=60)))
+        queryset = Entry.objects.filter(publication_date__gte=(datetime.now()-timedelta(days=120)))
         include_resource_uri = False
         list_allowed_methods = ['get']
         resource_name = 'blog'
