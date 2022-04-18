@@ -4,7 +4,9 @@ from tastypie.resources import ModelResource
 
 from bands.models import Band, Venue, Event, Tag, Settings
 from bands.models.news import News
-from datetime import datetime
+from datetime import datetime, timedelta
+from zinnia.models.entry import Entry
+from microsite.models.microsite import Microsite
 
 
 class TagResource(ModelResource):
@@ -115,9 +117,22 @@ class UpcomingVenueResource(ModelResource):
             return []
 
 
+class MicrositeResource(ModelResource):
+
+    class Meta:
+        queryset = Microsite.objects.all()
+        include_resource_uri = False
+        list_allowed_methods = ['get']
+        resource_name = 'microsites'
+        collection_name = 'microsites'
+        excludes = ['description', 'embed_code', 'embed_media', 'events',
+                    'primary_bg', 'primary_text', 'secondary_bg', 'secondary_text']
+
+
 class UpcomingEventResource(ModelResource):
     bands = fields.ManyToManyField('api.resources.BandResource', 'bands', full=True)
     venues = fields.ForeignKey(UpcomingVenueResource, 'venue', full=True, null=True, blank=True)
+    microsites = fields.ManyToManyField(MicrositeResource, 'microsites', full=True, null=True, blank=True)
 
     class Meta:
         queryset = Event.objects.filter(day__gte=datetime.now())
@@ -125,6 +140,19 @@ class UpcomingEventResource(ModelResource):
         list_allowed_methods = ['get']
         resource_name = 'upcoming_events'
         collection_name = 'events'
+
+    # def dehydrate(self, bundle):
+    #     print(bundle.data)
+    #     cleaned_bands = []
+    #     for microsite in bundle.data['microsites']:
+    #         try:
+    #             # hopefully /api/v1/<resource_name>/<pk>/
+    #             cleaned_bands.append(int(band.split('/')[-2]))
+    #         except:
+    #             pass
+    #     bundle.data['bands'] = cleaned_bands
+    #
+    #     return bundle
 
 
 class SettingsResource(ModelResource):
@@ -154,3 +182,13 @@ class NewsResource(ModelResource):
             return data[self.Meta.collection_name]
         else:
             return []
+
+
+class BlogResource(ModelResource):
+    class Meta:
+        queryset = Entry.objects.all()  # filter(publication_date__gte=(datetime.now()-timedelta(days=60)))
+        include_resource_uri = False
+        list_allowed_methods = ['get']
+        resource_name = 'blog'
+        collection_name = 'entries'
+
