@@ -145,7 +145,7 @@ class UpcomingEventResource(ModelResource):
         print(bundle.data)
         cleaned_ids = []
         for microsite in bundle.data['microsites']:
-            cleaned_ids.append(microsite.id)
+            cleaned_ids.append(microsite['id'])
         bundle.data['microsites'] = cleaned_ids
         return bundle
 
