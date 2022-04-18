@@ -141,18 +141,13 @@ class UpcomingEventResource(ModelResource):
         resource_name = 'upcoming_events'
         collection_name = 'events'
 
-    # def dehydrate(self, bundle):
-    #     print(bundle.data)
-    #     cleaned_bands = []
-    #     for microsite in bundle.data['microsites']:
-    #         try:
-    #             # hopefully /api/v1/<resource_name>/<pk>/
-    #             cleaned_bands.append(int(band.split('/')[-2]))
-    #         except:
-    #             pass
-    #     bundle.data['bands'] = cleaned_bands
-    #
-    #     return bundle
+    def dehydrate(self, bundle):
+        print(bundle.data)
+        cleaned_ids = []
+        for microsite in bundle.data['microsites']:
+            cleaned_ids.append(microsite.id)
+        bundle.data['microsites'] = cleaned_ids
+        return bundle
 
 
 class SettingsResource(ModelResource):
@@ -186,7 +181,7 @@ class NewsResource(ModelResource):
 
 class BlogResource(ModelResource):
     class Meta:
-        queryset = Entry.objects.all()  # filter(publication_date__gte=(datetime.now()-timedelta(days=60)))
+        queryset = Entry.objects.filter(publication_date__gte=(datetime.now()-timedelta(days=60)))
         include_resource_uri = False
         list_allowed_methods = ['get']
         resource_name = 'blog'
