@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'tastypie',
     'import_export',
     'imagekit',
-    'mptt',
     'tagging',
     'easy_thumbnails',
     'image_cropping',

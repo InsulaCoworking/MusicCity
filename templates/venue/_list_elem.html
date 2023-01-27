@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 <li data-id="{{venue.pk}}">
     <div class="profile-circle">
         <img src="{%if venue.profile_image %}{{venue.profile_image.url}}{% else %}{% static "img/venue-icon.png" %} {% endif %}">
