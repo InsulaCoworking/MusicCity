@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load settings_value %}
+{% load l10n %}
+{% load zinnia %}
+
+
+{% block main_content %}
+
+<div class="jumbo-header jumbo-band" xmlns="http://www.w3.org/1999/html">
+    <div class="jumbotron">
+        <div class="container text-center">
+            <a href="https://t.me/alcalaesmusicabot" target="_blank">
+                <h1>Bot de Telegram</h1>
+            </a>
+            <p class="description">
+                Consulta la agenda musical y recibe avisos de nuevos conciertos en tu aplicación Telegram
+            </p>
+        </div>
+    </div>
+</div>4
+
+<br class="hidden-xs hidden-sm">
+<div class="container main card double-sep">
+    <h4 class="heading">Capturas de pantalla</h4>
+    <div class="row">
+        <div class="col-xs-6 col-sm-4 col-md-3"><img src="{% static 'img/bot/bot01.jpg' %}?year=24"
+                                                     class="img-responsive" alt="Captura"/></div>
+        <div class="col-xs-6 col-sm-4 col-md-3"><img src="{% static 'img/bot/bot02.jpg' %}?year=24"
+                                                     class="img-responsive" alt="Captura"/></div>
+        <div class="col-xs-6 col-sm-4 col-md-3"><img src="{% static 'img/bot/bot03.jpg' %}?year=24"
+                                                     class="img-responsive" alt="Captura"/></div>
+        <div class="col-xs-6 col-sm-4 col-md-3"><img src="{% static 'img/bot/bot04.jpg' %}?year=24"
+                                                     class="img-responsive" alt="Captura"/></div>
+    </div>
+
+    <div style="font-size:1.2em;">
+        <br>
+        <p>
+            Qué podrás hacer con este Bot:
+        </p>
+        <p><b>
+            🎤 Lista de los próximos conciertos<br>
+            🎛 Filtro por estilos musicales<br>
+            💃 Ciclos y festivales<br>
+            🔊 Avisos automáticos cuando se publiquen nuevos conciertos de los estilos que te interesen<br>
+            🎸 Información de bandas y espacios con enlaces a la web y mapa<br>
+            🗞 Consultar últimas noticias<br>
+            🔔 Avisos cuando se publiquen nuevas noticias<br>
+        </b>
+        </p>
+        <p>
+            Este Bot está disponible para Telegram. Si ya tienes esta app instalada, simplemente pulsa este botón:
+            <a class="btn btn-primary" href="https://t.me/alcalaesmusicabot" target="_blank"
+               role="button"><i class="fa left fa-telegram" aria-hidden="true"></i>Bot Alcalá es Música</a>
+
+        </p>
+        <p>
+            Si no la tienes ya en tu teléfono, puedes descargarla gratuitamente para
+            <a href="https://play.google.com/store/apps/details?id=org.telegram.messenger" target="_blank">Android</a> o
+            <a href="https://apps.apple.com/us/app/telegram-messenger/id686449807" target="_blank">iOS</a>.
+            Y si no quieres instalarla en tu móvil, la puedes usar igualmente
+            a través del ordenador mediante su <a href="https://web.telegram.org/" target="_blank">aplicación Web</a> y
+            de
+            <a href="https://desktop.telegram.org/" target="_blank">Escritorio</a>.
+        </p>
+        <p>
+            Que lo disfrutes 😉 y si te gusta ¡comparte con tus contactos! 🙋‍♀️
+        </p>
+        <p>
+            🤘 ¡Nos vemos en los conciertos!
+        </p>
+    </div>
+    <br><br>
+    <p class=" text-center">
+        El código del bot está liberado como software libre en GitHub:<br><br>
+        <a class="btn btn-primary" href="https://github.com/InsulaCoworking/MusicCity-Telegram-Bot" target="_blank"
+           role="button"><i class="fa left fa-github-alt" aria-hidden="true"></i>Código fuente en GitHub </a>
+
+
+    </p>
+</div>
+{% endblock %}
