@@ -1,6 +1,6 @@
 from tastypie.api import Api
 
-from api.resources import BandResource, VenueResource, EventResource, TagResource, SettingsResource, NewsResource
+from api.resources import *
 
 
 def get_api(version_name):
@@ -13,5 +13,9 @@ def get_api(version_name):
     api.register(TagResource())
     api.register(SettingsResource())
     api.register(NewsResource())
+    api.register(UpcomingEventResource())
+    api.register(UpcomingVenueResource())
+    api.register(BlogResource())
+    api.register(MicrositeResource())
 
     return api

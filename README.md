@@ -1,28 +1,17 @@
-# AlcalaSuena
+# Music City
 
-Aplicación web (Django) para el festival de la música de Alcalá http://www.alcalasuena.es/
+Agenda musical de tu ciudad.
 
-![AlcalaSuena](https://raw.githubusercontent.com/InsulaCoworking/AlcalaSuena/master/bands/static/img/logo_banner.jpg)
+- Registra tu banda o tu espacio y sube los eventos musicales a la agenda
+- Consulta los próximos conciertos, festivales e información detallada de las bandas.
+- Espacio de noticias
+- Posibilidad de conectar la agenda con un [Bot de Telegram](https://github.com/InsulaCoworking/MusicCity-Telegram-Bot)
 
-Más de 140 conciertos gratuitos en 11 escenarios repartidos por un casco histórico patrimonio
-de la Humanidad. Alcala de Henares se llena de música en un proyecto creado por los artistas
-de la ciudad en el que se mezclan todo tipo de estilos, grupos profesionales y amateurs, 
-noveles y cabezas de cartel en una producción con más de 800 músicos, técnicos, 
-profesionales y voluntarios implicados en la producción.
+Instacia creada para la Asociación [Alcalá es Música](https://alcalaesmusica.org/) (Alcalá de Henares, Madrid)
 
-### Motivación
+Enlace al Bot: https://t.me/alcalaesmusicabot/
 
-Todo comenzó como uno de los hackatones en la [Ínsula Coworking](https://github.com/InsulaCoworking), en el que decidimos
-dentro de nuestro compromiso con la cultura apoyar el festival desarrollando
-de manera altruista el servidor web y la app móvil.
 
-Gracias a la colaboración de varios coworkers de nuestro espacio, 
-se ha montado una web interactiva y una aplicación de Android para 
-tener toda la información del festival a mano, crear nuestra agenda
-de conciertos personalizada y compartirla con quien queramos!
-
-Para más información sobre la app móvil:
-https://coworkingalcala.com/app-alcalasuena-2017/
 
 ## Requisitos del sistema
 

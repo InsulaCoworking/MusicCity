@@ -63,6 +63,7 @@
                     <li {% if request.resolver_match.url_name == "events_schedule" %}class="active"{% endif %}><a href="{% url 'events_schedule' %}">Agenda</a></li>
                     <!--<li {% if request.resolver_match.url_name == "pros_list" %}class="active"{% endif %}><a href="{% url 'pros_list' %}">Profesionales</a></li>-->
                       <li {% if request.resolver_match.url_name == "microsite_list" %}class="active"{% endif %}><a href="{% url 'microsite_list' %}">Ciclos y festivales</a></li>
+                      <li {% if request.resolver_match.url_name == "bot_info" %}class="active"{% endif %}><a href="{% url 'bot_info' %}">El Bot</a></li>
                     <!--<li {% if request.resolver_match.url_name == "app_info" %}class="active"{% endif %}><a href="{% url 'app_info' %}">La App</a></li> -->
                       <!-- <li {% if request.resolver_match.url_name == "survey" %}class="active"{% endif %}><a href="{% url 'survey' %}">Encuesta</a></li> -->
                   </ul>
@@ -99,10 +100,11 @@
         <div class="row insula">
             <div class="col-sm-5 text-center">
                 <div class="social-links">
-                    <a href="https://www.facebook.com/alcalamusica/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Página de Facebook" class="card"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="https://www.facebook.com/somosalcalaesmusica/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Página de Facebook" class="card"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                     <a href="https://twitter.com/aemusica" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Perfil de Twitter" class="card"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                     <a href="https://www.instagram.com/alcalaesmusica/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Página de Instagram" class="card"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                     <a href="https://t.me/alcalaesmusica/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Canal de Telegram" class="card"><i class="fa fa-telegram" aria-hidden="true"></i></a>
+                    <a href="https://t.me/alcalaesmusicabot/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Bot de Telegram" class="card"><i class="fa fa-reddit" aria-hidden="true"></i></a>
                 </div>
 
                 <!--<script src="https://donorbox.org/widget.js" paypalExpress="false"></script><iframe src="https://donorbox.org/embed/colabora-con-la-asociacion-y-si-nos-hace-falta" height="685px" width="100%"
