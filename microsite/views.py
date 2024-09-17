@@ -24,5 +24,6 @@ class MicrositeIndex(DetailView):
 
 class MicrositeList(ListView):
     model = Microsite
+    paginate_by = 6
     queryset = Microsite.objects.all().order_by('-start_date')
     template_name = 'microsite/list.html'
