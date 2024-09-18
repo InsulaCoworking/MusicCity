@@ -1,0 +1,24 @@
+<div class="form-group {% if hide_label %} mt-2 {% endif %}" {% if visible_by %}data-visible-by="#{{visible_by.id_for_label}}"{% endif %}>
+{% if not_floating or hide_label %}
+    {% if not hide_label %}
+    {% include "common/forms/label.html" %}
+    {% endif %}
+    {{ field }}
+{% else %}
+    <div class="floating-label">
+        {% include "common/forms/label.html" %}
+        {{ field }}
+      </div>
+{% endif %}
+
+    {% if field.errors %}
+    <div class="d-block invalid-feedback form-errors text-danger">
+        {% for error in field.errors %} {{error}}<br> {%endfor%}
+    </div>
+    {% endif %}
+
+    {% if field.help_text%}
+      <small class="text-muted mt-2 d-block">{{ field.help_text|safe  }}</small>
+    {% endif %}
+
+</div>

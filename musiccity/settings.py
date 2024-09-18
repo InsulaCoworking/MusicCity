@@ -25,7 +25,7 @@ SECRET_KEY = 'zbkckcq9&-n%clm(g45*2nyetxndk7tlysc1&a&b1onf#jwz*r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 ALLOWED_HOSTS = ['localhost', '10.0.0.52']
 
 
@@ -33,8 +33,10 @@ ALLOWED_HOSTS = ['localhost', '10.0.0.52']
 
 INSTALLED_APPS = [
     'bands',
+    'members',
     'microsite',
     'tastypie',
+    'csvexport',
     'import_export',
     'imagekit',
     'tagging',
@@ -91,23 +93,14 @@ STATICFILES_FINDERS = [
 
 WSGI_APPLICATION = 'musiccity.wsgi.application'
 
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
 # WYSIWYG Editor configuration
@@ -173,6 +166,14 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 
 MAIN_PAGE_TITLE = 'AlcaláEsMúsica'
 BANDS_PER_PAGE = 6
+
+CSV_EXPORT_FORMAT_FORM = False
+CSV_EXPORT_DELIMITER = ','
+CSV_EXPORT_ESCAPECHAR = '\\'
+CSV_EXPORT_QUOTECHAR = '"'
+CSV_EXPORT_DOUBLEQUOTE = True
+CSV_EXPORT_LINETERMINATOR = r'\n'
+CSV_EXPORT_QUOTING = 'QUOTE_ALL'
 
 
 from easy_thumbnails.conf import Settings as thumbnail_settings

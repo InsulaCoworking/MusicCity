@@ -17,14 +17,17 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
+from django.urls import path
+
 from api.urls import get_api
 
 
 urlpatterns = [
-    url(r'^', include('bands.urls')),
-    url(r'^', include('microsite.urls')),
-    url(r'^admin/', admin.site.urls),
-    url(r'^api/', include(get_api('v1').urls)),
-    url(r'^blog/', include('zinnia.urls')),
-    url(r'^comments/', include('django_comments.urls')),
+    path('', include('bands.urls')),
+    path('', include('microsite.urls')),
+    path('', include('members.urls')),
+    path('admin/', admin.site.urls),
+    path('api/', include(get_api('v1').urls)),
+    path('blog/', include('zinnia.urls')),
+    path('comments/', include('django_comments.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,29 @@
+
+
+<div class="row">
+    <div class="col-md-5">
+        {% include 'common/forms/field.html' with field=form.first_name %}
+    </div>
+    <div class="col-md-7">
+        {% include 'common/forms/field.html' with field=form.last_name %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        {% include 'common/forms/field.html' with field=form.email %}
+
+        {% include 'common/forms/field.html' with field=form.phone %}
+    </div>
+
+        <div class="col-md-6">
+        {% include 'common/forms/field.html' with field=form.dni %}
+        {% include 'common/forms/field.html' with field=form.birth_date %}
+        {% include 'common/forms/field.html' with field=form.favourite_genre %}
+    </div>
+</div>
+
+<div class="margin-top"></div>
+{% include 'common/forms/field.html' with field=form.help %}
+<div id="other_field" style="display:none;">
+{% include 'common/forms/field.html' with field=form.help_other %}
+</div>

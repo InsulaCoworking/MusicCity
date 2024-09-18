@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+{% load settings_value %}
+{% load l10n %}
+{% load zinnia %}
+
+{% block title %}Únete{% endblock title%}
+
+{% block main_content %}
+
+<div class="jumbo-header jumbo-band" xmlns="http://www.w3.org/1999/html">
+    <div class="jumbotron">
+        <div class="container text-center">
+                <h1>Únete</h1>
+
+             <p class="description">
+                Hazte soci@ y sé parte de Alcalá es Música
+            </p>
+        </div>
+    </div>
+</div>
+
+<br class="hidden-xs hidden-sm">
+<div class="container main card ">
+    <p class="lead">
+        Si quieres colaborar y apoyar el trabajo que la asociación realiza, participar directamente en todas las decisiones que se tomen, aportar ideas o estar al día de todo lo que se cuece a nivel musical en nuestra ciudad y sus alrededores, hazte soci@.
+<br><br>
+Nuestra asociación tiene una cuota simbólica de 1 € al mes a través de la plataforma Teaming con la que recibimos ayuda para sufragar los gastos fijos que la mera existencia de la asociación genera.
+
+    </p>
+
+    <div class="text-center double-sep">
+        <a href="{% url 'members:add_member' %}" class="btn btn-lg btn-primary"><i class="fa fa-pencil right-margin" aria-hidden="true"></i> Rellena el formulario</a>
+        <a href="#" class="btn btn-lg btn-primary red"><i class="fa fa-heart right-margin" aria-hidden="true"></i> Apúntate a Teaming</a>
+    </div>
+
+    <h1 class="heading">QUÉ HACEMOS CON LAS CUOTAS DE SOCIO</h1>
+
+    <div class="large-padding">
+    <p>
+        Alcalá es Música es una asociación sin ánimo de lucro que ha crecido mucho desde su fundación en 2015. Hoy por hoy, y con la cantidad de proyectos que promueve y gestiona, la asociación tiene una infraestructura necesaria para funcionar y, por tanto, ciertos gastos fijos como:
+<ul>
+    <li>Gestoría</li>
+<li>Impuestos</li>
+<li>Seguros de Responsabilidad Civil y Accidentes</li>
+<li>Mantenimiento de cuenta bancaria</li>
+<li>Mantenimiento de web y RR. SS.</li>
+<li>Mentoría de estudiantes en prácticas (Grado de Comunicación Audiovisual)</li>
+</ul>
+El dinero que la asociación percibe por programar y realizar producciones de eventos para instituciones y empresas se reinvierte automáticamente en eventos, ya sea en los contratos y sueldos de las personas que trabajan en las mismas o en poder cuidar a los artistas y ofrecerles espacios cómodos, mejoras en los backline, comida o bebida, fotografías y vídeos de calidad, etc.
+<br><br>
+Por eso, la pequeña ayuda de nuestros socios nos permite continuar creando escena musical en Alcalá y alrededores y luchar por unas condiciones de trabajo y unas remuneraciones dignas para artistas y demás profesionales del mundo de la música.
+
+    </p>
+        </div>
+</div>
+
+<div class="header-bar text-center top-padding">
+    <div class="container">
+        <h1 class="margin-top">OTRAS FORMAS DE COLABORAR
+</h1>
+    </div>
+</div>
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-md-4 top-padding">
+            <i class="fa fa-bullhorn info-icon" aria-hidden="true"></i>
+            <h3 class="heading">Ayúdanos en la comunicación</h3>
+            <p class="lead">Apúntate a <a href="https://chat.whatsapp.com/DrqnvPrJnNJLqghdcPZDh3"  target="_blank"> esta lista de WhatsApp</a> y comparte la información de los conciertos que enviaremos por aquí con  tus contactos.
+            <br>Comparte, da like y comenta nuestras publicaciones en RR. SS.
+</p>
+        </div>
+
+        <div class="col-md-4 top-padding">
+            <i class="fa fa-gears info-icon" aria-hidden="true"></i>
+            <h3 class="heading">Busca mecenas o financiación</h3>
+            <p class="lead">Aquí te dejamos un dossier de patrocinio. Si quieres más información, contacta con nosotros en admin@alcalaesmusica.org.
+</p>
+        </div>
+
+        <div class="col-md-4 top-padding">
+            <i class="fa fa-bank info-icon" aria-hidden="true"></i>
+            <h3 class="heading">Ayúdanos a trabajar con otros municipios y empresas</h3>
+            <p class="lead">Si tienes contacto con algún programador, municipio o gestor/a cultural de otro municipio para realizar eventos, puedes hacerle llegar nuestro dossier comercial.
+</p>
+        </div>
+    </div>
+    Si necesitas ayuda, escríbenos a admin@alcalaesmusica.org para ayudarte con la gestión.
+
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+{% load settings_value %}
+{% load l10n %}
+{% load zinnia %}
+
+{% block title %}Únete{% endblock title%}
+
+{% block main_content %}
+
+<div class="jumbo-header jumbo-band" xmlns="http://www.w3.org/1999/html">
+    <div class="jumbotron">
+        <div class="container text-center">
+                <h1>Únete</h1>
+
+             <p class="description">
+                Hazte soci@ y sé parte de Alcalá es Música
+            </p>
+        </div>
+    </div>
+</div>
+
+<br class="hidden-xs hidden-sm">
+<div class="container main card "  style="max-width:920px;">
+      <form method="post" class="edit-form" >
+    {% csrf_token %}
+
+        {% include 'members/form.html' %}
+       <p class="text-center double-sep">
+          <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+      </p>
+      </form>
+
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript" src="{% static "js/moment.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/daterangepicker.js" %}"></script>
+<script type="text/javascript">
+var otherHelp = $('#other_field');
+$('#{{form.help.id_for_label}}').on('change', function(){
+    var help = $(this).val();
+    otherHelp.toggle(help == 'otro');
+});
+
+var day = $('input[name="birth_date"]');
+day.daterangepicker({
+    singleDatePicker: true,
+    showDropdowns:false,
+    locale: {
+        format: 'DD/MM/YYYY'
+    }
+});
+
+</script>
+
+{% endblock %}
+

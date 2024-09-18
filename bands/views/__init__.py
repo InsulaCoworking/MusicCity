@@ -6,4 +6,3 @@ from bands.views.admin import *
 from bands.views.event import *
 from bands.views.professional import *
 from bands.views.profile import *
-from bands.views.bot import *

@@ -56,15 +56,14 @@
 
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
-                    <li {% if request.resolver_match.url_name == "index" %}class="active"{% endif %}><a href="{% url 'index' %}">Inicio</a></li>
                     <li {% if request.resolver_match.url_name == "zinnia:entry_archive_index" %}class="active"{% endif %} {% if request.path == "/blog/" %}class="active"{% endif %}><a href="{% url 'zinnia:entry_archive_index' %}">Noticias</a></li>
                     <li {% if request.resolver_match.url_name == "venues_list" %}class="active"{% endif %}><a href="{% url 'venues_list' %}">Espacios</a></li>
                     <li {% if request.resolver_match.url_name == "bands_list" %}class="active"{% endif %}><a href="{% url 'bands_list' %}">Bandas</a></li>
                     <li {% if request.resolver_match.url_name == "events_schedule" %}class="active"{% endif %}><a href="{% url 'events_schedule' %}">Agenda</a></li>
                     <!--<li {% if request.resolver_match.url_name == "pros_list" %}class="active"{% endif %}><a href="{% url 'pros_list' %}">Profesionales</a></li>-->
                       <li {% if request.resolver_match.url_name == "microsite_list" %}class="active"{% endif %}><a href="{% url 'microsite_list' %}">Ciclos y festivales</a></li>
-                      <li {% if request.resolver_match.url_name == "bot_info" %}class="active"{% endif %}><a href="{% url 'bot_info' %}">El Bot</a></li>
-                    <!--<li {% if request.resolver_match.url_name == "app_info" %}class="active"{% endif %}><a href="{% url 'app_info' %}">La App</a></li> -->
+                      <li {% if request.resolver_match.url_name == "members:bot_info" %}class="active"{% endif %}><a href="{% url 'members:bot_info' %}">El Bot</a></li>
+                      <!--<li {% if request.resolver_match.url_name == "members:who" %}class="active"{% endif %}><a href="{% url 'members:who' %}">Quienes somos</a></li>-->
                       <!-- <li {% if request.resolver_match.url_name == "survey" %}class="active"{% endif %}><a href="{% url 'survey' %}">Encuesta</a></li> -->
                   </ul>
                   <ul class="nav navbar-nav navbar-right">

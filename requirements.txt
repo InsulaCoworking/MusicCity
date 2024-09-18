@@ -1,6 +1,7 @@
 beautifulsoup4==4.11.1
 Django==3.2.16
 django-appconf==1.0.5
+django-admin-csvexport==2.2
 django-blog-zinnia @ git+https://github.com/arrobalytics/django-blog-zinnia.git@993d0d9d81a9f4cfa3081185e952ef49bb0f4798
 django-ckeditor==6.3.0
 django-contrib-comments==2.2.0

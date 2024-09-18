@@ -59,5 +59,4 @@ urlpatterns = [
     url(r'^profile/events$', views.user_events, name='user_events'),
     url(r'^profile/history', views.user_history, name='user_history'),
 
-    url(r'^bot/$', views.bot_info, name='bot_info'),
 ]

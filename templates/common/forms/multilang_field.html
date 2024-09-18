@@ -1,0 +1,45 @@
+{% load i18n %}
+{% load get_attr %}
+{% load get_active_lang %}
+
+{% with form|get_form_field:fieldname as base_field %}
+
+<div class="form-group">
+<div class="multilang-field">
+    {% if not hide_label %}
+        {% include "common/forms/label.html" with field=base_field %}
+    {% endif %}
+    <ul class="nav nav-justified nav-tabs input-language" id="multilangfield-{{fieldname}}" role="tablist">
+    {% if current_market.is_multilang_enabled %}
+        {% for lang in LANGUAGES %}
+            {% if lang.0 in current_market.enabled_langs %}
+                {% is_active_lang lang.0 as is_active_lang %}
+              <li class="nav-item">
+                  <a aria-controls="home" aria-selected="true" class="nav-link  {% if is_active_lang %}active{% endif %}" data-toggle="tab" href="#multilangfield-{{fieldname}}-{{lang.0}}" id="{{fieldname}}-{{lang.0}}-tab" role="tab">{{lang.0}}</a>
+              </li>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    </ul>
+</div>
+
+<div class="tab-content" id="multilangfield-{{fieldname}}-tabs">
+{% for lang in LANGUAGES %}
+    {% is_active_lang lang.0 as is_active_lang %}
+  <div aria-labelledby="{{fieldname}}-{{lang.0}}-tab" class="tab-pane fade show {% if is_active_lang %}active{% endif %}" id="multilangfield-{{fieldname}}-{{lang.0}}" role="tabpanel">
+       {% if base_field.field.required and lang.0 == LANGUAGE_CODE %}
+            {{ base_field }}
+        {% else %}
+        {% with fieldname|add:'_'|add:lang.0 as field_name  %}
+          {{ form|get_form_field:field_name }}
+        {% endwith %}
+        {% endif %}
+  </div>
+{% endfor %}
+</div>
+{% if base_field.help_text%}
+  <small class="text-muted mt-2 d-block">{{ base_field.help_text|safe }}</small>
+{% endif %}
+</div>
+
+{% endwith %}

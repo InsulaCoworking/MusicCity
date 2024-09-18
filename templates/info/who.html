@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% load settings_value %}
+{% load l10n %}
+{% load zinnia %}
+
+{% block title %}Quienes somos{% endblock title%}
+
+{% block main_content %}
+
+<div class="jumbo-header jumbo-band" xmlns="http://www.w3.org/1999/html">
+    <div class="jumbotron">
+        <div class="container text-center">
+                <h1>Quienes somos</h1>
+        </div>
+    </div>
+</div>
+
+<br class="hidden-xs hidden-sm">
+<div class="container main card ">
+    <div class="row">
+        <div class="col-lg-8">
+            <p class="lead"><span><strong>Alcalá Es Música</strong> es una asociación que tiene las puertas abiertas a todos los músicos, grupos, profesionales y empresas del sector, artistas amateur, locales, espacios, hosteleros, instituciones públicas, formadores en el ámbito musical, amantes de la música, radios, productoras... que quieran colaborar conjuntamente para realizar, organizar o participar en conciertos, festivales, generar espacios, promocionar su talento o su trabajo, y lo más importante, intentar generar en nuestra ciudad un ecosistema idóneo para todos los trabajadores y aficionados a la música, y conseguir que institucionalmente se incluya a los artistas como parte y valor añadido de su patrimonio cultural.
+        <br><br>
+        <strong>No hay que olvidar nunca que</span>
+        <br>
+            <span class="slogan">la <em>MÚSICA</em> es <em>CULTURA.</em></span></strong></p>
+        </div>
+
+        <div class="col-lg-4">
+            <p class="lead">También queremos unificar a todos los músicos y propuestas de la ciudad en una plataforma común, que pueda facilitar la colaboración y aumentar el valor de los grupos y profesionales, además de servir como punto de referencia para los programadores de la zona.
+    <br><br>
+    <strong>Tampoco hay que olvidar que</span>
+        <br>
+
+    <span class="slogan">la <em>MÚSICA</em> es <em>TRABAJO.</em></span></strong></p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container">
+    <img class="img-responsive" src="{% static 'img/alcalasuena.jpg' %}"  />
+
+    <p class="double-sep">
+        Desde que fundamos Alcala es Música en 2014, años hemos conseguido, organizar y ser participes en conciertos y festivales, promocionando el talento y trabajo de artistas locales, y lo más importante, creando en nuestra ciudad una cultura musical que permite a todos los que amamos la  música, tener espacios propios de disfrute y desarrollo personal.
+<br><br>
+Producimos periódicamente festivales, siendo Alcalá Suena nuestro buque insignia, que año tras año consigue, durante un fin de semana, convertir Alcalá en un escaparate idóneo para las bandas locales, y un escenario vivo donde todos podemos disfrutar  de multitud de opciones musicales para todos los gustos. Hemos conseguido además, exportar está misma idea fuera de nuestra localidad, para que la música y nuestra filosofía trascienda más allá de Alcalá de Henares..
+<br><br>
+También hemos desarrollado ciclos de verano con música al aire libre, conciertos en El Corral de Comedias de Alcalá, donde damos a bandas alcalaínas la opción de actuar en un escenario inigualable. Hemos animado las fiestas de nuestra localidad, tanto en los distritos, como en festivales como La Paloma Suena o Alcalá is Black, donde bandas locales han compartido escenario con bandas consagradas del panorama musical nacional e internacional.
+<br><br>
+Entre nuestros proyectos actuales desarrollamos entre otros, el podcast de entrevistas y conciertos Armonia de Turing, en colaboración con la Universidad de Alcalá de Henares, y como nueva apuesta para crear un espacio musical para todos, colaboramos con la sala Amazonia, programando grupos que enriquezca Alcalá con el talento de nuestras bandas.
+
+    </p>
+
+    <p class="lead text-center large-padding"> Si quieres colaborar y apoyar el trabajo que la asociación realiza, participar directamente en todas las decisiones que se tomen, aportar ideas o estar al día de todo lo que se cuece a nivel musical en nuestra ciudad y sus alrededores, <a href="{% url 'members:join' %}"> hazte soci@ </a><br>
+    </p>
+
+</div>
+{% endblock %}
