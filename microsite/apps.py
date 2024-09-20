@@ -5,4 +5,5 @@ from django.apps import AppConfig
 
 
 class MicrositeConfig(AppConfig):
+    verbose_name = "Ciclos y festivales"
     name = 'microsite'
