@@ -48,7 +48,6 @@
 
     <div class="row">
         <div class="col-md-7">
-            {{band.profile_thumb}}
             {% if band.embed_media %} <div class="embed">{% create_embed band.embed_media %} </div>{% endif %}
             <p>{{band.description|linebreaks}}</p>
             {%if band.genre %}<h5><strong>Estilo:</strong> {{band.genre}}</h5>{% endif %}
@@ -56,6 +55,20 @@
             {% include 'common/social_links.html' with obj=band %}
         </div>
         <div class="col-md-5">
+            {% if request.user.is_superuser %}
+              <div class="secondary header-bar"> <h4>Administración</h4> </div>
+            <p class=" margin-top">
+                {% if band.owner %}
+                     <label>Usuario: </label>{{ band.owner.username }}<br>
+                     <label>Email: </label>{{ band.owner.email }}<br>
+                     <label>Registro: </label>{{ band.owner.date_joined }}<br>
+                    {% if band.hidden_in_catalog %} <i class="fa fa-eye-slash" aria-hidden="true"></i> Oculta en listado principal {% endif %}
+                {% else %}
+                    No tiene usuario asociado.
+                {% endif %}
+                </p>
+            {% endif %}
+
             {% if band.embed_code %} <div class="embed">{% create_embed band.embed_code %} </div>{% endif %}
             <a id="events" name="events"></a>
             <div class="secondary header-bar margin-top"> <h4><i class="fa fa-music right-margin" aria-hidden="true"></i> Próximos conciertos</h4> </div>
