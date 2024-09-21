@@ -18,9 +18,7 @@ mysqlclient
 olefile==0.45.1
 pilkit==2.0
 Pillow==9.3.0
-pyparsing==2.2.0
 python-dateutil==2.6.1
 python-mimeparse==1.6.0
 pytz==2022.6
-regex==2018.2.3
 zinnia-wysiwyg-ckeditor==1.3
