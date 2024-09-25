@@ -46,6 +46,7 @@ class Band(models.Model):
     hidden_in_catalog = models.BooleanField(default=False, verbose_name="Oculto en el listado principal",
                                             help_text="Ocultar el perfil del listado, para bandas que no son de Alcala pero se crea su perfil para ciclos y festivales")
 
+
     class Meta:
         verbose_name = 'Banda'
         verbose_name_plural = 'Bandas'

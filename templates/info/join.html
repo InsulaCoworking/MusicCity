@@ -9,7 +9,7 @@
 {% block main_content %}
 
 <div class="jumbo-header jumbo-band" xmlns="http://www.w3.org/1999/html">
-    <div class="jumbotron">
+    <div class="jumbotron" style="padding-top:65px;">
         <div class="container text-center">
                 <h1>Únete</h1>
 
@@ -22,17 +22,27 @@
 
 <br class="hidden-xs hidden-sm">
 <div class="container main card ">
-    <p class="lead">
-        Si quieres colaborar y apoyar el trabajo que la asociación realiza, participar directamente en todas las decisiones que se tomen, aportar ideas o estar al día de todo lo que se cuece a nivel musical en nuestra ciudad y sus alrededores, hazte soci@.
-<br><br>
-Nuestra asociación tiene una cuota simbólica de 1 € al mes a través de la plataforma Teaming con la que recibimos ayuda para sufragar los gastos fijos que la mera existencia de la asociación genera.
+    <div class="row lead">
+        <div class="col-md-7">
+             Si quieres colaborar y apoyar el trabajo que la asociación realiza, participar directamente en todas las decisiones que se tomen, aportar ideas o estar al día de todo lo que se cuece a nivel musical en nuestra ciudad y sus alrededores, hazte soci@.
 
-    </p>
+            <div class="text-center double-sep">
+            <a href="{% url 'members:add_member' %}" class="btn btn-lg btn-primary"><i class="fa fa-pencil right-margin" aria-hidden="true"></i> Rellena el formulario</a>
+              </div>
+        </div>
 
-    <div class="text-center double-sep">
-        <a href="{% url 'members:add_member' %}" class="btn btn-lg btn-primary"><i class="fa fa-pencil right-margin" aria-hidden="true"></i> Rellena el formulario</a>
-        <a href="#" class="btn btn-lg btn-primary red"><i class="fa fa-heart right-margin" aria-hidden="true"></i> Apúntate a Teaming</a>
+        <div class="col-md-5">
+<hr class="hidden-lg hidden-md">
+Nuestra asociación tiene una cuota simbólica de 1 € al mes a través de la plataforma Teaming para sufragar los gastos fijos que la mera existencia de la asociación genera.
+
+
+        <div class="text-center double-sep">
+            <a href="https://www.teaming.net/alcalaesmusica" target="_blank" class="btn btn-lg btn-primary red"><i class="fa fa-heart right-margin" aria-hidden="true"></i> Apúntate a Teaming</a>
+        </div>
+        </div>
     </div>
+
+
 
     <h1 class="heading">QUÉ HACEMOS CON LAS CUOTAS DE SOCIO</h1>
 

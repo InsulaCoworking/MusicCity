@@ -18,7 +18,9 @@
         <div class="col-md-6">
         {% include 'common/forms/field.html' with field=form.dni %}
         {% include 'common/forms/field.html' with field=form.birth_date %}
+            {% include 'common/forms/field.html' with field=form.address %}
         {% include 'common/forms/field.html' with field=form.favourite_genre %}
+
     </div>
 </div>
 
@@ -27,3 +29,5 @@
 <div id="other_field" style="display:none;">
 {% include 'common/forms/field.html' with field=form.help_other %}
 </div>
+
+{% include 'common/forms/field.html' with field=form.comments_extra %}

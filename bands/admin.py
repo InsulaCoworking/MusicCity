@@ -29,9 +29,6 @@ admin.site.register(Professional)
 class BandAdmin(ModelAdmin):
     actions = [csvexport]
     list_display = ["name", "genre", "tag", ]
-    csvexport_export_fields = [
-        'name', 'tag.name', 'genre', 'city', 'owner.email'
-    ]
 
     @admin.action(description="Exportar seleccionados en CSV")
     def export_as_csv(modeladmin, request, queryset):

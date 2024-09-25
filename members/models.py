@@ -29,6 +29,7 @@ class Member(models.Model):
 
     help = models.TextField(null=True, blank=True, choices=help_choices, verbose_name="En qué te gustaría colaborar")
     help_other = models.TextField(null=True, blank=True, verbose_name="Otro tipo de colaboración")
+    comments_extra = models.TextField(null=True, blank=True, verbose_name="Cuéntanos lo que quieras")
 
     class Meta:
         verbose_name = 'Socia'
