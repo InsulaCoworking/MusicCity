@@ -23,9 +23,10 @@ class Member(models.Model):
     birth_date = models.DateField(null=False, blank=False, verbose_name="Fecha de nacimiento")
     register_date = models.DateField(null=False, blank=True, verbose_name="Fecha de registro", auto_now_add=True)
     address = models.CharField(null=True, blank=True, max_length=100, verbose_name='Dirección')
-    email = models.EmailField(null=False, blank=True, verbose_name="Correo electrónico", help_text="Sólo lo utilizaremos para las notificaciones de asambleas generales y avisar de eventos en los que puedas participar")
+    email = models.EmailField(null=False, blank=False, verbose_name="Correo electrónico", help_text="Sólo lo utilizaremos para las notificaciones de asambleas generales y avisar de eventos en los que puedas participar")
     phone = models.CharField(null=True, blank=True, verbose_name="Teléfono de contacto", max_length=50, help_text="introdúcelo si quieres que te incluyamos en el grupo de Whatsapp general de la asociación, donde os mantendremos informados del desarrollo de nuestros proyectos, y donde podrás solicitar participar en el desarrollo de actividades.")
     favourite_genre = models.TextField(null=True, blank=True, verbose_name="Género musical favorito")
+    music_connection = models.TextField(null=True, blank=True, verbose_name="Vinculación con el mundo de la música")
 
     help = models.TextField(null=True, blank=True, choices=help_choices, verbose_name="En qué te gustaría colaborar")
     help_other = models.TextField(null=True, blank=True, verbose_name="Otro tipo de colaboración")

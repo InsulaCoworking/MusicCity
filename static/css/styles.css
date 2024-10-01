@@ -1497,3 +1497,11 @@ span.slogan em{
 .info-icon{
     font-size:90px;
 }
+h1 em, h2 em, h3 em{
+    font-style:normal;
+    text-transform:none;
+    font-size:0.8em;
+    color: #cc0000;
+    font-weight: bold;
+    font-family: 'Raleway', sans-serif;
+}

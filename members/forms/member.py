@@ -12,6 +12,7 @@ class MemberForm(forms.ModelForm):
         widgets = {
             'favourite_genre': forms.Textarea( attrs={'rows':2}),
             'help_other': forms.Textarea(attrs={'rows': 3}),
+            'music_connection': forms.Textarea(attrs={'rows': 3}),
             'comments_extra': forms.Textarea(attrs={'rows': 5})
         }
 

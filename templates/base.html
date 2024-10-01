@@ -27,7 +27,7 @@
         <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,600" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-        <link href="{% static "css/styles.css" %}?v=26" rel="stylesheet"/>
+        <link href="{% static "css/styles.css" %}?v=27" rel="stylesheet"/>
         {% block extra_styles %}{% endblock extra_styles %}
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -63,8 +63,8 @@
                     <!--<li {% if request.resolver_match.url_name == "pros_list" %}class="active"{% endif %}><a href="{% url 'pros_list' %}">Profesionales</a></li>-->
                       <li {% if request.resolver_match.url_name == "microsite_list" %}class="active"{% endif %}><a href="{% url 'microsite_list' %}">Ciclos y festivales</a></li>
                       <li {% if request.resolver_match.url_name == "members:bot_info" %}class="active"{% endif %}><a href="{% url 'members:bot_info' %}">El Bot</a></li>
-                      <!--<li {% if request.resolver_match.url_name == "members:who" %}class="active"{% endif %}><a href="{% url 'members:who' %}">Quienes somos</a></li>-->
-                      <!-- <li {% if request.resolver_match.url_name == "survey" %}class="active"{% endif %}><a href="{% url 'survey' %}">Encuesta</a></li> -->
+                      <li {% if request.resolver_match.url_name == "members:who" %}class="active"{% endif %}><a href="{% url 'members:who' %}">Quiénes somos</a></li>
+                      <li {% if request.resolver_match.url_name == "members:join" %}class="active"{% endif %}><a href="{% url 'members:join' %}">Únete</a></li>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
                       {%if user.is_authenticated %}

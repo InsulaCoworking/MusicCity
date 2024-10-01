@@ -24,7 +24,12 @@
     </div>
 </div>
 
-<div class="margin-top"></div>
+<div class="form-group">
+ {% include "common/forms/label.html" with field=form.music_connection %}
+    {{form.music_connection}}
+  <small class="text-muted d-block">¿Qué te une al mundo de la música? Eres amante de la música, tienes una sala, produces, tocas en una banda? (si es así, cuéntanos cuál!)</small>
+</div>
+
 {% include 'common/forms/field.html' with field=form.help %}
 <div id="other_field" style="display:none;">
 {% include 'common/forms/field.html' with field=form.help_other %}
