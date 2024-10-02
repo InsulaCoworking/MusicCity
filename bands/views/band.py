@@ -13,11 +13,11 @@ from django.views.generic import DetailView, UpdateView, CreateView, ListView
 
 from bands.forms.band import BandForm, BandProfileImageForm
 from bands.helpers import get_query
-from bands.mixins.AjaxTemplateResponseMixin import AjaxTemplateResponseMixin
+from helpers.mixins.ajax import AjaxTemplateResponseMixin
 from bands.models import Event, Tag, Band, BandToken
 
 
-class BandList(ListView, AjaxTemplateResponseMixin):
+class BandList(AjaxTemplateResponseMixin, ListView):
     model = Band
     paginate_by = settings.BANDS_PER_PAGE
     queryset = Band.objects.filter(hidden_in_catalog=False)

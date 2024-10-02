@@ -29,7 +29,7 @@ def pro_list(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         pros = paginator.page(paginator.num_pages)
 
-    if request.is_ajax():
+    if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
         response = render(request, 'professional/search_results.html', {
             'pros': pros, 'page': page
         })

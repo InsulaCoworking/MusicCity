@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+# Hack for libraries not updating the encoding lib for Django 4
+import django
+from django.utils.encoding import smart_str
+django.utils.encoding.smart_text = smart_str
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
@@ -35,16 +40,20 @@ INSTALLED_APPS = [
     'bands',
     'members',
     'microsite',
+    ## Apps for REST/API functionality
     'tastypie',
+    ## Apps for exporting
     'csvexport',
     'import_export',
+    ## Apps for image managing
     'imagekit',
-    'tagging',
     'easy_thumbnails',
     'image_cropping',
+    ## Apps for blogging system
+    'tagging',
     'zinnia',
-    'zinnia_ckeditor',
     'ckeditor',
+    ## Core Django apps
     'django_comments',
     'django.contrib.humanize',
     'django.contrib.admin',

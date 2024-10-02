@@ -78,7 +78,7 @@ def events_schedule(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         events = paginator.page(paginator.num_pages)
 
-    if request.is_ajax():
+    if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
         response = render(request, 'event/search_results.html', {
             'events':events
         })

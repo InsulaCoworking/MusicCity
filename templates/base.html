@@ -62,9 +62,9 @@
                     <li {% if request.resolver_match.url_name == "events_schedule" %}class="active"{% endif %}><a href="{% url 'events_schedule' %}">Agenda</a></li>
                     <!--<li {% if request.resolver_match.url_name == "pros_list" %}class="active"{% endif %}><a href="{% url 'pros_list' %}">Profesionales</a></li>-->
                       <li {% if request.resolver_match.url_name == "microsite_list" %}class="active"{% endif %}><a href="{% url 'microsite_list' %}">Ciclos y festivales</a></li>
-                      <li {% if request.resolver_match.url_name == "members:bot_info" %}class="active"{% endif %}><a href="{% url 'members:bot_info' %}">El Bot</a></li>
-                      <li {% if request.resolver_match.url_name == "members:who" %}class="active"{% endif %}><a href="{% url 'members:who' %}">Quiénes somos</a></li>
-                      <li {% if request.resolver_match.url_name == "members:join" %}class="active"{% endif %}><a href="{% url 'members:join' %}">Únete</a></li>
+                      <li {% if request.resolver_match.url_name == "bot_info" %}class="active"{% endif %}><a href="{% url 'members:bot_info' %}">El Bot</a></li>
+                      <li {% if request.resolver_match.url_name == "who" %}class="active"{% endif %}><a href="{% url 'members:who' %}">Quiénes somos</a></li>
+                      <li {% if request.resolver_match.url_name == "join" %}class="active"{% endif %}><a href="{% url 'members:join' %}">Únete</a></li>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
                       {%if user.is_authenticated %}
