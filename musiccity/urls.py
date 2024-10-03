@@ -21,13 +21,12 @@ from django.urls import path
 
 from api.urls import get_api
 
-
 urlpatterns = [
     path('', include('bands.urls')),
     path('', include('microsite.urls')),
     path('', include('members.urls')),
     path('admin/', admin.site.urls),
     path('api/', include(get_api('v1').urls)),
-    path('blog/', include('zinnia.urls')),
-    path('comments/', include('django_comments.urls')),
+    path('', include('puput.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

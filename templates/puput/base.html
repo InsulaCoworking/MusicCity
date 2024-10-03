@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags wagtailuserbar puput_tags %}
+{% load settings_value %}
+{% load l10n %}
+
+{% block bodyattrs %} class="blog-puput" {% endblock%}
+
+{% block title %}
+  {% if search_term %}
+        {{ search_term }} | {{ blog_page.title }}
+    {% else %}
+        {{ blog_page.title }}
+    {% endif %}
+{% endblock title%}
+
+{% block extra_head %}
+   <link rel="canonical" href="{% block canonical %}{% canonical_url %}{% endblock canonical %}"/>
+    <link rel="stylesheet" href="{% static 'puput/css/puput.css' %}"/>
+{% endblock extra_head %}
+
+{% block main_content %}
+
+{% block blog_header %}
+<div class="jumbo-header jumbo-band">
+    <div class="jumbotron">
+        <div class="container text-center">
+                <h1>Noticias</h1>
+        </div>
+    </div>
+</div>
+{% endblock blog_header %}
+
+{% wagtailuserbar %}
+
+<div class="container container-blog">
+    <div class="row">
+        <div class="col-sm-8 col-md-9">
+            {% block content %}{% endblock content %}
+            {% block extra_content %}{% endblock extra_content %}
+        </div>
+
+        <div class="col-sm-4 col-md-3">
+            <div class="blog_sidebar">
+                <div class="rss-sitemap">
+                    <a href="{% feeds_url blog_page %}" target="_blank" title="RSS">
+                         <i class="fa fa-rss-square"></i> <span>Feed RSS</span>
+                    </a>
+                </div>
+                <form name="search_form" class="search_form" method="get" action="{% routablepageurl blog_page 'entries_search' %}">
+                    <div class="input-group">
+                         <input type="search" name="q" placeholder="Buscar">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                         </span>
+                    </div>
+                </form>
+
+                {% if blog_page.display_last_entries %}
+                    <ul class="sidebar">
+                        <h4>Últimas entradas</h4>
+                        {% recent_entries blog_page.num_last_entries %}
+                    </ul>
+                {% endif %}
+                {% if blog_page.display_popular_entries %}
+                    <ul class="sidebar">
+                        <h4>Entradas populares</h4>
+                        {% popular_entries blog_page.num_popular_entries %}
+                    </ul>
+                {% endif %}
+                {% if blog_page.display_categories %}
+                    <ul class="sidebar">
+                        <h4>Categorías</h4>
+                        {% categories_list %}
+                    </ul>
+                {% endif %}
+                {% if blog_page.display_tags %}
+                    <ul class="sidebar">
+                        <h4>Etiquetas</h4>
+                        {% tags_list %}
+                    </ul>
+                {% endif %}
+                {% if blog_page.display_archive %}
+                    <ul class="sidebar widget menu">
+                        <h4>Archivo</h4>
+                        {% archives_list %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'puput/js/puput.js' %}"></script>
+{% endblock scripts %}

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from puput import PUPUT_APPS
 
 # Hack for libraries not updating the encoding lib for Django 4
 import django
@@ -64,6 +65,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+# Apps for blogging system
+INSTALLED_APPS += PUPUT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -166,8 +169,8 @@ API_LIMIT_PER_PAGE = 250
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
-STATIC_ROOT = ROOT_DIR + '/static'
-MEDIA_ROOT = ROOT_DIR + '/media'
+STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
+MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 LOGIN_URL = '/login/'
@@ -184,6 +187,8 @@ CSV_EXPORT_DOUBLEQUOTE = True
 CSV_EXPORT_LINETERMINATOR = r'\n'
 CSV_EXPORT_QUOTING = 'QUOTE_ALL'
 
+WAGTAIL_SITE_NAME = 'AlcaláEsMúsica'
+WAGTAILADMIN_BASE_URL = 'http://localhost:8000/'
 
 from easy_thumbnails.conf import Settings as thumbnail_settings
 THUMBNAIL_PROCESSORS = (

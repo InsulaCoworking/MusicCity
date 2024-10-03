@@ -1,9 +1,11 @@
+from unicodedata import category
+
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, DetailView
 
 from bands.models import Band
 from microsite.models import Microsite
-from zinnia.models.entry import Entry
+from puput.models import BlogPage, EntryPage, Category
 
 class MicrositeIndex(DetailView):
     model = Microsite
@@ -17,7 +19,7 @@ class MicrositeIndex(DetailView):
         context = super().get_context_data(**kwargs)
         context['bands'] = Band.objects.filter(events__id__in=self.object.events.all()).distinct()
         if self.object.news_tag:
-            context['entries'] = Entry.published.filter(tags__icontains=self.object.news_tag)
+            context['entries'] = EntryPage.objects.filter(tags__slug__in=[self.object.news_tag]).distinct()
 
         return context
 

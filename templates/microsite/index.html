@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
-{% load settings_value %}
+{% load settings_value wagtailcore_tags %}
 {% load l10n %}
-{% load zinnia %}
 
 {% block title %}{{microsite.title}}{% endblock%}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'puput/css/puput.css' %}"/>
+{% endblock extra_head %}
 
 {% block social_meta %}
         <meta name="twitter:card" content="summary_large_image">
@@ -126,22 +129,17 @@
         <h1 class="margin-top">Noticias</h1>
     </div>
 </div>
-<div class="container">
+<div class="container blog-puput double-sep">
     <div class="row">
-{% for object in entries %}
+{% for entry in entries %}
     <div class="col-md-6">
-        <div class="panel ">
-            <div class="description">
-              {% zinnia_loop_template object.content_template as template %}
-              {% include template with object_content=object.html_preview continue_reading=1 %}
-            </div>
-        </div>
+        {% include 'puput/entry_card.html' with entry=entry blog_page=entry.blog_page %}
     </div>
 {% empty %}
   <p class="info text-center">
       <br><br>
     Todavía no hay ninguna entrada con el tag "{{microsite.news_tag}}".<br><br>
-      <a href="{% url 'zinnia:entry_archive_index' %}" class="btn btn-primary btn-lg">
+      <a href="{% slugurl 'blog' %}" class="btn btn-primary btn-lg">
         <i class="fa fa-eye right-margin"></i> Ver todas las noticias
       </a>
   </p>

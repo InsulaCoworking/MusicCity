@@ -1,0 +1,67 @@
+{% extends "puput/base.html" %}
+{% load i18n wagtailcore_tags wagtailimages_tags puput_tags %}
+
+{% block title %}
+    {{ self.title }} | {{ blog_page.title }}
+{% endblock title %}
+
+{% block meta_title %}
+    {% if self.seo_title %}
+        {{ self.seo_title }}
+    {% else %}
+        {{ self.title }}
+    {% endif %}
+{% endblock meta_title %}
+
+
+{% block canonical %}
+    {% canonical_url entry=self %}
+{% endblock canonical %}
+
+{% block blog_header %}
+
+{% if self.header_image %}
+{% image self.header_image fill-800x450 as header_image %}
+<div class="jumbo-header dark-header" style="background-image:url('{{ header_image.url }}');">
+{% else %}
+<div class="jumbo-header jumbo-band">
+ {% endif %}
+
+    <div class="jumbotron">
+        <div class="container text-center">
+                <h1 class="post_title">{{ self.title }}</a></h1>
+              <div class="description">
+                {% include 'puput/entry_links.html' with entry=self %}
+              </div>
+        </div>
+    </div>
+</div>
+{% endblock blog_header %}
+
+{% block content %}
+    <article class="card main page-content">
+        <section>
+            {{ self.body|richtext}}
+            <div class="row">
+                <div class="col-md-5">
+                    <a class="btn btn-lg btn-primary continue" href="{% pageurl blog_page %}">
+                        <i class="fa fa-angle-left"></i>
+                        Volver
+                    </a>
+                </div>
+                {% canonical_url self as share_url %}
+                <ul class="social-share-all text-right col-md-7">
+                    {% include 'puput/share_links.html' with share_url=share_url entry=self only %}
+                </ul>
+            </div>
+
+        </section>
+        {% show_comments %}
+    </article>
+{% endblock content %}
+
+{% block extra_content %}
+    {% if self.has_related %}
+        {% include 'puput/related_entries.html' with entry=self %}
+    {% endif %}
+{% endblock extra_content %}

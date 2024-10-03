@@ -1,0 +1,43 @@
+{% load static i18n wagtailcore_tags wagtailimages_tags puput_tags %}
+
+{% entry_url entry blog_page as post_url %}
+<article class="card {% if first_entry %} main {% endif %} box page-content blog_grid">
+   {% include 'puput/entry_page_header.html' %}
+    {% if entry.header_image %}
+  <a href="{% entry_url entry blog_page %}">
+    <section class="entry-image">
+            <span class="img-responsive">
+                {% image entry.header_image fill-800x240 as header_image %}
+                <img alt="{{ entry.header_image.title }}" src="{{ header_image.url }}">
+            </span>
+
+    </section>
+     </a>
+  <section>
+
+        {% include 'puput/entry_links.html' %}
+    </section>
+
+  {% else %}
+  <section>
+        {% include 'puput/entry_links.html' %}
+    </section>
+
+  {% endif %}
+    <section class="article">
+        {% if entry.excerpt %}
+            {{ entry.excerpt|richtext }}
+        {% else %}
+            {{ entry.body|richtext|truncatewords_html:70 }}
+        {% endif %}
+        <div class="row">
+            {% canonical_url entry as share_url %}
+            <ul class="social-share col-md-5">
+                {% include 'puput/share_links.html' with share_url=share_url entry=entry only %}
+            </ul>
+            <div class="col-md-7 text-right">
+                <a class="btn btn-lg btn-primary continue" href="{{ post_url }}">{% trans 'Continue reading' %} <i class="fa fa-angle-right ml-2" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </section>
+</article>
