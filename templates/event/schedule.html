@@ -91,7 +91,7 @@
                                 {% with venue.pk|slugify as venue_pk %}
                                 <option value="{{venue.pk}}"
                                         {%if venue_filter == venue_pk %} selected {%endif%}
-                                        {%if venue.profile_image %} data-image="{{venue.profile_thumbnail.url}}"{%endif%}>{{venue.name}}</option>
+                                        {%if venue.profile_image %} data-image="{{venue.profile_image.url}}"{%endif%}>{{venue.name}}</option>
                                 {% endwith %}
                                 {% endfor %}
                             </select>
