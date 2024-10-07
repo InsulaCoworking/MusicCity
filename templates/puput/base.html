@@ -56,32 +56,32 @@
                 </form>
 
                 {% if blog_page.display_last_entries %}
-                    <ul class="sidebar">
-                        <h4>Últimas entradas</h4>
+                    <ul class="sidebar double-sep">
+                        <h3 class="secondary header-bar">Últimas entradas</h3>
                         {% recent_entries blog_page.num_last_entries %}
                     </ul>
                 {% endif %}
                 {% if blog_page.display_popular_entries %}
                     <ul class="sidebar">
-                        <h4>Entradas populares</h4>
+                        <h3 class="secondary header-bar">Entradas populares</h3>
                         {% popular_entries blog_page.num_popular_entries %}
                     </ul>
                 {% endif %}
                 {% if blog_page.display_categories %}
                     <ul class="sidebar">
-                        <h4>Categorías</h4>
+                        <h3 class="secondary header-bar margin-bottom">Categorías</h3>
                         {% categories_list %}
                     </ul>
                 {% endif %}
                 {% if blog_page.display_tags %}
                     <ul class="sidebar">
-                        <h4>Etiquetas</h4>
+                        <h3 class="secondary header-bar margin-bottom">Etiquetas</h3>
                         {% tags_list %}
                     </ul>
                 {% endif %}
                 {% if blog_page.display_archive %}
                     <ul class="sidebar widget menu">
-                        <h4>Archivo</h4>
+                        <h3 class="secondary header-bar">Archivo</h3>
                         {% archives_list %}
                     </ul>
                 {% endif %}

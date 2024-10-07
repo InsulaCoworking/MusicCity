@@ -1542,3 +1542,5 @@ h1 em, h2 em, h3 em{
 .blog-puput article:hover .header-bar { text-decoration:none !important; }
 .blog-puput .blog_sidebar .btn.btn-default, .blog-puput .open-sub { background:#347289 !important; }
 .blog-puput article:hover .entry-image::after{ box-shadow: rgba(28,41,51,0.6) 10px 10px 105px inset; }
+
+.blog-puput .blog_sidebar{ padding: 5px 10px 0 25px; }
