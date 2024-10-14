@@ -63,11 +63,11 @@ class Command(BaseCommand):
 
     def import_entries(self):
 
-        schedule_cat, created = PuputCategory.objects.get_or_create(
-            name='Agenda semanal',
-            slug='agenda',
-            description='Un repaso a la agenda semanal en el valle del Henares'
-        )
+        #schedule_cat, created = PuputCategory.objects.get_or_create(
+        #    name='Agenda semanal',
+        #    slug='agenda',
+        #    description='Un repaso a la agenda semanal en el valle del Henares'
+        #)
 
 
         self.stdout.write("Importing entries...")
