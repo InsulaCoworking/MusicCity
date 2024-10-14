@@ -70,7 +70,7 @@ class Command(BaseCommand):
         for entry in entries:
             self.stdout.write(entry.title)
             # Header images
-            if entry.image:
+            if entry.image and not entry.image.url.endswith('webp'):
                 try:
                     header_image = WagtailImage(file=entry.image, title=os.path.basename(entry.image.url))
                     self.stdout.write('\tImported header image: {}'.format(entry.image))
