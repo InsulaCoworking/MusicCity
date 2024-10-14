@@ -63,12 +63,7 @@ class Command(BaseCommand):
 
     def import_entries(self):
 
-        #schedule_cat, created = PuputCategory.objects.get_or_create(
-        #    name='Agenda semanal',
-        #    slug='agenda',
-        #    description='Un repaso a la agenda semanal en el valle del Henares'
-        #)
-
+        schedule_cat = PuputCategory.objects.get(slug='agenda')
 
         self.stdout.write("Importing entries...")
         entries = ZinniaEntry.objects.all()
@@ -113,7 +108,7 @@ class Command(BaseCommand):
             self.import_entry_tags(entry, page)
             page.save()
             page.save_revision(changed=False)
-            if page.title.startswith("Agenda"):
+            if page.title.startswith("Agenda") or page.title.startswith("AGENDA"):
                 PuputCategoryEntryPage.objects.get_or_create(category=schedule_cat, page=page)
 
             self.entries[entry.pk] = page
