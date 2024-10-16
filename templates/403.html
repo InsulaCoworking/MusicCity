@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block bodyattrs %} class="main-bg"{% endblock%}
+
+{% block navbar %}
+    {% include 'navbar/bar.html' with hide_secondary_bar=True %}
+{% endblock navbar %}
+
+{% block main_content %}
+<div class="jumbo-header jumbo-band">
+    <div class="jumbotron" style="padding-top:65px;">
+        <div class="container text-center">
+                <h1>Error 403</h1>
+        </div>
+    </div>
+</div>
+
+    <div class="container error-404 ml-2 double-sep">
+        <div>
+            <h1> {% translate 'No autorizada' %}</h1>
+            <p class="lead">
+                No tienes permisos para acceder a la página que intentas visitar. Contacta con administración para gestionar tus permisos o si crees que es un error.
+            </p>
+            <div>
+                <button onclick="history.back()" class="btn btn-action btn-primary mr-2 mb-3"><i class="fa fa-arrow-left mr-2"></i> Volver</button>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock main_content %}

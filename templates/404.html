@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block main_content %}
+<div class="jumbo-header jumbo-band">
+    <div class="jumbotron" style="padding-top:65px;">
+        <div class="container text-center">
+                <h1>Error 404</h1>
+        </div>
+    </div>
+</div>
+    <div class="container error-404 ml-2 double-sep">
+        <div>
+            <h1> {% translate 'Página no encontrada' %}</h1>
+            <div>
+                <button onclick="history.back()" class="btn btn-action btn-primary mr-2 mb-3"><i class="fa fa-arrow-left mr-2"></i> Volver</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock main_content %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block main_content %}
+<div class="jumbo-header jumbo-band">
+    <div class="jumbotron" style="padding-top:65px;">
+        <div class="container text-center">
+                <h1>Error 500</h1>
+        </div>
+    </div>
+</div>
+    <div class="container error-500 double-sep ml-2">
+        <div>
+            <h1>{% translate 'Algo ha fallado' %}</h1>
+            <h3>{% translate 'Prueba a actualizar la página o contacta con el equipo técnico.' %}</h3>
+            <div>
+                <a href="" class="btn btn-primary red"><i class="fa fa-refresh"></i> {% translate 'Actualizar página' %}</a>
+                <button onclick="history.back()" class="btn btn-action btn-primary mr-2 mb-3"><i class="fa fa-arrow-left mr-2"></i> Volver</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock main_content %}
