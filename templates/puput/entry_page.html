@@ -43,14 +43,14 @@
         <section>
             {{ self.body|richtext}}
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-5 col-xs-6">
                     <a class="btn btn-lg btn-primary continue" href="{% pageurl blog_page %}">
                         <i class="fa fa-angle-left"></i>
                         Volver
                     </a>
                 </div>
                 {% canonical_url self as share_url %}
-                <ul class="social-share-all text-right col-md-7">
+                <ul class="social-share-all text-right col-xs-6 col-md-7">
                     {% include 'puput/share_links.html' with share_url=share_url entry=self only %}
                 </ul>
             </div>
