@@ -1,5 +1,6 @@
 {% extends "puput/base.html" %}
-{% load i18n wagtailcore_tags wagtailimages_tags puput_tags %}
+{% load static i18n wagtailcore_tags wagtailimages_tags puput_tags %}
+{% load settings_value %}
 
 {% block title %}
     {{ self.title }} | {{ blog_page.title }}
@@ -12,6 +13,24 @@
         {{ self.title }}
     {% endif %}
 {% endblock meta_title %}
+
+
+{% block social_share %}
+
+    <meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+    <meta name="twitter:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}">
+
+{% if self.header_image %}
+    {% image self.header_image fill-800x450 as header_image %}
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ header_image.url }}" />
+    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ header_image.url }}">
+{% else %}
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static "img/logo_banner.jpg" %}" />
+    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static "img/logo_banner.jpg" %}">
+ {% endif %}
+    <meta property="og:description" content="Alcalá Es Música es una asociación que tiene las puertas abiertas a todos los músicos, grupos, profesionales y empresas del sector, artistas amateur, locales, espacios, hosteleros, instituciones públicas, formadores en el ámbito musical, amantes de las música, radios, productoras...  para  generar en nuestra ciudad un ecosistema idóneo para todos los trabajadores y aficionados a la música" />
+    <meta name="twitter:description" content="Alcalá Es Música es una asociación que tiene las puertas abiertas a todos los músicos, grupos, profesionales y empresas del sector, artistas amateur, locales, espacios, hosteleros, instituciones públicas, formadores en el ámbito musical, amantes de las música, radios, productoras...  para  generar en nuestra ciudad un eco-sistema idóneo para todos los trabajadores y aficionados a la música">
+{% endblock social_share%}
 
 
 {% block canonical %}
