@@ -30,11 +30,11 @@
  {% endif %}
 
 {% if self.excerpt %}
-    <meta property="og:description" content="{{ self.excerpt|truncatewords_html:40 }}" />
-    <meta name="twitter:description" content="{{ self.excerpt|truncatewords_html:40 }}">
+    <meta property="og:description" content="{{ self.excerpt|striptags|truncatewords_html:40 }}" />
+    <meta name="twitter:description" content="{{ self.excerpt|striptags|truncatewords_html:40 }}">
 {% else %}
-   <meta property="og:description" content="{{ self.body|truncatewords_html:40 }}" />
-    <meta name="twitter:description" content=" {{ self.body|truncatewords_html:40 }}">
+   <meta property="og:description" content="{{ self.body|striptags|truncatewords_html:40 }}" />
+    <meta name="twitter:description" content=" {{ self.body|striptags|truncatewords_html:40 }}">
 {% endif %}
     {% endblock social_share%}
 
