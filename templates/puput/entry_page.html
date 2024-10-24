@@ -28,9 +28,15 @@
     <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static "img/logo_banner.jpg" %}" />
     <meta name="twitter:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static "img/logo_banner.jpg" %}">
  {% endif %}
-    <meta property="og:description" content="Alcalá Es Música es una asociación que tiene las puertas abiertas a todos los músicos, grupos, profesionales y empresas del sector, artistas amateur, locales, espacios, hosteleros, instituciones públicas, formadores en el ámbito musical, amantes de las música, radios, productoras...  para  generar en nuestra ciudad un ecosistema idóneo para todos los trabajadores y aficionados a la música" />
-    <meta name="twitter:description" content="Alcalá Es Música es una asociación que tiene las puertas abiertas a todos los músicos, grupos, profesionales y empresas del sector, artistas amateur, locales, espacios, hosteleros, instituciones públicas, formadores en el ámbito musical, amantes de las música, radios, productoras...  para  generar en nuestra ciudad un eco-sistema idóneo para todos los trabajadores y aficionados a la música">
-{% endblock social_share%}
+
+{% if self.excerpt %}
+    <meta property="og:description" content="{{ self.excerpt|truncatewords_html:40 }}" />
+    <meta name="twitter:description" content="{{ self.excerpt|truncatewords_html:40 }}">
+{% else %}
+   <meta property="og:description" content="{{ self.body|truncatewords_html:40 }}" />
+    <meta name="twitter:description" content=" {{ self.body|truncatewords_html:40 }}">
+{% endif %}
+    {% endblock social_share%}
 
 
 {% block canonical %}
