@@ -6,6 +6,7 @@ from bands.models import Band, Venue, Event, Tag, Settings
 from bands.models.news import News
 from datetime import datetime, timedelta
 from microsite.models.microsite import Microsite
+from puput.models import EntryPage
 
 
 class TagResource(ModelResource):
@@ -182,4 +183,10 @@ class NewsResource(ModelResource):
             return []
 
 
-
+class BlogResource(ModelResource):
+    class Meta:
+        queryset = EntryPage.objects.filter(date__gte=(datetime.now()-timedelta(days=120)))
+        include_resource_uri = False
+        list_allowed_methods = ['get']
+        resource_name = 'blog'
+        collection_name = 'entries'

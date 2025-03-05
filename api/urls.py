@@ -16,5 +16,6 @@ def get_api(version_name):
     api.register(UpcomingEventResource())
     api.register(UpcomingVenueResource())
     api.register(MicrositeResource())
+    api.register(BlogResource())
 
     return api
