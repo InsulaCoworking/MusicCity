@@ -5,7 +5,6 @@ from tastypie.resources import ModelResource
 from bands.models import Band, Venue, Event, Tag, Settings
 from bands.models.news import News
 from datetime import datetime, timedelta
-from zinnia.models.entry import Entry
 from microsite.models.microsite import Microsite
 
 
@@ -183,11 +182,4 @@ class NewsResource(ModelResource):
             return []
 
 
-class BlogResource(ModelResource):
-    class Meta:
-        queryset = Entry.objects.filter(publication_date__gte=(datetime.now()-timedelta(days=120)))
-        include_resource_uri = False
-        list_allowed_methods = ['get']
-        resource_name = 'blog'
-        collection_name = 'entries'
 
