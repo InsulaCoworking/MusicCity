@@ -20,3 +20,4 @@ Pillow==9.5.0
 python-dateutil==2.6.1
 python-mimeparse==1.6.0
 puput==2.1.1
+django-cors-headers==3.4.0
