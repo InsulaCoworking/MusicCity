@@ -74,6 +74,17 @@ python manage.py collectstatic
 python manage.py createsuperuser
 ```
 
+Preparación del gestor del blog Puput:
+1. Completar parámetros `WAGTAIL_SITE_NAME` y `WAGTAILADMIN_BASE_URL`
+en `settings_secret.py` 
+2. Ejecutar comando: `python manage.py puput_initial_data`
+3. Desplegar el servidor y entrar en `{BASE_URL}/blog_admin/`
+4. En Propiedades -> Sitios entrar en el primero y marcar la casilla "Es sitio por defecto" -> Guardar
+5. El blog ya debería ser accesible a través de `{BASE_URL}/blog/`
+   
+[Documentación de Puput](https://puput.readthedocs.io/en/latest/setup.html)
+
+---
 
 ### Apache
 
