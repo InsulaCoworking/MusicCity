@@ -88,7 +88,11 @@
         <div class="col-lg-9">
         {% for day in events_byday %}
             {% for events in day.events|chunks:3 %}
-            {% include 'event/export_card.html' with day=day.day events=events %}
+
+                <div class="slide-export margin-top" data-filename="agenda_{{day.day|date:'Ymd'}}_{{ forloop.counter }}">
+                    {% include 'event/export_card.html' with day=day.day events=events %}
+                    <a href="#" class="btn btn-lg btn-primary red"> <i class="fa fa-download mr-2" aria-hidden="true"></i> Descargar imagen</a>
+                </div>
             {% endfor %}
         {% endfor %}
         </div>
@@ -145,13 +149,20 @@
         refreshResults();
     });
 
-
-    html2canvas(document.querySelector(".slide-export"), {
-        width:1080, height:1080
-    }).then(canvas => {
-        document.body.appendChild(canvas)
+    $('.slide-export').each(function(){
+        var slide = $(this);
+        html2canvas(this, {
+            width:1080, height:1080
+        }).then(canvas => {
+            var slideImage = $(canvas);
+            var imageName = slide.attr('data-filename');
+            var downloadBtn = slide.find('.btn');
+            slideImage.attr('id', imageName);
+            slideImage.addClass('preview').appendTo(slide);
+            downloadBtn.attr('href', canvas.toDataURL());
+            downloadBtn.attr('download', imageName + '.png');
+        });
     });
-
 
 
 </script>

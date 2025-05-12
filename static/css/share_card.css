@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
-
+.slide-export{ position:relative; }
+.slide-export .preview{
+    width:100%;
+    position:absolute;
+    top:0;
+    left:0;
+}
+.slide-export .btn{
+    margin-top:9px;
+}
 .ig-slide-card{
     width:1080px;
     height:1080px;
