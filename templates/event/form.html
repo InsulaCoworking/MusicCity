@@ -75,6 +75,13 @@
                         {{ form.description }}
                         <small style="color: grey">Si no añades una descripción específica del evento, se mostrará la descripción de las bandas participantes</small>
                     </div>
+
+                    <div class="form-group">
+                        <label>Descripción corta</label>
+                        {{ form.short_description }}
+                        <small style="color: grey">Una descripción en menos de 10 palabras, para añadir en los carteles de redes sociales. Si no la añades,
+                        se utilizará el género de las bandas participantes como descripción</small>
+                    </div>
                 </div>
 
                 <div class="col-sm-4 col-md-3">

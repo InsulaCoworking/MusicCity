@@ -25,6 +25,7 @@ class Event(models.Model):
     duration = models.IntegerField(null=True, blank=True, default=60)
     title = models.TextField(null=True, blank=True, verbose_name='Título del evento')
     description = models.TextField(null=True, blank=True, verbose_name='Descripción')
+    short_description = models.TextField(null=True, blank=True, verbose_name='Descripción corta (para cartel de redes)')
     created_by = models.ForeignKey(User, null=True, blank=True, verbose_name='Creado por', on_delete=models.SET_NULL)
     event_uid = models.UUIDField(default=uuid.uuid4, editable=False)
     poster = ProcessedImageField(null=True, blank=True, upload_to=poster_path, processors=[ResizeToFit(900,900, upscale=False)], format='JPEG', verbose_name='Imagen del evento')
@@ -48,6 +49,20 @@ class Event(models.Model):
             return self.venue.address
         else:
             return self.venue_address
+
+    @property
+    def display_name(self):
+        if self.title:
+            return self.title
+        else:
+            return ' + '.join(band.name for band in self.bands.all())
+
+    @property
+    def display_short_description(self):
+        if self.short_description:
+            return self.short_description
+        else:
+            return ' + '.join(band.genre for band in self.bands.all())
 
     @property
     def image_url(self):
@@ -77,13 +92,7 @@ class Event(models.Model):
         )
 
     def __str__(self):
-        if self.title:
-            return self.title
-        else:
-            return ' + '.join(band.name for band in self.bands.all())
+        return self.display_name
 
     def __unicode__(self):
-        if self.title:
-            return self.title
-        else:
-            return ' + '.join(band.name for band in self.bands.all())
+        return self.display_name

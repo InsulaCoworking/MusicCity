@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage, EmptyPage
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from django.views.generic import TemplateView
 
 from bands.forms.event import EventForm
 from bands.helpers import get_query
@@ -234,3 +235,51 @@ def event_edit(request, pk):
     params['form'] = form
 
     return render(request, 'event/form.html', params)
+
+class ScheduleShareExport(TemplateView ):
+    template_name = 'event/export.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        today = datetime.date.today()
+        thisweek_start = today - datetime.timedelta(days=today.weekday())
+        thisweek_end = thisweek_start + datetime.timedelta(days=6)
+        nextweek_start = thisweek_start + datetime.timedelta(weeks=1)
+        nextweek_end = thisweek_end + datetime.timedelta(weeks=1)
+
+        start_date = self.request.GET.get('start_date', None)
+        end_date = self.request.GET.get('end_date', None)
+
+        date_filter = False
+        if start_date is not None and end_date is not None:
+            date_filter = True
+            start_date = datetime.datetime.strptime(start_date, '%d/%m/%Y')
+            end_date = datetime.datetime.strptime(end_date, '%d/%m/%Y')
+        else:
+            start_date = thisweek_start
+            end_date = thisweek_end
+
+        events = Event.objects.filter(day__lte=end_date, day__gte=start_date)
+        print(events.count())
+        events_byday = events.dates('day', 'day')
+        eventdays = []
+        for day in events_byday:
+            day_events = Event.objects.filter(day=day).order_by('time')
+            eventdays.append({'day': day, 'events':day_events})
+
+        context['dates'] = {
+            'start_date': start_date,
+            'end_date': end_date,
+            'thisweek_start': thisweek_start,
+            'thisweek_end': thisweek_end,
+            'nextweek_start': nextweek_start,
+            'nextweek_end': nextweek_end
+        }
+
+        print(context['dates'])
+        context['date_filter'] = date_filter
+        context['events'] = events
+        context['events_byday'] = eventdays
+
+        return context

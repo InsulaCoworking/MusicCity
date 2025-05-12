@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
+.ig-slide-card{
+    width:1080px;
+    height:1080px;
+    background-color:#33f;
+    background-image:url('../img/events-bg.jpg');
+    background-size:cover;
+    position:relative;
+}
+.ig-slide-card .date{
+    display:flex;
+     -ms-flex-pack: center !important;
+    justify-content: center !important;
+}
+.ig-slide-card .date div{
+    background-color: #cc0000;
+    font-weight:900;
+    padding:7px 15px;
+    font-size:38px;
+    text-transform:uppercase;
+    top:25px;
+    min-width:300px;
+
+    text-align:center;
+    display:block;
+    margin:0 auto;
+    color:#fafafa;
+}
+.ig-slide-card h1{
+    text-transform:uppercase;
+    text-align:center;
+    padding-top:15px;
+    font-size:110px;
+    line-height:0.9;
+    margin-bottom:0;
+    text-shadow: 0 8px 8px rgba(0,0,0,0.3);
+}
+h1{ color: #fff; }
+.ig-slide-card h1, .ig-slide-card .date, .ig-slide-card h3{
+    font-family: "Staatliches", sans-serif  !important;
+}
+.ig-slide-card h3{
+    text-align:center;
+   font-size:38px;
+   line-height:0.95;
+   margin-top:0.1em;
+   padding:0 5px;
+}
+.slide-events{
+    display:flex;
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+    margin-top:30px;
+}
+
+.slide-event{
+    background-color:#40474a;
+    background: linear-gradient(00, #40474A  0%, #253030 50%);
+    width:325px;
+    color:#fafafa;
+    margin-left:20px;
+    border-radius:5px;
+    position:relative;
+    height:700px;
+}
+.slide-image{
+    background-size:cover;
+    background-position:center;
+    border-radius:10px;
+    width:325px;
+    height:325px;
+    margin:auto;
+    position:relative;
+    top:-10px;
+    left:-10px;
+    transform:rotate(-0.5deg);
+}
+.slide-event .lead{
+    padding: 0 20px;
+    font-size:24px;
+}
+.info-point{
+    padding: 5px 20px;
+    display:flex;
+    font-size:20px;
+}
+.info-point i{
+    margin-right: 1rem;
+    position:relative;
+    top:3px;
+}
+.info-point.venue i{
+    margin-left: 13px;
+
+}
+.info-point.venue{
+    color:#fff;
+    background-color: #cc0000;
+    display:inline-flex;
+    margin-left:-10px;
+}
+.info-point.time i{
+    margin-right:0.8rem;
+
+}
+.info-point.address{
+    margin-left:45px;
+    padding:0;
+}
+.event-info{
+    position:absolute;
+    bottom:0;
+    margin-bottom:25px;
+}
+
+.bottom-link{
+    color:#fff;
+    position:absolute;
+    width:100%;
+    text-align:center;
+    font-weight:bold;
+    bottom:50px;
+    font-size:40px;
+}
+
+.aem-logo, .qr-info{
+    position:absolute;
+    bottom:50px;
+    width:70px;
+}
+
+.aem-logo{ left:50px; }
+.qr-info{ right:30px; bottom:30px; }

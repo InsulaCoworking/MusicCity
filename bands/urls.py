@@ -33,6 +33,7 @@ urlpatterns = [
     path('events/<int:pk>/<slug:slug>/', views.event_detail, name='event_detail_slug'),
 
     path('events/feed/', NextEventsFeed(), name='event_feed'),
+    path('events/export_share/', views.ScheduleShareExport.as_view(), name='events_share'),
 
     path('pros/', views.pro_list, name='pros_list'),
     path('pros/add/', views.pro_add, name='pro_add'),

@@ -1,0 +1,64 @@
+{% load static %}
+
+<div class="slide-export margin-top">
+    <div class="ig-slide-card">
+        <h1>AGENDA SEMANAL</h1>
+        <div class="date"><div>{{day|date:'l j'}} de {{day|date:'F'}} </div></div>
+        <div class="slide-events">
+            {% for event in events %}
+                <div class="slide-event">
+                    <div class="slide-image" style="background-image:url('{{event.image_url}}')"></div>
+
+                    <h3>{{event.display_name}}</h3>
+
+                    <div class="lead text-center">
+                        <div>{{event.display_short_description}}</div>
+
+                    </div>
+
+                    <div class="event-info">
+                    <div class="info-point time">
+                        <i class="fa fa-clock-o mr-2" aria-hidden="true"></i>
+                        <div>{{event.time|default:''}}</div>
+                    </div>
+
+                    <div class="info-point venue">
+                        <i class="fa fa-map-pin mr-2" aria-hidden="true"></i>
+                        <div>
+                            <span><strong>{{event.venue_title}}</strong></span><br>
+
+                        </div>
+                    </div>
+
+                    <div class="info-point address">
+                         {{event.venue_direction}}
+                    </div>
+
+                    <div class="info-point price">
+                        <i class="fa fa-ticket mr-2" aria-hidden="true"></i>
+                        <div>
+                        {% if not event.price %}
+                             <span class="desc-emphasis"> GRATIS</span>
+                        {% else %}
+                            {% if event.price_preorder %}
+                           <span class="desc-emphasis">{{event.price_preorder}}€ (anticipada)</span><br>
+                            <span class="desc-emphasis">{{event.price}}€ (taquilla)</span>
+                            {% else %}
+                            <strong>Precio</strong><br>
+                            <span class="desc-emphasis">{{event.price}}€</span> <br>
+                             {% endif %}
+                        {% endif %}
+                        </div>
+                    </div>
+                        </div>
+
+                </div>
+            {% endfor %}
+        </div>
+
+        <img class="img-responsive aem-logo" src="{% static 'img/alcalaesmusica-mini.png' %}">
+        <img class="img-responsive qr-info" src="{% static 'img/qr-info.png' %}">
+        <div class="bottom-link text-center">alcalaesmusica.org/agenda</div>
+
+    </div>
+</div>

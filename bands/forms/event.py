@@ -18,6 +18,7 @@ class EventForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 6}),
+            'short_description': forms.TextInput(attrs={'class': 'form-control'}),
             'venue_address': forms.TextInput(attrs={'class': 'form-control'}),
             'venue_name': forms.TextInput(attrs={'class': 'form-control'}),
 

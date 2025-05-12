@@ -2,6 +2,7 @@
 {% load static %}
 {% load settings_value %}
 {% block title %}Agenda{% endblock%}
+{% load chunks %}
 
 {% block social_meta %}
         <meta name="twitter:card" content="summary_large_image">
@@ -22,35 +23,25 @@
 
 {% block extra_styles %}
     <link rel="stylesheet" type="text/css" href="{% static "css/daterangepicker.css" %}?v=2"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/share_card.css" %}?v=2"/>
 {% endblock extra_styles %}
 
 {% block main_content %}
 <div class="jumbo-header minimal">
     <div class="jumbotron">
       <div class="container text-center">
-            <h1>Agenda</h1>
+            <h1>Exportar agenda</h1>
+          <h4>Eventos: {{events.count}}</h4>
       </div>
     </div>
 </div>
 
- {% if request.user.is_superuser %}
-<div class="header-bar profile header-venue">
-    <div class="container">
-        <div class="menu">
-            <a class="fab smoothscroll" href="{% url 'events_share' %}" data-toggle="tooltip" data-placement="bottom" title="Exportar para redes"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-        </div>
-    </div>
-</div>
-{% endif %}
-
-
-
 <div class="container">
     <div class="row">
-        <div class="col-md-3 col-lg-2 events-searchbox panel">
+        <div class="col-lg-3 col-lg-2 events-searchbox panel">
             <i class="fa fa-search panel-icon hidden-md hidden-lg" aria-hidden="true" data-toggle="collapse" data-target="#event-filter" aria-expanded="false" aria-controls="event-filter"></i>
             <i class="fa fa-search panel-icon hidden-xs hidden-sm" aria-hidden="true" ></i>
-            <form id="event-filter" class="top-padding collapse" action="{% url 'events_schedule' %}">
+            <form id="event-filter" class="top-padding collapse" action="{% url 'events_share' %}">
 
                 <div class="filter margin-top">
                     <input class="form-control" id="search" value="{{query_string}}" type="text" name="q" placeholder="Buscar...">
@@ -81,49 +72,9 @@
                             <button class="btn btn-default" id="dateRangeBtn" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
                           </span>
                         </div>
-
-
                             <input type="hidden" name="start_date" value="{{dates.start_date|date:"d/m/Y"}}">
                             <input type="hidden" name="end_date" value="{{dates.end_date|date:"d/m/Y"}}">
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-12"><div class="secondary header-bar"> <h5><i class="fa fa-share-alt right-margin" aria-hidden="true"></i> Por espacio</h5> </div></div>
-
-                </div>
-                <div class="row">
-                    <div class="filter">
-                    <div class="col-sm-6 col-md-12">
-
-                        <div class="tag-select">
-                            <select class="form-control"  id="venue_select" name="venue" style="width: 100%">
-                                <option value="" {% if not venue_filter %} selected {% endif %}>----</option>
-                                {% for venue in venues %}
-                                {% with venue.pk|slugify as venue_pk %}
-                                <option value="{{venue.pk}}"
-                                        {%if venue_filter == venue_pk %} selected {%endif%}
-                                        {%if venue.profile_image %} data-image="{{venue.profile_image.url}}"{%endif%}>{{venue.name}}</option>
-                                {% endwith %}
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <div class="col-sm-6 col-md-12">
-
-                            <div class="btn-group btn-group-vertical" data-toggle="buttons">
-                        <label class="btn {%if external %}active{%endif%}">
-                          <input class="form-control" id="external" value="true" type="checkbox" name="external" {% if external %}checked{%endif%}>
-                            <i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i> <span>Incluir externos</span>
-                        </label>
-                      </div>
-
-                    </div>
-                    </div>
-
-
                 </div>
 
                 <div class="text-center filter">
@@ -134,13 +85,14 @@
             </form>
         </div>
 
-        <div class="col-md-9 col-lg-10" id="search_results">
-            <div class="results">
-                {% include 'event/search_results.html' with events=events %}
-            </div>
-            <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw loading-spinner"></i>
-            <span class="sr-only">Loading...</span>
+        <div class="col-lg-9">
+        {% for day in events_byday %}
+            {% for events in day.events|chunks:3 %}
+            {% include 'event/export_card.html' with day=day.day events=events %}
+            {% endfor %}
+        {% endfor %}
         </div>
+
     </div>
 
 </div>
@@ -150,6 +102,7 @@
 {% block scripts %}
 <script type="text/javascript" src="{% static "js/moment.min.js" %}"></script>
 <script type="text/javascript" src="{% static "js/daterangepicker.js" %}?v=2"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script type="text/javascript">
     var startDate = $('input[name="start_date"]');
     var endDate = $('input[name="end_date"]');
@@ -183,17 +136,23 @@
 
     function refreshResults(){
         var url = form.attr('action') + '?' + form.serialize();
-        selectResults.ajaxLoader(url);
+        window.location.href = url;
     }
-
-    $('input[name="external"]').on('change', refreshResults);
 
     var form = $('form#event-filter');
     form.on('submit', function(e){
         e.preventDefault();
         refreshResults();
     });
-    selectResults.ajaxLoader();
+
+
+    html2canvas(document.querySelector(".slide-export"), {
+        width:1080, height:1080
+    }).then(canvas => {
+        document.body.appendChild(canvas)
+    });
+
+
 
 </script>
 {% endblock scripts %}
