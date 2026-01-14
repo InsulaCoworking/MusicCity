@@ -1,4 +1,4 @@
-Django==4.1.13
+Django==4.2.26
 django-appconf==1.0.6
 django-admin-csvexport==2.2
 django-ckeditor==6.3.0
